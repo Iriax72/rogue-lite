@@ -3,7 +3,7 @@ export class Player {
     y;
     WIDTH = 10;
     HEIGHT = 16;
-    SPEED = 2; // pixels / ms
+    SPEED = 0.1; // pixels / ms
 
     constructor(x, y) {
         this.x = x;

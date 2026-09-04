@@ -44,6 +44,6 @@ export class Game {
         this.draw();
 
         this.lastTimestamp = timestamp;
-        requestAnimationFrame(this.update);
+        requestAnimationFrame((timestamp) => this.update(timestamp));
     }
 }
