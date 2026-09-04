@@ -5,8 +5,7 @@ import {Game} from './class/Game.js';
 const gameCanvas = document.querySelector('#game-canvas');
 
 // Initialisation
-let map = await fetch('./map.json');
-map = await map.json();
-map = JSON.parse(map);
+const response = await fetch('./map.json');
+const map = await response.json();
 const game = new Game(gameCanvas, map[0]);
 game.init();
