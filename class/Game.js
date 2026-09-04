@@ -2,18 +2,21 @@ export class Game {
     canvas;
     map;
     player;
+    inputs;
     TILE_SIZE = 32;
 
-    constructor(canvas, map, player) {
+    constructor(canvas, map, player, inputs) {
         this.canvas = canvas;
         this.map = map;
         this.player = player;
+        this.inputs = inputs
     }
 
     init() {
         this.canvas.height = this.map.length * this.TILE_SIZE;
         this.canvas.width = this.map[0].length * this.TILE_SIZE;
-        this.draw();
+
+        this.update(0);
     }
 
     draw() {
@@ -30,5 +33,17 @@ export class Game {
         // Dessiner le joueur
         ctx.fillStyle = "#f00";
         ctx.fillRect(this.player.x, this.player.y, this.player.WIDTH, this.player.HEIGHT);
+    }
+
+    update(timestamp) {
+        if (!this.lastTimestamp)
+            { this.lastTimestamp = timestamp; }
+        const deltaTime = timestamp - this.lastTimestamp;
+        
+        this.player.update(deltaTime, this.inputs.getKeys());
+        this.draw();
+
+        this.lastTimestamp = timestamp;
+        requestAnimationFrame(this.update);
     }
 }
