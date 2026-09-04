@@ -1,11 +1,13 @@
 export class Game {
     canvas;
     map;
+    player;
     TILE_SIZE = 32;
 
-    constructor(canvas, map) {
+    constructor(canvas, map, player) {
         this.canvas = canvas;
         this.map = map;
+        this.player = player;
     }
 
     init() {
@@ -25,5 +27,8 @@ export class Game {
                 ctx.fillRect(x * this.TILE_SIZE, y * this.TILE_SIZE, this.TILE_SIZE, this.TILE_SIZE);
             }
         }
+        // Dessiner le joueur
+        ctx.fillStyle = "#f00";
+        ctx.fillRect(this.player.x, this.player.y, this.player.WIDTH, this.player.HEIGHT);
     }
 }
