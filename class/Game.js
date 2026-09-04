@@ -9,7 +9,7 @@ export class Game {
         this.canvas = canvas;
         this.map = map;
         this.player = player;
-        this.inputs = inputs
+        this.inputs = inputs;
     }
 
     init() {
@@ -20,14 +20,26 @@ export class Game {
     }
 
     draw() {
+        const tileMapImage = this.canvas.querySelector('img#tile-map');
         const ctx = this.canvas.getContext('2d');
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Dessiner la carte
         for (let y = 0; y < this.map.length; y++) {
             for (let x = 0; x < this.map[y].length; x++) {
-                ctx.fillStyle = this.map[y][x] ? "#000" : "#777";
-                ctx.fillRect(x * this.TILE_SIZE, y * this.TILE_SIZE, this.TILE_SIZE, this.TILE_SIZE);
+                // ctx.fillStyle = this.map[y][x] ? "#000" : "#777";
+                // ctx.fillRect(x * this.TILE_SIZE, y * this.TILE_SIZE, this.TILE_SIZE, this.TILE_SIZE);
+                ctx.drawImage(
+                    tileMapImage,
+                    0,
+                    this.TILE_SIZE * this.map[y][x],
+                    this.TILE_SIZE,
+                    this.TILE_SIZE,
+                    x * this.TILE_SIZE,
+                    y * this.TILE_SIZE,
+                    this.TILE_SIZE,
+                    this.TILE_SIZE
+                );
             }
         }
         // Dessiner le joueur
