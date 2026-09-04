@@ -31,8 +31,8 @@ export class Game {
                 // ctx.fillRect(x * this.TILE_SIZE, y * this.TILE_SIZE, this.TILE_SIZE, this.TILE_SIZE);
                 ctx.drawImage(
                     tileMapImage,
-                    0,
                     this.TILE_SIZE * this.map[y][x],
+                    0,
                     this.TILE_SIZE,
                     this.TILE_SIZE,
                     x * this.TILE_SIZE,
