@@ -7,13 +7,15 @@ export class Game {
     inputs;
     loots = [];
     tile_size;
+    ath;
 
-    constructor(canvas, map, tile_size, player, inputs) {
+    constructor(canvas, map, tile_size, player, inputs, ath) {
         this.canvas = canvas;
         this.map = map;
         this.tile_size = tile_size;
         this.player = player;
         this.inputs = inputs;
+        this.ath = ath;
     }
 
     init() {
@@ -62,7 +64,9 @@ export class Game {
         // Dessiner les loots
         this.loots.forEach((loot) => {
             loot.draw(ctx);
-        })
+        });
+        // Dessiner l'ath
+        this.ath.draw();
     }
 
     update(timestamp) {

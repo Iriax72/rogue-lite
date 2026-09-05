@@ -2,6 +2,7 @@
 import {Game} from './class/Game.js';
 import {Player} from './class/Player.js';
 import {Inputs} from './class/Inputs.js';
+import {ATH} from './class/ATH.js';
 
 // References DOM
 const gameCanvas = document.querySelector('#game-canvas');
@@ -16,12 +17,14 @@ const player = new Player(
     59, 240,
     map[0], TILE_SIZE
 );
+const ath = new ATH(gameCanvas, player);
 const inputs = new Inputs();
 const game = new Game(
     gameCanvas,
     map[0],
     TILE_SIZE,
     player,
-    inputs
+    inputs,
+    ath
 );
 game.init();
