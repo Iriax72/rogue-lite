@@ -5,7 +5,7 @@ export class Game {
     map;
     player;
     inputs;
-    loots;
+    loots = [];
     tile_size;
 
     constructor(canvas, map, tile_size, player, inputs) {
@@ -14,7 +14,6 @@ export class Game {
         this.tile_size = tile_size;
         this.player = player;
         this.inputs = inputs;
-        this.loots = [];
     }
 
     init() {
@@ -23,10 +22,9 @@ export class Game {
 
         for (let i = 0; i < 10; i++) {
             this.loots.push(new Loot(
+                this,
                 Math.floor(Math.random() * this.canvas.width),
                 Math.floor(Math.random() * this.canvas.height),
-                15,
-                15,
                 20,
                 document.querySelector('#loot-image')
             ));

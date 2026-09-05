@@ -6,6 +6,7 @@ export class Player {
     WIDTH = 10;
     HEIGHT = 16;
     SPEED = 0.1; // pixels / ms
+    gold = 0;
 
     constructor(x, y, map, tile_size) {
         this.x = x;

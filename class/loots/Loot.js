@@ -1,16 +1,16 @@
 export class Loot {
+    game;
     x;
     y;
-    width;
-    height;
     value;
     image;
+    WIDTH = 15;
+    HEIGHT = 15;
 
-    constructor (x, y, width, height, value, image) {
+    constructor (game, x, y, value, image) {
+        this.game = game
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
         this.value = value;
         this.image = image;
     }
@@ -20,8 +20,13 @@ export class Loot {
             this.image,
             this.x,
             this.y,
-            this.width,
-            this.height
+            this.WIDTH,
+            this.HEIGHT
         );
+    }
+
+    pickup(player) {
+        player.gold += this.value;
+        this.game.loots = this.game.loots.filter((loot) => loot !== this)
     }
 }
