@@ -1,20 +1,24 @@
 export class Player {
     x;
     y;
+    map;
+    tile_size;
     WIDTH = 10;
     HEIGHT = 16;
     SPEED = 0.1; // pixels / ms
 
-    constructor(x, y) {
+    constructor(x, y, map, tile_size) {
         this.x = x;
         this.y = y;
+        this.map = map;
+        this.tile_size = tile_size
     }
 
     update(deltaTime, keys) {
-        this.move(deltaTime, keys);
+        this.move(deltaTime, keys, this.map, this.tile_size);
     }
 
-    move(deltaTime, keys) {
+    move(deltaTime, keys, map, tile_size) {
         let v = {x: 0, y: 0};
 
         if (keys['ArrowUp'] || keys['w'])
@@ -32,10 +36,34 @@ export class Player {
             v.y /= length;
         }
 
-        v.x *= this.SPEED;
-        v.y *= this.SPEED;
+        v.x *= this.SPEED * deltaTime;
+        v.y *= this.SPEED * deltaTime;
 
-        this.x += v.x * deltaTime;
-        this.y += v.y * deltaTime;
+        if (!this.isCollidingWall(this.x + v.x, this.y, map, tile_size)) {
+            this.x += v.x;
+        }
+        if (!this.isCollidingWall(this.x, this.y + v.y, map, tile_size)) {
+            this.y += v.y;
+        }
+    }
+
+    isCollidingWall(x, y, map, tile_size) {
+        const leftTile = x / tile_size;
+        const rightTile = (x + this.WIDTH) / tile_size;
+        const upTile = y / tile_size;
+        const bottomTile = (y + this.HEIGHT) / tile_size;
+
+        for (let row = upTile; row <= bottomTile; row++) {
+            for (let col = leftTile; col <= rightTile; col++) {
+                if (row < 0 || col < 0 || row > map.length || col > map[0].length) {
+                    return true;
+                }
+                if (map[row][col] === 1) {
+                    return true;
+                }
+            }
+        }
+
+        return false
     }
 }

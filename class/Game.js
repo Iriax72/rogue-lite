@@ -3,18 +3,19 @@ export class Game {
     map;
     player;
     inputs;
-    TILE_SIZE = 32;
+    tile_size;
 
-    constructor(canvas, map, player, inputs) {
+    constructor(canvas, map, tile_size, player, inputs) {
         this.canvas = canvas;
         this.map = map;
+        this.tile_size = tile_size;
         this.player = player;
         this.inputs = inputs;
     }
 
     init() {
-        this.canvas.height = this.map.length * this.TILE_SIZE;
-        this.canvas.width = this.map[0].length * this.TILE_SIZE;
+        this.canvas.height = this.map.length * this.tile_size;
+        this.canvas.width = this.map[0].length * this.tile_size;
 
         this.update(0);
     }
@@ -28,17 +29,17 @@ export class Game {
         for (let y = 0; y < this.map.length; y++) {
             for (let x = 0; x < this.map[y].length; x++) {
                 // ctx.fillStyle = this.map[y][x] ? "#000" : "#777";
-                // ctx.fillRect(x * this.TILE_SIZE, y * this.TILE_SIZE, this.TILE_SIZE, this.TILE_SIZE);
+                // ctx.fillRect(x * this.tile_size, y * this.tile_size, this.tile_size, this.tile_size);
                 ctx.drawImage(
                     tileMapImage,
-                    this.TILE_SIZE * this.map[y][x],
+                    this.tile_size * this.map[y][x],
                     0,
-                    this.TILE_SIZE,
-                    this.TILE_SIZE,
-                    x * this.TILE_SIZE,
-                    y * this.TILE_SIZE,
-                    this.TILE_SIZE,
-                    this.TILE_SIZE
+                    this.tile_size,
+                    this.tile_size,
+                    x * this.tile_size,
+                    y * this.tile_size,
+                    this.tile_size,
+                    this.tile_size
                 );
             }
         }
