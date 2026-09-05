@@ -48,14 +48,14 @@ export class Player {
     }
 
     isCollidingWall(x, y, map, tile_size) {
-        const leftTile = x / tile_size;
-        const rightTile = (x + this.WIDTH) / tile_size;
-        const upTile = y / tile_size;
-        const bottomTile = (y + this.HEIGHT) / tile_size;
+        const leftTile = Math.floor(x / tile_size);
+        const rightTile = Math.floor((x + this.WIDTH) / tile_size);
+        const upTile = Math.floor(y / tile_size);
+        const bottomTile = Math.floor((y + this.HEIGHT) / tile_size);
 
         for (let row = upTile; row <= bottomTile; row++) {
             for (let col = leftTile; col <= rightTile; col++) {
-                if (row < 0 || col < 0 || row > map.length || col > map[0].length) {
+                if (row < 0 || col < 0 || row >= map.length || col >= map[0].length) {
                     return true;
                 }
                 if (map[row][col] === 1) {

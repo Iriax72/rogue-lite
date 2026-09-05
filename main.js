@@ -7,7 +7,7 @@ import {Inputs} from './class/Inputs.js';
 const gameCanvas = document.querySelector('#game-canvas');
 
 // Données arbitraires
-TILE_SIZE = 32;
+const TILE_SIZE = 32;
 
 // Initialisation
 const response = await fetch('./map.json');
