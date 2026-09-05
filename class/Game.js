@@ -70,7 +70,11 @@ export class Game {
             { this.lastTimestamp = timestamp; }
         const deltaTime = timestamp - this.lastTimestamp;
         
-        this.player.update(deltaTime, this.inputs.getKeys());
+        this.player.update(
+            deltaTime,
+            this.inputs.getKeys(),
+            this.loots
+        );
         this.draw();
 
         this.lastTimestamp = timestamp;

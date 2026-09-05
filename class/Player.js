@@ -15,8 +15,18 @@ export class Player {
         this.tile_size = tile_size
     }
 
-    update(deltaTime, keys) {
+    update(deltaTime, keys, loots) {
         this.move(deltaTime, keys, this.map, this.tile_size);
+        loots.forEach((loot) => {
+            if (this.collides(
+                loot.x,
+                loot.y,
+                loot.WIDTH,
+                loot.HEIGHT
+            )) {
+                loot.pickup(this);
+            }
+        });
     }
 
     move(deltaTime, keys, map, tile_size) {
@@ -66,5 +76,21 @@ export class Player {
         }
 
         return false
+    }
+
+    collides(x, y, w, h) {
+        if (this.x + this.WIDTH < x) {
+            return false;
+        }
+        if (this.x > x + w) {
+            return false;
+        }
+        if (this.y + this.HEIGHT < y) {
+            return false;
+        }
+        if (this.y > y + h) {
+            return false;
+        }
+        return true;
     }
 }
