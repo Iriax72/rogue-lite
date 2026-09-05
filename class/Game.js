@@ -1,8 +1,11 @@
+import {Loot} from "./loots/Loot.js";
+
 export class Game {
     canvas;
     map;
     player;
     inputs;
+    loots;
     tile_size;
 
     constructor(canvas, map, tile_size, player, inputs) {
@@ -11,11 +14,23 @@ export class Game {
         this.tile_size = tile_size;
         this.player = player;
         this.inputs = inputs;
+        this.loots = [];
     }
 
     init() {
         this.canvas.height = this.map.length * this.tile_size;
         this.canvas.width = this.map[0].length * this.tile_size;
+
+        for (let i = 0; i < 10; i++) {
+            this.loots.push(new Loot(
+                Math.floor(Math.random() * this.canvas.width),
+                Math.floor(Math.random() * this.canvas.height),
+                15,
+                15,
+                20,
+                document.querySelector('#loot-image')
+            ));
+        }
 
         this.update(0);
     }
@@ -46,6 +61,10 @@ export class Game {
         // Dessiner le joueur
         ctx.fillStyle = "#f00";
         ctx.fillRect(this.player.x, this.player.y, this.player.WIDTH, this.player.HEIGHT);
+        // Dessiner les loots
+        this.loots.forEach((loot) => {
+            loot.draw(ctx);
+        })
     }
 
     update(timestamp) {
