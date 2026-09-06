@@ -18,7 +18,7 @@ const player = new Player(
     map[0], TILE_SIZE
 );
 const ath = new ATH(gameCanvas, player);
-const inputs = new Inputs();
+const inputs = new Inputs(gameCanvas);
 const game = new Game(
     gameCanvas,
     map[0],
