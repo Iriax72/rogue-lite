@@ -41,12 +41,12 @@ export class Player {
             const dy = inputs.mouse.y - playerCenter.y;
             const dx = inputs.mouse.x - playerCenter.x;
 
-            const dir = Math.atan(dy / dx);
+            const dir = Math.atan2(dy, dx);
             this.throwArrow(dir);
         } else {
-            this.coolDown -= deltaTime;
-            if (this.coolDown < 0) {
-                this.coolDown = 0;
+            this.cooldown -= deltaTime;
+            if (this.cooldown < 0) {
+                this.cooldown = 0;
             }
         }
     }
