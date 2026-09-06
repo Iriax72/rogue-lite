@@ -76,7 +76,7 @@ export class Game {
         
         this.player.update(
             deltaTime,
-            this.inputs.getKeys(),
+            this.inputs.keys,
             this.loots
         );
         this.draw();

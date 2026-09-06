@@ -7,6 +7,7 @@ export class Player {
     HEIGHT = 16;
     SPEED = 0.1; // pixels / ms
     gold = 0;
+    cooldown = 0;
 
     constructor(x, y, map, tile_size) {
         this.x = x;
@@ -15,8 +16,9 @@ export class Player {
         this.tile_size = tile_size
     }
 
-    update(deltaTime, keys, loots) {
-        this.move(deltaTime, keys, this.map, this.tile_size);
+    update(deltaTime, inputs, loots) {
+        this.move(deltaTime, inputs.keys, this.map, this.tile_size);
+
         loots.forEach((loot) => {
             if (this.collides(
                 loot.x,
@@ -27,6 +29,26 @@ export class Player {
                 loot.pickup(this);
             }
         });
+
+        if (inputs.mouse.down && this.cooldown === 0) {
+            this.cooldown = 2000; // ms
+
+            const playerCenter = {
+                x: this.x + this.WIDTH / 2,
+                y: this.y + this.HEIGHT / 2
+            };
+
+            const dy = inputs.mouse.y - playerCenter.y;
+            const dx = inputs.mouse.x - playerCenter.x;
+
+            const dir = Math.atan(dy / dx);
+            this.throwArrow(dir);
+        } else {
+            this.coolDown -= deltaTime;
+            if (this.coolDown < 0) {
+                this.coolDown = 0;
+            }
+        }
     }
 
     move(deltaTime, keys, map, tile_size) {
@@ -56,6 +78,10 @@ export class Player {
         if (!this.isCollidingWall(this.x, this.y + v.y, map, tile_size)) {
             this.y += v.y;
         }
+    }
+
+    throwArrow(dir) {
+        console.log('Fleche tirée à ' + dir + 'degres radians');
     }
 
     isCollidingWall(x, y, map, tile_size) {
