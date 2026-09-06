@@ -65,6 +65,9 @@ export class Game {
         this.loots.forEach((loot) => {
             loot.draw(ctx);
         });
+        this.player.arrows.forEach((arrow) => {
+            arrow.draw(this.canvas);
+        });
         // Dessiner l'ath
         this.ath.draw();
     }
@@ -79,6 +82,9 @@ export class Game {
             this.inputs,
             this.loots
         );
+        this.player.arrows.forEach((arrow) => {
+            arrow.update(deltaTime);
+        });
         this.draw();
 
         this.lastTimestamp = timestamp;

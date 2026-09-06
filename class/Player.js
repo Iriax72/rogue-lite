@@ -1,3 +1,5 @@
+import {Arrow} from './shoots/Arrow.js';
+
 export class Player {
     x;
     y;
@@ -8,6 +10,7 @@ export class Player {
     SPEED = 0.1; // pixels / ms
     gold = 0;
     cooldown = 0;
+    arrows = [];
 
     constructor(x, y, map, tile_size) {
         this.x = x;
@@ -81,7 +84,7 @@ export class Player {
     }
 
     throwArrow(dir) {
-        console.log('Fleche tirée à ' + dir + 'degres radians');
+        this.arrows.push(new Arrow(this.x, this.y, dir));
     }
 
     isCollidingWall(x, y, map, tile_size) {
