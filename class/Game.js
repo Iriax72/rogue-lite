@@ -1,5 +1,6 @@
 import {Loot} from "./loots/Loot.js";
-import {Enemy} from "./enemys/Enemy.js";
+import {Guardian} from "./enemys/Guardian.js";
+import {Slime} from "./enemys/Slime.js";
 
 export class Game {
     canvas;
@@ -11,7 +12,7 @@ export class Game {
     tile_size;
     ath;
     // Test
-    monsterImg = document.querySelector('img#monster-img');
+    slimeImg = document.querySelector('img#slime-img');
 
     constructor(canvas, map, tile_size, player, inputs, ath) {
         this.canvas = canvas;
@@ -37,20 +38,8 @@ export class Game {
         }
 
         // Tests
-        this.enemys.push(new Enemy(
-            59, 290,
-            13, 8,
-            15, 5,
-            this.monsterImg,
-            this.player.arrows
-        ));
-        this.enemys.push(new Enemy(
-            59, 320,
-            13, 8,
-            20, 5,
-            this.monsterImg,
-            this.player.arrows
-        ));
+        this.enemys.push(new Guardian(59, 290, this.player.arrows));
+        this.enemys.push(new Slime(59, 320, this.player.arrows));
 
         this.update(0);
     }

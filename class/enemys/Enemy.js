@@ -20,7 +20,7 @@ export class Enemy {
         this.shoots = shoots;
     }
 
-    move() {}
+    move(deltaTime) {}
 
     update(deltaTime) {
         this.shoots.forEach((shoot) => {
@@ -33,7 +33,7 @@ export class Enemy {
             this.die();
             return;
         }
-        this.move();
+        this.move(deltaTime);
     }
 
     draw(canvas) {
