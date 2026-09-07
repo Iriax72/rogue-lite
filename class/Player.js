@@ -23,12 +23,12 @@ export class Player {
         this.move(deltaTime, inputs.keys, this.map, this.tile_size);
 
         loots.forEach((loot) => {
-            if (this.collides(
-                loot.x,
-                loot.y,
-                loot.WIDTH,
-                loot.HEIGHT
-            )) {
+            if (this.collides({
+                x: loot.x,
+                y: loot.y,
+                w: loot.WIDTH,
+                h: loot.HEIGHT
+            })) {
                 loot.pickup(this);
             }
         });
@@ -84,7 +84,7 @@ export class Player {
     }
 
     throwArrow(dir) {
-        this.arrows.push(new Arrow(this.x, this.y, dir));
+        this.arrows.push(new Arrow(this.x, this.y, dir, 3));
     }
 
     isCollidingWall(x, y, map, tile_size) {
@@ -107,17 +107,17 @@ export class Player {
         return false
     }
 
-    collides(x, y, w, h) {
-        if (this.x + this.WIDTH < x) {
+    collides(rect) {
+        if (this.x + this.WIDTH < rect.x) {
             return false;
         }
-        if (this.x > x + w) {
+        if (this.x > rect.x + rect.w) {
             return false;
         }
-        if (this.y + this.HEIGHT < y) {
+        if (this.y + this.HEIGHT < rect.y) {
             return false;
         }
-        if (this.y > y + h) {
+        if (this.y > rect.y + rect.h) {
             return false;
         }
         return true;

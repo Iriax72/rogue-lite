@@ -37,8 +37,20 @@ export class Game {
         }
 
         // Tests
-        this.enemys.push(new Enemy(59, 290, 13, 8, 15, 5, this.monsterImg));
-        this.enemys.push(new Enemy(59, 320, 13, 8, 20, 5, this.monsterImg));
+        this.enemys.push(new Enemy(
+            59, 290,
+            13, 8,
+            15, 5,
+            this.monsterImg,
+            this.player.arrows
+        ));
+        this.enemys.push(new Enemy(
+            59, 320,
+            13, 8,
+            20, 5,
+            this.monsterImg,
+            this.player.arrows
+        ));
 
         this.update(0);
     }

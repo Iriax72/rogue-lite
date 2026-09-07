@@ -2,15 +2,17 @@ export class Arrow {
     x;
     y;
     dir;
+    strength;
     image = document.querySelector('img#arrow-img');
     WIDTH = 15;
     HEIGHT = 5;
     SPEED = 0.3; // pixel / ms
 
-    constructor (x, y, dir) {
+    constructor (x, y, dir, strength) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.strength = strength
     }
 
     update (deltaTime) {
@@ -18,7 +20,7 @@ export class Arrow {
         this.y += Math.sin(this.dir) * deltaTime * this.SPEED;
     }
 
-    draw (canvas) {
+    draw(canvas) {
         const ctx = canvas.getContext('2d');
         
         ctx.save();
@@ -26,5 +28,14 @@ export class Arrow {
         ctx.rotate(this.dir);
         ctx.drawImage(this.image, -this.WIDTH / 2, -this.HEIGHT / 2, this.WIDTH, this.HEIGHT);
         ctx.restore();
+    }
+
+    getRect() {
+        return {
+            x: this.x,
+            y: this.y,
+            w: this.WIDTH,
+            h: this.HEIGHT
+        }
     }
 }
