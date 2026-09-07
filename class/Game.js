@@ -1,4 +1,5 @@
 import {Loot} from "./loots/Loot.js";
+import {Enemy} from "./enemys/Enemy.js";
 
 export class Game {
     canvas;
@@ -6,8 +7,11 @@ export class Game {
     player;
     inputs;
     loots = [];
+    enemys = []
     tile_size;
     ath;
+    // Test
+    monsterImg = document.querySelector('img#monster-img');
 
     constructor(canvas, map, tile_size, player, inputs, ath) {
         this.canvas = canvas;
@@ -31,6 +35,10 @@ export class Game {
                 document.querySelector('#loot-image')
             ));
         }
+
+        // Tests
+        this.enemys.push(new Enemy(59, 290, 13, 8, 15, 5, this.monsterImg));
+        this.enemys.push(new Enemy(59, 320, 13, 8, 20, 5, this.monsterImg));
 
         this.update(0);
     }
@@ -65,9 +73,8 @@ export class Game {
         this.loots.forEach((loot) => {
             loot.draw(ctx);
         });
-        this.player.arrows.forEach((arrow) => {
-            arrow.draw(this.canvas);
-        });
+        this.enemys.forEach((enemy) => enemy.draw(this.canvas));
+        this.player.arrows.forEach((arrow) => arrow.draw(this.canvas));
         // Dessiner l'ath
         this.ath.draw();
     }
@@ -82,9 +89,9 @@ export class Game {
             this.inputs,
             this.loots
         );
-        this.player.arrows.forEach((arrow) => {
-            arrow.update(deltaTime);
-        });
+        this.enemys = this.enemys.filter(enemys => !enemys.isDead);
+        this.enemys.forEach((enemy) => enemy.update(deltaTime));
+        this.player.arrows.forEach((arrow) => arrow.update(deltaTime))
         this.draw();
 
         this.lastTimestamp = timestamp;
