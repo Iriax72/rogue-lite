@@ -38,8 +38,8 @@ export class Game {
         }
 
         // Tests
-        this.enemys.push(new Guardian(59, 290, this.player.arrows));
-        this.enemys.push(new Slime(59, 320, this.player.arrows));
+        this.enemys.push(new Guardian(59, 290, this.dropLoot, this.player.arrows));
+        this.enemys.push(new Slime(59, 320, this.dropLoot, this.player.arrows));
 
         this.update(0);
     }
@@ -97,5 +97,9 @@ export class Game {
 
         this.lastTimestamp = timestamp;
         requestAnimationFrame((timestamp) => this.update(timestamp));
+    }
+
+    dropLoot(x, y, value) {
+        this.loots.push(new Loot(this, x, y, value, document.querySelector('img#loot-image')));
     }
 }

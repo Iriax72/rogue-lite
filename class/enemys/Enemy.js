@@ -6,10 +6,11 @@ export class Enemy {
     health;
     lootValue;
     image;
+    dropLoot;
     isDead = false;
     shoots;
 
-    constructor (x, y, width, height, lootValue, health, image, shoots) {
+    constructor (x, y, width, height, lootValue, health, image, dropLoot, shoots) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -17,6 +18,7 @@ export class Enemy {
         this.health = health;
         this.lootValue = lootValue;
         this.image = image;
+        this.dropLoot = dropLoot;
         this.shoots = shoots;
     }
 
@@ -42,8 +44,8 @@ export class Enemy {
     }
 
     die() {
+        this.dropLoot(this.x, this.y, this.lootValue);
         this.isDead = true;
-        console.log('L\'ennemi est mort');
     }
 
     collides(rect) {
