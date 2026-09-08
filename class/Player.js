@@ -5,13 +5,16 @@ export class Player {
     y;
     map;
     tile_size;
-    WIDTH = 10;
-    HEIGHT = 16;
+    WIDTH = 20;
+    HEIGHT = 25;
     SPEED = 0.1; // pixels / ms
     gold = 0;
     health = 10;
     cooldown = 0;
     arrows = [];
+    sprite = document.querySelector('img#player-sprite');
+    SPRITE_WIDTH = 1600;
+    SPRITE_HEIGHT = 1520;
 
     constructor(x, y, map, tile_size) {
         this.x = x;
@@ -53,6 +56,21 @@ export class Player {
                 this.cooldown = 0;
             }
         }
+    }
+
+    draw(ctx) {
+        const frame = 3;
+        ctx.drawImage(
+            this.sprite,
+            this.SPRITE_WIDTH * frame,
+            0,
+            this.SPRITE_WIDTH,
+            this.SPRITE_HEIGHT,
+            this.x,
+            this.y,
+            this.WIDTH,
+            this.HEIGHT
+        );
     }
 
     move(deltaTime, keys, map, tile_size) {

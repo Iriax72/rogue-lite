@@ -53,8 +53,6 @@ export class Game {
         // Dessiner la carte
         for (let y = 0; y < this.map.length; y++) {
             for (let x = 0; x < this.map[y].length; x++) {
-                // ctx.fillStyle = this.map[y][x] ? "#000" : "#777";
-                // ctx.fillRect(x * this.tile_size, y * this.tile_size, this.tile_size, this.tile_size);
                 ctx.drawImage(
                     tileMapImage,
                     this.tile_size * this.map[y][x],
@@ -68,16 +66,17 @@ export class Game {
                 );
             }
         }
-        // Dessiner le joueur
-        ctx.fillStyle = "#f00";
-        ctx.fillRect(this.player.x, this.player.y, this.player.WIDTH, this.player.HEIGHT);
-        // Dessiner les loots
+
+        this.player.draw(ctx);
+
         this.loots.forEach((loot) => {
             loot.draw(ctx);
         });
+
         this.enemys.forEach((enemy) => enemy.draw(this.canvas));
+
         this.player.arrows.forEach((arrow) => arrow.draw(this.canvas));
-        // Dessiner l'ath
+
         this.ath.draw();
     }
 
