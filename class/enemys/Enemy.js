@@ -44,6 +44,9 @@ export class Enemy {
     }
 
     die() {
+        if (this.isDead) {
+            return;
+        }
         this.dropLoot(this.x, this.y, this.lootValue);
         this.isDead = true;
     }

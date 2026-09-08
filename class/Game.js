@@ -91,8 +91,8 @@ export class Game {
             this.inputs,
             this.loots
         );
-        this.enemys = this.enemys.filter(enemys => !enemys.isDead);
         this.enemys.forEach((enemy) => enemy.update(deltaTime));
+        this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
         this.player.arrows.forEach((arrow) => arrow.update(deltaTime))
         this.draw();
 
