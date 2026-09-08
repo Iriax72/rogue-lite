@@ -21,6 +21,7 @@ export class Game {
         this.player = player;
         this.inputs = inputs;
         this.ath = ath;
+        this.dropLoot = this.dropLoot.bind(this);
     }
 
     init() {
