@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "typescript": "^7.0.2"
+  },
+  "scripts": {
+    "build": "tsc && cp index.html credits.html style.css map.json dist/ && cp -r assets dist/"
   }
 }
