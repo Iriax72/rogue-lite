@@ -9,6 +9,7 @@ export class Player {
     HEIGHT = 16;
     SPEED = 0.1; // pixels / ms
     gold = 0;
+    health = 10;
     cooldown = 0;
     arrows = [];
 
