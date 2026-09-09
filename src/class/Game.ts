@@ -33,9 +33,11 @@ export class Game {
     }
 
     init(): void {
+        console.log('Initialisation de la partie');
         this.canvas.height = this.map.length * this.tile_size;
         this.canvas.width = this.map[0].length * this.tile_size;
-
+        console.log('canvas retaillé');
+        // Test
         for (let i = 0; i < 10; i++) {
             this.loots.push(new Loot(
                 this,
@@ -45,11 +47,13 @@ export class Game {
                 document.querySelector('#loot-image')
             ));
         }
+        console.log('loots randomly crées');
 
         // Tests
         this.enemys.push(new Guardian(59, 290, this.dropLoot, this.player.arrows));
         this.enemys.push(new Slime(59, 320, this.dropLoot, this.player.arrows));
 
+        console.log('Ennemis test crées')
         this.update(0);
     }
 
