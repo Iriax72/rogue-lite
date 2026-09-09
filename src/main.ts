@@ -4,7 +4,7 @@ import {Player} from './class/Player.js';
 import {Inputs} from './class/Inputs.js';
 import {ATH} from './class/ATH.js';
 
-alert('typescript exexute !');
+console.log('Imports terminés.');
 // References DOM
 const gameCanvas: HTMLCanvasElement = document.querySelector('#game-canvas');
 
@@ -26,12 +26,17 @@ await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Pro
     });
 }));
 
+console.log('Création des instances de classe:')
+
 const player = new Player(
     59, 240,
     map, TILE_SIZE
 );
+console.log('player: ok');
 const ath = new ATH(gameCanvas, player);
+console.log('ATH: ok');
 const inputs = new Inputs(gameCanvas);
+console.log('Inputs: ok');
 const game = new Game(
     gameCanvas,
     map,
@@ -40,4 +45,6 @@ const game = new Game(
     inputs,
     ath
 );
+console.log('game: ok');
 game.init();
+console.log('main.ts executé avec succes !')
