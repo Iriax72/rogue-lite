@@ -20,7 +20,7 @@ export class Game {
     ath: ATH;
     lastTimestamp: Timestamp;
     // Test
-    slimeImg: HTMLImageElement = document.querySelector('img#slime-img');
+    // slimeImg: HTMLImageElement = document.querySelector('img#slime-img');
 
     constructor(canvas: HTMLCanvasElement, map: number[][], tile_size: number, player: Player, inputs: Inputs, ath: ATH) {
         this.canvas = canvas;
@@ -30,21 +30,31 @@ export class Game {
         this.inputs = inputs;
         this.ath = ath;
         this.dropLoot = this.dropLoot.bind(this);
+
+        this.lastTimestamp = 0;
     }
 
     init(): void {
         this.canvas.height = this.map.length * this.tile_size;
-        this.canvas.width = this.map[0].length * this.tile_size;
-        // Test
-        for (let i = 0; i < 10; i++) {
-            this.loots.push(new Loot(
-                this,
-                Math.floor(Math.random() * this.canvas.width),
-                Math.floor(Math.random() * this.canvas.height),
-                20,
-                document.querySelector('#loot-image')
-            ));
+        const firstRow: number[] | undefined = this.map[0];
+        if (!firstRow) {
+            throw new Error('map vide');
         }
+        this.canvas.width = firstRow.length * this.tile_size;
+        // Test
+        const lootImage: HTMLImageElement | null = document.querySelector('img#loot-image');
+        if (lootImage) {
+            for (let i = 0; i < 10; i++) {
+                this.loots.push(new Loot(
+                    this,
+                    Math.floor(Math.random() * this.canvas.width),
+                    Math.floor(Math.random() * this.canvas.height),
+                    20,
+                    lootImage
+                ));
+            }
+        }
+
 
         // Tests
         this.enemys.push(new Guardian(59, 290, this.dropLoot, this.player.arrows));
@@ -54,16 +64,30 @@ export class Game {
     }
 
     draw(): void {
-        const tileMapImage: HTMLImageElement = this.canvas.querySelector('img#tile-map');
-        const ctx: CanvasRenderingContext2D = this.canvas.getContext('2d');
+        const tileMapImage: HTMLImageElement | null = this.canvas.querySelector('img#tile-map');
+        if (!tileMapImage) {
+            throw new Error('Tile map introuvable');
+        }
+        const ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
+        if (!ctx) {
+            throw new Error('Contexte de canvas null');
+        }
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Dessiner la carte
         for (let y = 0; y < this.map.length; y++) {
-            for (let x = 0; x < this.map[y].length; x++) {
+            const currentRow = this.map[y];
+            if (!currentRow) {
+                throw new Error('pas de currentRow')
+            }
+            for (let x = 0; x < currentRow.length; x++) {
+                const currentCase: number | undefined = currentRow[x];
+                if (!currentCase) {
+                    throw new Error('current case indéfinie');
+                }
                 ctx.drawImage(
                     tileMapImage,
-                    this.tile_size * this.map[y][x],
+                    this.tile_size * currentCase,
                     0,
                     this.tile_size,
                     this.tile_size,
@@ -89,8 +113,6 @@ export class Game {
     }
 
     update(timestamp: Timestamp): void {
-        if (!this.lastTimestamp)
-            { this.lastTimestamp = timestamp; }
         const deltaTime: Timestamp = timestamp - this.lastTimestamp;
         console.log('update Player...')
         this.player.update(
@@ -110,6 +132,10 @@ export class Game {
     }
 
     dropLoot(x: number, y: number, value: number): void {
-        this.loots.push(new Loot(this, x, y, value, document.querySelector('img#loot-image')));
+        const lootImage: HTMLImageElement | null = document.querySelector('img#loot-image');
+        if (!lootImage) {
+            throw new Error('Image des loot introuvable');
+        }
+        this.loots.push(new Loot(this, x, y, value, lootImage));
     }
 }

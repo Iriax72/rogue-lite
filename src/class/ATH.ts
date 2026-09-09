@@ -10,7 +10,10 @@ export class ATH {
     }
 
     draw(): void {
-        const ctx: CanvasRenderingContext2D = this.canvas.getContext('2d');
+        const ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
+        if (!ctx) {
+            return;
+        }
         ctx.fillStyle = 'orange';
         ctx.font = '20px Arial';
         ctx.fillText(`Gold: ${this.player.gold}|`, 10, 20);
