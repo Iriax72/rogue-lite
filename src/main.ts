@@ -4,6 +4,7 @@ import {Player} from './class/Player.js';
 import {Inputs} from './class/Inputs.js';
 import {ATH} from './class/ATH.js';
 
+alert('typescript exexute !');
 // References DOM
 const gameCanvas: HTMLCanvasElement = document.querySelector('#game-canvas');
 
