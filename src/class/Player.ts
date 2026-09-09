@@ -121,12 +121,11 @@ export class Player {
     }
 
     isCollidingWall(x: number, y: number, map: number[][], tile_size: number): boolean {
-        console.log('1');
         const leftTile = Math.floor(x / tile_size);
         const rightTile = Math.floor((x + this.WIDTH) / tile_size);
         const upTile = Math.floor(y / tile_size);
         const bottomTile = Math.floor((y + this.HEIGHT) / tile_size);
-        console.log('2');
+        console.log('Ce log est affiche');
         for (let row = upTile; row <= bottomTile; row++) {
             for (let col = leftTile; col <= rightTile; col++) {
                 if (row < 0 || col < 0 || row >= map.length || col >= map[0].length) {
@@ -137,7 +136,7 @@ export class Player {
                 }
             }
         }
-        console.log('3')
+        console.log('Lerreur a lieu avant ce log')
 
         return false;
     }

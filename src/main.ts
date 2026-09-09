@@ -12,7 +12,7 @@ const TILE_SIZE = 32;
 
 // Initialisation
 const response = await fetch('./map.json');
-const map: number[][] = await response.json();
+const map: {[keys: string]: number[][]} = await response.json();
 
 await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Promise<void> => {
     if (image.complete) {
@@ -27,7 +27,7 @@ await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Pro
 
 const player = new Player(
     59, 240,
-    map, TILE_SIZE
+    map["0"], TILE_SIZE
 );
 const ath = new ATH(gameCanvas, player);
 
@@ -35,7 +35,7 @@ const inputs = new Inputs(gameCanvas);
 
 const game = new Game(
     gameCanvas,
-    map,
+    map["0"],
     TILE_SIZE,
     player,
     inputs,
