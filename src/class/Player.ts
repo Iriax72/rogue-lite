@@ -89,9 +89,8 @@ export class Player {
     }
 
     move(deltaTime: number, keys: {[keys: string]: boolean}, map: number[][], tile_size: number): void {
-        console.log('move appelé')
         let v: Vector2d = {x: 0, y: 0};
-        console.log('v init')
+
         if (keys['ArrowUp'] || keys['w'])
             { v.y -= 1; }
         if (keys['ArrowDown'] || keys['s'])
@@ -100,16 +99,14 @@ export class Player {
             { v.x -= 1; }
         if (keys['ArrowRight'] || keys['d'])
             { v.x += 1; }
-        console.log('pris en compte le keyboard')
         const length = Math.sqrt(v.x **2 + v.y **2);
         if (length > 0) {
             v.x /= length;
             v.y /= length;
         }
-        console.log('normalized')
         v.x *= this.SPEED * deltaTime;
         v.y *= this.SPEED * deltaTime;
-        console.log('multiplié')
+        console.log('Vérif de collision')
         if (!this.isCollidingWall(this.x + v.x, this.y, map, tile_size)) {
             this.x += v.x;
         }
@@ -124,11 +121,12 @@ export class Player {
     }
 
     isCollidingWall(x: number, y: number, map: number[][], tile_size: number): boolean {
+        console.log('1');
         const leftTile = Math.floor(x / tile_size);
         const rightTile = Math.floor((x + this.WIDTH) / tile_size);
         const upTile = Math.floor(y / tile_size);
         const bottomTile = Math.floor((y + this.HEIGHT) / tile_size);
-
+        console.log('2');
         for (let row = upTile; row <= bottomTile; row++) {
             for (let col = leftTile; col <= rightTile; col++) {
                 if (row < 0 || col < 0 || row >= map.length || col >= map[0].length) {
@@ -139,6 +137,7 @@ export class Player {
                 }
             }
         }
+        console.log('3')
 
         return false;
     }
