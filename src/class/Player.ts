@@ -40,7 +40,7 @@ export class Player {
     update(deltaTime: number, inputs: Inputs, loots: Loot[]): void {
         console.log('update appelé');
         this.move(deltaTime, inputs.keys, this.map, this.tile_size);
-        console.log('moved');
+        console.log('moved: check');
         loots.forEach((loot: Loot): void => {
             if (this.collides({
                 x: loot.x,
@@ -51,7 +51,6 @@ export class Player {
                 loot.pickup(this);
             }
         });
-        console.log('loots récups');
 
         if (inputs.mouse.down && this.cooldown === 0) {
             this.cooldown = 2000; // ms
@@ -72,7 +71,6 @@ export class Player {
                 this.cooldown = 0;
             }
         }
-        console.log('tir effectué')
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
@@ -91,8 +89,9 @@ export class Player {
     }
 
     move(deltaTime: number, keys: {[keys: string]: boolean}, map: number[][], tile_size: number): void {
+        console.log('move appelé')
         let v: Vector2d = {x: 0, y: 0};
-
+        console.log('v init')
         if (keys['ArrowUp'] || keys['w'])
             { v.y -= 1; }
         if (keys['ArrowDown'] || keys['s'])
@@ -101,22 +100,23 @@ export class Player {
             { v.x -= 1; }
         if (keys['ArrowRight'] || keys['d'])
             { v.x += 1; }
-
+        console.log('pris en compte le keyboard')
         const length = Math.sqrt(v.x **2 + v.y **2);
         if (length > 0) {
             v.x /= length;
             v.y /= length;
         }
-
+        console.log('normalized')
         v.x *= this.SPEED * deltaTime;
         v.y *= this.SPEED * deltaTime;
-
+        console.log('multiplié')
         if (!this.isCollidingWall(this.x + v.x, this.y, map, tile_size)) {
             this.x += v.x;
         }
         if (!this.isCollidingWall(this.x, this.y + v.y, map, tile_size)) {
             this.y += v.y;
         }
+        console.log('ok !')
     }
 
     throwArrow(dir: number): void {
