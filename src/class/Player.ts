@@ -1,32 +1,46 @@
 import {Arrow} from './shoots/Arrow.js';
+import { Inputs } from './Inputs.js';
+import { Loot } from './loots/Loot.js';
+
+type Rect = {
+    x: number,
+    y: number,
+    w: number,
+    h: number
+}
+
+type Vector2d = {
+    x: number,
+    y: number
+}
 
 export class Player {
-    x;
-    y;
-    map;
-    tile_size;
+    x: number;
+    y: number;
+    map: number[][];
+    tile_size: number;
     WIDTH = 20;
     HEIGHT = 25;
     SPEED = 0.1; // pixels / ms
     gold = 0;
     health = 10;
     cooldown = 0;
-    arrows = [];
-    sprite = document.querySelector('img#player-sprite');
+    arrows: Arrow[] = [];
+    sprite: HTMLImageElement = document.querySelector('img#player-sprite');
     SPRITE_WIDTH = 1600;
     SPRITE_HEIGHT = 1520;
 
-    constructor(x, y, map, tile_size) {
+    constructor(x: number, y: number, map: number[][], tile_size: number) {
         this.x = x;
         this.y = y;
         this.map = map;
         this.tile_size = tile_size
     }
 
-    update(deltaTime, inputs, loots) {
+    update(deltaTime: number, inputs: Inputs, loots: Loot[]): void {
         this.move(deltaTime, inputs.keys, this.map, this.tile_size);
 
-        loots.forEach((loot) => {
+        loots.forEach((loot: Loot): void => {
             if (this.collides({
                 x: loot.x,
                 y: loot.y,
@@ -58,7 +72,7 @@ export class Player {
         }
     }
 
-    draw(ctx) {
+    draw(ctx: CanvasRenderingContext2D): void {
         const frame = 3;
         ctx.drawImage(
             this.sprite,
@@ -73,8 +87,8 @@ export class Player {
         );
     }
 
-    move(deltaTime, keys, map, tile_size) {
-        let v = {x: 0, y: 0};
+    move(deltaTime: number, keys: {[keys: string]: boolean}, map: number[][], tile_size: number): void {
+        let v: Vector2d = {x: 0, y: 0};
 
         if (keys['ArrowUp'] || keys['w'])
             { v.y -= 1; }
@@ -102,11 +116,11 @@ export class Player {
         }
     }
 
-    throwArrow(dir) {
+    throwArrow(dir: number): void {
         this.arrows.push(new Arrow(this.x, this.y, dir, 3));
     }
 
-    isCollidingWall(x, y, map, tile_size) {
+    isCollidingWall(x: number, y: number, map: number[][], tile_size: number): boolean {
         const leftTile = Math.floor(x / tile_size);
         const rightTile = Math.floor((x + this.WIDTH) / tile_size);
         const upTile = Math.floor(y / tile_size);
@@ -123,10 +137,10 @@ export class Player {
             }
         }
 
-        return false
+        return false;
     }
 
-    collides(rect) {
+    collides(rect: Rect): boolean {
         if (this.x + this.WIDTH < rect.x) {
             return false;
         }

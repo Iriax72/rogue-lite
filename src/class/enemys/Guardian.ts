@@ -1,7 +1,8 @@
 import {Enemy} from "./Enemy.js";
+import { Arrow } from "../shoots/Arrow.js";
 
 export class Guardian extends Enemy {
-    constructor(x, y, dropLoot, shoots) {
+    constructor(x: number, y: number, dropLoot: Function, shoots: Arrow[]) {
         super(
             x, y, 
             20, 30,

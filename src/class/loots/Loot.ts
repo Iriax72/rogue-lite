@@ -1,13 +1,16 @@
+import { Game } from "../Game";
+import { Player } from "../Player";
+
 export class Loot {
-    game;
-    x;
-    y;
-    value;
-    image;
+    game: Game;
+    x: number;
+    y: number;
+    value: number;
+    image: HTMLImageElement;
     WIDTH = 15;
     HEIGHT = 15;
 
-    constructor (game, x, y, value, image) {
+    constructor (game: Game, x: number, y: number, value: number, image: HTMLImageElement) {
         this.game = game
         this.x = x;
         this.y = y;
@@ -15,7 +18,7 @@ export class Loot {
         this.image = image;
     }
 
-    draw(ctx) {
+    draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(
             this.image,
             this.x,
@@ -25,7 +28,7 @@ export class Loot {
         );
     }
 
-    pickup(player) {
+    pickup(player: Player): void {
         player.gold += this.value;
         this.game.loots = this.game.loots.filter((loot) => loot !== this)
     }

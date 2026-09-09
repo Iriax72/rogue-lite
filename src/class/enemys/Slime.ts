@@ -1,7 +1,8 @@
 import {Enemy} from "./Enemy.js";
+import { Arrow } from "../shoots/Arrow.js";
 
 export class Slime extends Enemy {
-    constructor(x, y, dropLoot, shoots) {
+    constructor(x: number, y: number, dropLoot: Function, shoots: Arrow[]) {
         super(
             x, y,
             13, 8,
@@ -12,7 +13,7 @@ export class Slime extends Enemy {
         );
     }
 
-    move(deltaTime) {
+    move(deltaTime: number): void {
         this.x += deltaTime / 250
     }
 }

@@ -1,16 +1,25 @@
-export class Enemy {
-    x;
-    y;
-    width;
-    height;
-    health;
-    lootValue;
-    image;
-    dropLoot;
-    isDead = false;
-    shoots;
+import { Arrow } from "../shoots/Arrow";
 
-    constructor (x, y, width, height, lootValue, health, image, dropLoot, shoots) {
+type Rect = {
+    x: number,
+    y: number,
+    w: number,
+    h: number
+}
+
+export class Enemy {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    health: number;
+    lootValue: number;
+    image: HTMLImageElement;
+    dropLoot: Function;
+    isDead = false;
+    shoots: Arrow[];
+
+    constructor (x: number, y: number, width: number, height: number, lootValue: number, health: number, image: HTMLImageElement, dropLoot: Function, shoots: Arrow[]) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -22,10 +31,10 @@ export class Enemy {
         this.shoots = shoots;
     }
 
-    move(deltaTime) {}
+    move(deltaTime: number): void {}
 
-    update(deltaTime) {
-        this.shoots.forEach((shoot) => {
+    update(deltaTime: number): void {
+        this.shoots.forEach((shoot: Arrow): void => {
             if (this.collides(shoot.getRect())) {
                 this.health -= shoot.strength;
                 this.shoots.filter(s => s !== shoot);
@@ -38,12 +47,11 @@ export class Enemy {
         this.move(deltaTime);
     }
 
-    draw(canvas) {
-        const ctx = canvas.getContext('2d');
+    draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
 
-    die() {
+    die(): void {
         if (this.isDead) {
             return;
         }
@@ -51,7 +59,7 @@ export class Enemy {
         this.isDead = true;
     }
 
-    collides(rect) {
+    collides(rect: Rect): boolean {
         if (this.x + this.width < rect.x) {
             return false;
         }

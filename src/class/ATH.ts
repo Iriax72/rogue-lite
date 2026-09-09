@@ -1,14 +1,16 @@
+import { Player } from "./Player";
+
 export class ATH {
-    canvas;
-    player;
+    canvas: HTMLCanvasElement;
+    player: Player;
     
-    constructor(canvas, player) {
+    constructor(canvas: HTMLCanvasElement, player: Player) {
         this.canvas = canvas;
         this.player = player;
     }
 
-    draw() {
-        const ctx = this.canvas.getContext('2d');
+    draw(): void {
+        const ctx: CanvasRenderingContext2D = this.canvas.getContext('2d');
         ctx.fillStyle = 'orange';
         ctx.font = '20px Arial';
         ctx.fillText(`Gold: ${this.player.gold}|`, 10, 20);

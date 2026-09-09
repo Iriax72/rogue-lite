@@ -5,35 +5,35 @@ import {Inputs} from './class/Inputs.js';
 import {ATH} from './class/ATH.js';
 
 // References DOM
-const gameCanvas = document.querySelector('#game-canvas');
+const gameCanvas: HTMLCanvasElement = document.querySelector('#game-canvas');
 
 // Données arbitraires
 const TILE_SIZE = 32;
 
 // Initialisation
 const response = await fetch('./map.json');
-const map = await response.json();
+const map: number[][] = await response.json();
 
-await Promise.all(Array.from(document.images).map((image) => {
+await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Promise<void> => {
     if (image.complete) {
         return image.decode().catch(() => undefined);
     }
 
     return new Promise((resolve) => {
-        image.addEventListener('load', resolve, {once: true});
-        image.addEventListener('error', resolve, {once: true});
+        image.addEventListener('load', ():void => {resolve()}, {once: true});
+        image.addEventListener('error', ():void => {resolve()}, {once: true});
     });
 }));
 
 const player = new Player(
     59, 240,
-    map[0], TILE_SIZE
+    map, TILE_SIZE
 );
 const ath = new ATH(gameCanvas, player);
 const inputs = new Inputs(gameCanvas);
 const game = new Game(
     gameCanvas,
-    map[0],
+    map,
     TILE_SIZE,
     player,
     inputs,
