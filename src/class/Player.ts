@@ -26,7 +26,7 @@ export class Player {
     health = 10;
     cooldown = 0;
     arrows: Arrow[] = [];
-    sprite: HTMLImageElement = document.querySelector('img#player-sprite');
+    sprite: HTMLImageElement;
     SPRITE_WIDTH = 1600;
     SPRITE_HEIGHT = 1520;
 
@@ -35,9 +35,16 @@ export class Player {
         this.y = y;
         this.map = map;
         this.tile_size = tile_size
+
+        const foundSprite: HTMLImageElement | null = document.querySelector('img#player-sprite');
+        if (!foundSprite) {
+            throw new Error("Le sprite du joueur n'a pas été trouvé");
+        }
+        this.sprite = foundSprite;
     }
 
     update(deltaTime: number, inputs: Inputs, loots: Loot[]): void {
+
         console.log('update appelé');
         this.move(deltaTime, inputs.keys, this.map, this.tile_size);
         console.log('moved: check');
@@ -125,18 +132,32 @@ export class Player {
         const rightTile = Math.floor((x + this.WIDTH) / tile_size);
         const upTile = Math.floor(y / tile_size);
         const bottomTile = Math.floor((y + this.HEIGHT) / tile_size);
-        console.log('Ce log est affiche');
+
+        if (map.length === 0 || map[0]?.length === 0) {
+            return true;
+        }
+        const firstRow: number[] | undefined = map[0];
+        if (!firstRow) {
+            return true;
+        }
+        if (bottomTile >= map.length || rightTile >= firstRow.length) {
+            return true;
+        }
+
         for (let row = upTile; row <= bottomTile; row++) {
             for (let col = leftTile; col <= rightTile; col++) {
-                if (row < 0 || col < 0 || row >= map.length || col >= map[0].length) {
+                if (row < 0 || col < 0 || row >= map.length || col >= firstRow.length) {
                     return true;
                 }
-                if (map[row][col] === 1) {
+                const currentRow: number[] | undefined = map[row];
+                if (!currentRow) {
+                    return true;
+                }
+                if (currentRow[col] === 1) {
                     return true;
                 }
             }
         }
-        console.log('Lerreur a lieu avant ce log')
 
         return false;
     }
