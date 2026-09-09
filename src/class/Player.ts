@@ -38,8 +38,9 @@ export class Player {
     }
 
     update(deltaTime: number, inputs: Inputs, loots: Loot[]): void {
+        console.log('update appelé');
         this.move(deltaTime, inputs.keys, this.map, this.tile_size);
-
+        console.log('moved');
         loots.forEach((loot: Loot): void => {
             if (this.collides({
                 x: loot.x,
@@ -50,6 +51,7 @@ export class Player {
                 loot.pickup(this);
             }
         });
+        console.log('loots récups');
 
         if (inputs.mouse.down && this.cooldown === 0) {
             this.cooldown = 2000; // ms
@@ -70,6 +72,7 @@ export class Player {
                 this.cooldown = 0;
             }
         }
+        console.log('tir effectué')
     }
 
     draw(ctx: CanvasRenderingContext2D): void {

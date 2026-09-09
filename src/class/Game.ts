@@ -50,7 +50,6 @@ export class Game {
         this.enemys.push(new Guardian(59, 290, this.dropLoot, this.player.arrows));
         this.enemys.push(new Slime(59, 320, this.dropLoot, this.player.arrows));
 
-        console.log('Lancement de la boucle:')
         this.update(0);
     }
 
@@ -93,20 +92,17 @@ export class Game {
         if (!this.lastTimestamp)
             { this.lastTimestamp = timestamp; }
         const deltaTime: Timestamp = timestamp - this.lastTimestamp;
-        console.log('update player:')
+        console.log('update Player...')
         this.player.update(
             deltaTime,
             this.inputs,
             this.loots
         );
-        console.log('update enemys')
+        console.log('update Player: ok')
         this.enemys.forEach((enemy: Enemy): void => enemy.update(deltaTime));
-        console.log('kill dead enemys')
         this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
-        console.log('update arrows')
         this.player.arrows.forEach((arrow: Arrow): void => arrow.update(deltaTime))
 
-        console.log('draw:')
         this.draw();
 
         this.lastTimestamp = timestamp;

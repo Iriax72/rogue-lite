@@ -4,7 +4,6 @@ import {Player} from './class/Player.js';
 import {Inputs} from './class/Inputs.js';
 import {ATH} from './class/ATH.js';
 
-console.log('Imports terminés.');
 // References DOM
 const gameCanvas: HTMLCanvasElement = document.querySelector('#game-canvas');
 
