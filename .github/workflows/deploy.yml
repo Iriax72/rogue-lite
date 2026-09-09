@@ -2,7 +2,7 @@ name: Deploy Game to GitHub Pages
 
 on:
   push:
-    branches: ["branche-test-ts"]
+    branches: ["main"]
 
 permissions:
   contents: read
