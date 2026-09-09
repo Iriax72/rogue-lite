@@ -1,4 +1,4 @@
-import { Arrow } from "../shoots/Arrow";
+import { Arrow } from "../shoots/Arrow.js";
 
 type Rect = {
     x: number,
