@@ -1,5 +1,5 @@
-import { Game } from "../Game";
-import { Player } from "../Player";
+import { Game } from "../Game.js";
+import { Player } from "../Player.js";
 
 export class Loot {
     game: Game;
