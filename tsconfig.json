@@ -27,7 +27,7 @@
 
     "allowJs": true,
     "checkJs": false,
-    "strict": false,
+    "strict": true,
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "isolatedModules": true,

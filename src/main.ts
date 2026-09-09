@@ -5,14 +5,24 @@ import {Inputs} from './class/Inputs.js';
 import {ATH} from './class/ATH.js';
 
 // References DOM
-const gameCanvas: HTMLCanvasElement = document.querySelector('#game-canvas');
+const gameCanvas: HTMLCanvasElement | null = document.querySelector('#game-canvas');
+if (!gameCanvas) {
+    throw new Error('Le canvas n\' a pas ete trouvé');
+}
 
 // Données arbitraires
 const TILE_SIZE = 32;
 
 // Initialisation
 const response = await fetch('./map.json');
-const map: {[keys: string]: number[][]} = await response.json();
+const map: {[keys: string]: number[][]} | null = await response.json();
+if (!map) {
+    throw new Error('La map n\'a pas pu être lue');
+}
+const mapLevel = map["0"];
+if (!mapLevel) {
+    throw new Error("Le level 0 n'a pas pu etre trouvé dans la map");
+}
 
 await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Promise<void> => {
     if (image.complete) {
@@ -27,7 +37,7 @@ await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Pro
 
 const player = new Player(
     59, 240,
-    map["0"], TILE_SIZE
+    mapLevel, TILE_SIZE
 );
 const ath = new ATH(gameCanvas, player);
 
@@ -35,7 +45,7 @@ const inputs = new Inputs(gameCanvas);
 
 const game = new Game(
     gameCanvas,
-    map["0"],
+    mapLevel,
     TILE_SIZE,
     player,
     inputs,
