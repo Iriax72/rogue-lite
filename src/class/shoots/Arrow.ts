@@ -10,7 +10,7 @@ export class Arrow {
     y: number;
     dir: number;
     strength: number;
-    image = document.querySelector<HTMLImageElement>('img#arrow-img');
+    image: HTMLImageElement;
     WIDTH = 15;
     HEIGHT = 5;
     SPEED = 0.3; // pixel / ms
@@ -20,6 +20,12 @@ export class Arrow {
         this.y = y;
         this.dir = dir;
         this.strength = strength
+
+        const arrowImage: HTMLImageElement | null = document.querySelector('img#arrow-img');
+        if (!arrowImage) {
+            throw new Error('Image de la fleche introuvable');
+        }
+        this.image = arrowImage
     }
 
     update (deltaTime: number): void {
