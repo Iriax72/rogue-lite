@@ -90,22 +90,25 @@ export class Game {
     }
 
     update(timestamp: Timestamp): void {
-        console.log('exec');
         if (!this.lastTimestamp)
             { this.lastTimestamp = timestamp; }
         const deltaTime: Timestamp = timestamp - this.lastTimestamp;
-        console.log('updates:')
+        console.log('update player:')
         this.player.update(
             deltaTime,
             this.inputs,
             this.loots
         );
+        console.log('update enemys')
         this.enemys.forEach((enemy: Enemy): void => enemy.update(deltaTime));
+        console.log('kill dead enemys')
         this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
+        console.log('update arrows')
         this.player.arrows.forEach((arrow: Arrow): void => arrow.update(deltaTime))
+
         console.log('draw:')
         this.draw();
-        console.log('Prochaine boucle...')
+
         this.lastTimestamp = timestamp;
         requestAnimationFrame((timestamp) => this.update(timestamp));
     }
