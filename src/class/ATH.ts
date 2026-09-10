@@ -1,7 +1,7 @@
 import { Player } from "./Player.js";
 
 export class ATH {
-    private readonly LIGHT_RADIUS = 75;
+    private readonly LIGHT_RADIUS = 25;
 
     constructor(
         private readonly canvas: HTMLCanvasElement,
@@ -20,7 +20,7 @@ export class ATH {
             this.LIGHT_RADIUS,
             this.player.getRect().x,
             this.player.getRect().y,
-            4 * this.LIGHT_RADIUS
+            12 * this.LIGHT_RADIUS
         );
         lightGradiant.addColorStop(0, 'transparent');
         lightGradiant.addColorStop(1, 'black');
