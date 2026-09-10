@@ -8,16 +8,16 @@ type Rect = {
 };
 
 export class Arrow {
-    private image: HTMLImageElement;
-    private WIDTH = 15;
-    private HEIGHT = 5;
-    private SPEED = 0.3; // pixel / ms
+    private readonly image: HTMLImageElement;
+    private readonly WIDTH = 15;
+    private readonly HEIGHT = 5;
+    private readonly SPEED = 0.3; // pixel / ms
 
     constructor (
         private x: number,
         private y: number,
-        private dir: number,
-        public strength: number
+        private readonly dir: number,
+        public readonly strength: number
     ) {
         this.image = getImage('arrow-img'); 
     }

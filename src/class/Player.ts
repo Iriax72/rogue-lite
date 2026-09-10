@@ -19,15 +19,15 @@ type Vector2d = {
 export class Player {
     private x: number;
     private y: number;
-    private WIDTH = 20;
-    private HEIGHT = 25;
-    private SPEED = 0.1; // pixels / ms
+    private readonly WIDTH = 20;
+    private readonly HEIGHT = 25;
+    private readonly SPEED = 0.1; // pixels / ms
 
-    private INITIAL_HEALTH = 10;
+    private readonly INITIAL_HEALTH = 10;
 
-    private SPRITE_WIDTH = 1600;
-    private SPRITE_HEIGHT = 1520;
-    private sprite: HTMLImageElement;
+    private readonly SPRITE_WIDTH = 1600;
+    private readonly SPRITE_HEIGHT = 1520;
+    private readonly sprite: HTMLImageElement;
 
     private cooldown = 0;
 
@@ -37,10 +37,10 @@ export class Player {
     public arrows: Arrow[] = [];
 
     constructor(
-        private initial_x: number,
-        private initial_y: number,
-        private map: number[][], 
-        private tile_size: number
+        private readonly initial_x: number,
+        private readonly initial_y: number,
+        private readonly map: number[][], 
+        private readonly tile_size: number
     ) {
         this.x = initial_x;
         this.y = initial_y;

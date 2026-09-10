@@ -18,12 +18,12 @@ export class Game {
     private lastTimestamp: Timestamp;
 
     constructor(
-        private canvas: HTMLCanvasElement,
-        private map: number[][],
-        private tile_size: number,
-        private player: Player,
-        private inputs: Inputs,
-        private ath: ATH
+        private readonly canvas: HTMLCanvasElement,
+        private readonly map: number[][],
+        private readonly tile_size: number,
+        private readonly player: Player,
+        private readonly inputs: Inputs,
+        private readonly ath: ATH
     ) {
         this.dropLoot = this.dropLoot.bind(this);
         this.lastTimestamp = 0;

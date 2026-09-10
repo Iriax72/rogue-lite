@@ -9,21 +9,21 @@ type Rect = {
 }
 
 export abstract class Enemy {
-    isDead: boolean = false;
-    currentCooldown = 0;
+    public isDead: boolean = false;
+    private currentCooldown = 0;
 
     constructor (
         protected x: number,
         protected y: number,
-        protected width: number,
-        protected height: number,
-        protected strength: number,
-        protected cooldown: number,
+        protected readonly width: number,
+        protected readonly height: number,
+        protected readonly strength: number,
+        protected readonly cooldown: number,
         public health: number,
-        protected lootValue: number,
-        protected image: HTMLImageElement,
-        protected dropLoot: Function,
-        protected player: Player,
+        protected readonly lootValue: number,
+        protected readonly image: HTMLImageElement,
+        protected readonly dropLoot: Function,
+        protected readonly player: Player,
     ) {}
 
     protected abstract move(deltaTime: number): void

@@ -9,15 +9,15 @@ type Rect = {
 }
 
 export class Loot {
-    private WIDTH = 15;
-    private HEIGHT = 15;
+    private readonly WIDTH = 15;
+    private readonly HEIGHT = 15;
 
     constructor (
-        private game: Game,
-        private x: number,
-        private y: number,
-        private value: number,
-        private image: HTMLImageElement
+        private readonly game: Game,
+        private readonly x: number,
+        private readonly y: number,
+        private readonly value: number,
+        private readonly image: HTMLImageElement
     ) {}
 
     public draw(ctx: CanvasRenderingContext2D): void {

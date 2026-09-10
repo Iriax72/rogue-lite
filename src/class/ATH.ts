@@ -2,8 +2,8 @@ import { Player } from "./Player.js";
 
 export class ATH {
     constructor(
-        private canvas: HTMLCanvasElement,
-        private player: Player
+        private readonly canvas: HTMLCanvasElement,
+        private readonly player: Player
     ) {}
 
     public draw(): void {
