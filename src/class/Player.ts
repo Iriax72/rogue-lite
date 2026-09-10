@@ -1,3 +1,5 @@
+import { getImage } from '../functions.js';
+
 import {Arrow} from './shoots/Arrow.js';
 import { Inputs } from './Inputs.js';
 import { Loot } from './loots/Loot.js';
@@ -36,11 +38,7 @@ export class Player {
         private map: number[][], 
         private tile_size: number
     ) {
-        const foundSprite: HTMLImageElement | null = document.querySelector('img#player-sprite');
-        if (!foundSprite) {
-            throw new Error("Le sprite du joueur n'a pas été trouvé");
-        }
-        this.sprite = foundSprite;
+        this.sprite = getImage('player-sprite');
     }
 
     public update(deltaTime: number, inputs: Inputs, loots: Loot[]): void {

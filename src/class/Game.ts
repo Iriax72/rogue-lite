@@ -1,3 +1,5 @@
+import { getImage } from "../functions.js";
+
 import {Loot} from "./loots/Loot.js";
 import {Guardian} from "./enemys/Guardian.js";
 import {Slime} from "./enemys/Slime.js";
@@ -35,17 +37,15 @@ export class Game {
         }
         this.canvas.width = firstRow.length * this.tile_size;
         // Test
-        const lootImage: HTMLImageElement | null = document.querySelector('img#loot-image');
-        if (lootImage) {
-            for (let i = 0; i < 10; i++) {
-                this.loots.push(new Loot(
-                    this,
-                    Math.floor(Math.random() * this.canvas.width),
-                    Math.floor(Math.random() * this.canvas.height),
-                    20,
-                    lootImage
-                ));
-            }
+        const lootImage = getImage('loot-image');
+        for (let i = 0; i < 10; i++) {
+            this.loots.push(new Loot(
+                this,
+                Math.floor(Math.random() * this.canvas.width),
+                Math.floor(Math.random() * this.canvas.height),
+                20,
+                lootImage
+            ));
         }
 
 
@@ -57,10 +57,8 @@ export class Game {
     }
 
     private draw(): void {
-        const tileMapImage: HTMLImageElement | null = this.canvas.querySelector('img#tile-map');
-        if (!tileMapImage) {
-            throw new Error('Tile map introuvable');
-        }
+        const tileMapImage = getImage('tile-map');
+
         const ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
         if (!ctx) {
             throw new Error('Contexte de canvas null');
@@ -125,10 +123,6 @@ export class Game {
     }
 
     private dropLoot(x: number, y: number, value: number): void {
-        const lootImage: HTMLImageElement | null = document.querySelector('img#loot-image');
-        if (!lootImage) {
-            throw new Error('Image des loot introuvable');
-        }
-        this.loots.push(new Loot(this, x, y, value, lootImage));
+        this.loots.push(new Loot(this, x, y, value, getImage('loot-image')));
     }
 }

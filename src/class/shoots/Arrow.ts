@@ -1,3 +1,5 @@
+import { getImage } from "../../functions.js";
+
 type Rect = {
     x: number,
     y: number,
@@ -17,11 +19,7 @@ export class Arrow {
         private dir: number,
         public strength: number
     ) {
-        const arrowImage: HTMLImageElement | null = document.querySelector('img#arrow-img');
-        if (!arrowImage) {
-            throw new Error('Image de la fleche introuvable');
-        }
-        this.image = arrowImage
+        this.image = getImage('arrow-img'); 
     }
 
     public update (deltaTime: number): void {

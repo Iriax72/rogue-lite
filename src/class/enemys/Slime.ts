@@ -1,17 +1,15 @@
+import { getImage } from "../../functions.js";
+
 import {Enemy} from "./Enemy.js";
 import { Arrow } from "../shoots/Arrow.js";
 
 export class Slime extends Enemy {
     constructor(x: number, y: number, dropLoot: Function, shoots: Arrow[]) {
-        const slimeImg: HTMLImageElement | null = document.querySelector('img#slime-img');
-        if (!slimeImg) {
-            throw new Error('image du slime introuvable');
-        }
         super(
             x, y,
             13, 8,
             20, 5,
-            slimeImg,
+            getImage('slime-img'),
             dropLoot,
             shoots
         );
