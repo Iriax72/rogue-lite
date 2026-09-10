@@ -17,9 +17,13 @@ type Vector2d = {
 }
 
 export class Player {
+    private x: number;
+    private y: number;
     private WIDTH = 20;
     private HEIGHT = 25;
     private SPEED = 0.1; // pixels / ms
+
+    private INITIAL_HEALTH = 10;
 
     private SPRITE_WIDTH = 1600;
     private SPRITE_HEIGHT = 1520;
@@ -28,16 +32,18 @@ export class Player {
     private cooldown = 0;
 
     public gold = 0;
-    public health = 10;
+    public health = this.INITIAL_HEALTH;
 
     public arrows: Arrow[] = [];
 
     constructor(
-        private x: number,
-        private y: number,
+        private initial_x: number,
+        private initial_y: number,
         private map: number[][], 
         private tile_size: number
     ) {
+        this.x = initial_x;
+        this.y = initial_y;
         this.sprite = getImage('player-sprite');
     }
 
@@ -86,6 +92,22 @@ export class Player {
         );
     }
 
+    public getRect(): Rect {
+        return {
+            x: this.x,
+            y: this.y,
+            w: this.WIDTH,
+            h: this.HEIGHT
+        }
+    }
+
+    public hurt (damage: number): void {
+        this.health -= damage;
+        if (this.health <= 0) {
+            this.die();
+        }
+    }
+
     private move(deltaTime: number, keys: {[keys: string]: boolean}, map: number[][], tile_size: number): void {
         let v: Vector2d = {x: 0, y: 0};
 
@@ -115,6 +137,13 @@ export class Player {
 
     private throwArrow(dir: number): void {
         this.arrows.push(new Arrow(this.x, this.y, dir, 3));
+    }
+
+    private die(): void {
+        this.health = this.INITIAL_HEALTH;
+        this.x = this.initial_x;
+        this.y = this.initial_y;
+        this.cooldown = 0;
     }
 
     private isCollidingWall(x: number, y: number, map: number[][], tile_size: number): boolean {

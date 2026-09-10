@@ -1,3 +1,4 @@
+import type { Player } from "../Player.js";
 import { Arrow } from "../shoots/Arrow.js";
 
 type Rect = {
@@ -15,20 +16,23 @@ export abstract class Enemy {
         protected y: number,
         protected width: number,
         protected height: number,
-        protected lootValue: number,
+        protected strength: number,
+        protected cooldown: number,
         public health: number,
+        protected lootValue: number,
         protected image: HTMLImageElement,
         protected dropLoot: Function,
-        protected shoots: Arrow[]
+        protected player: Player,
+        // protected shoots: Arrow[]
     ) {}
 
     protected abstract move(deltaTime: number): void
 
     public update(deltaTime: number): void {
-        this.shoots.forEach((shoot: Arrow): void => {
+        this.player.arrows.forEach((shoot: Arrow): void => {
             if (this.collides(shoot.getRect())) {
                 this.health -= shoot.strength;
-                this.shoots.filter(s => s !== shoot);
+                this.player.arrows.filter(s => s !== shoot);
             }
         })
         if (this.health <= 0) {
@@ -36,6 +40,16 @@ export abstract class Enemy {
             return;
         }
         this.move(deltaTime);
+
+        if (this.cooldown <= 0 && this.collides(this.player.getRect())) {
+            this.player.hurt(this.strength);
+            this.cooldown = 2;
+        } else {
+            this.cooldown -= deltaTime;
+            if (this.cooldown < 0) {
+                this.cooldown = 0;
+            }
+        }
     }
 
     public draw(ctx: CanvasRenderingContext2D): void {
