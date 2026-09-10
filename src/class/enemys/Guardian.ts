@@ -9,7 +9,7 @@ export class Guardian extends Enemy {
         super(
             x, y, 
             20, 30,
-            4, 0.5,
+            4, 500,
             30,
             50,
             getImage('guardian-img'),

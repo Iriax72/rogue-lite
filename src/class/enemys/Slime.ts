@@ -9,7 +9,7 @@ export class Slime extends Enemy {
         super(
             x, y,
             13, 8,
-            1, 1,
+            1, 1000,
             5,
             20,
             getImage('slime-img'),
