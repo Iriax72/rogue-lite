@@ -9,12 +9,15 @@ type Rect = {
     y: number,
     w: number,
     h: number
-}
+};
 
 type Vector2d = {
     x: number,
     y: number
-}
+};
+
+type MapRow = readonly [number, ...number[]];
+type Map = readonly [MapRow, ...MapRow[]];
 
 export class Player {
     private x: number;
@@ -39,7 +42,7 @@ export class Player {
     constructor(
         private readonly initial_x: number,
         private readonly initial_y: number,
-        private readonly map: number[][], 
+        private readonly map: Map,
         private readonly tile_size: number
     ) {
         this.x = initial_x;
@@ -108,7 +111,7 @@ export class Player {
         }
     }
 
-    private move(deltaTime: number, keys: {[keys: string]: boolean}, map: number[][], tile_size: number): void {
+    private move(deltaTime: number, keys: {[keys: string]: boolean}, map: Map, tile_size: number): void {
         let v: Vector2d = {x: 0, y: 0};
 
         if (keys['ArrowUp'] || keys['w'])
@@ -146,19 +149,13 @@ export class Player {
         this.cooldown = 0;
     }
 
-    private isCollidingWall(x: number, y: number, map: number[][], tile_size: number): boolean {
+    private isCollidingWall(x: number, y: number, map: Map, tile_size: number): boolean {
         const leftTile = Math.floor(x / tile_size);
         const rightTile = Math.floor((x + this.WIDTH) / tile_size);
         const upTile = Math.floor(y / tile_size);
         const bottomTile = Math.floor((y + this.HEIGHT) / tile_size);
 
-        if (map.length === 0 || map[0]?.length === 0) {
-            return true;
-        }
-        const firstRow: number[] | undefined = map[0];
-        if (!firstRow) {
-            return true;
-        }
+        const firstRow = map[0];
         if (bottomTile >= map.length || rightTile >= firstRow.length) {
             return true;
         }
@@ -168,10 +165,7 @@ export class Player {
                 if (row < 0 || col < 0 || row >= map.length || col >= firstRow.length) {
                     return true;
                 }
-                const currentRow: number[] | undefined = map[row];
-                if (!currentRow) {
-                    return true;
-                }
+                const currentRow = map[row]!;
                 if (currentRow[col] === 1) {
                     return true;
                 }

@@ -1,4 +1,4 @@
-import { assertDefined, getImage } from "../functions.js";
+import { getImage } from "../functions.js";
 
 import {Loot} from "./loots/Loot.js";
 import {Guardian} from "./enemys/Guardian.js";
@@ -11,6 +11,9 @@ import {Arrow} from "./shoots/Arrow.js";
 
 type Timestamp = number;
 
+type MapRow = readonly [number, ...number[]];
+type Map = readonly [MapRow, ...MapRow[]];
+
 export class Game {
     public loots: Loot[] = [];
     private enemys: Enemy[] = []
@@ -19,7 +22,7 @@ export class Game {
 
     constructor(
         private readonly canvas: HTMLCanvasElement,
-        private readonly map: number[][],
+        private readonly map: Map,
         private readonly tile_size: number,
         private readonly player: Player,
         private readonly inputs: Inputs,
@@ -31,8 +34,7 @@ export class Game {
 
     public init(): void {
         this.canvas.height = this.map.length * this.tile_size;
-        const firstRow: number[] | undefined = this.map[0];
-        assertDefined(firstRow, 'map vide');
+        const firstRow = this.map[0];
         this.canvas.width = firstRow.length * this.tile_size;
         // Test
         const lootImage = getImage('loot-image');
@@ -65,11 +67,9 @@ export class Game {
 
         // Dessiner la carte
         for (let y = 0; y < this.map.length; y++) {
-            const currentRow = this.map[y];
-            assertDefined(currentRow, 'pas de currentRow');
+            const currentRow = this.map[y]!;
             for (let x = 0; x < currentRow.length; x++) {
-                const currentCase: number | undefined = currentRow[x];
-                assertDefined(currentCase, 'current case indéfinie');
+                const currentCase = currentRow[x]!;
                 ctx.drawImage(
                     tileMapImage,
                     this.tile_size * currentCase,

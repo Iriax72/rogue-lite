@@ -4,6 +4,7 @@ import {Game} from './class/Game.js';
 import {Player} from './class/Player.js';
 import {Inputs} from './class/Inputs.js';
 import {ATH} from './class/ATH.js';
+import {map} from './map.js';
 
 // References DOM
 const gameCanvas: HTMLCanvasElement | null = document.querySelector('#game-canvas');
@@ -11,13 +12,10 @@ assertDefined(gameCanvas, 'Le canvas n\' a pas ete trouvé');
 
 // Données arbitraires
 const TILE_SIZE = 32;
+const LEVEL = 0;
 
 // Initialisation
-const response = await fetch('./map.json');
-const map: {[keys: string]: number[][]} | null = await response.json();
-assertDefined(map, 'La map n\'a pas pu être lue');
-const mapLevel = map["0"];
-assertDefined(mapLevel, "Le level 0 n'a pas pu etre trouvé dans la map");
+const mapLevel = map[LEVEL];
 
 await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Promise<void> => {
     if (image.complete) {
