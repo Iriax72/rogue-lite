@@ -10,6 +10,7 @@ type Rect = {
 
 export abstract class Enemy {
     isDead: boolean = false;
+    currentCooldown = 0;
 
     constructor (
         protected x: number,
@@ -23,7 +24,6 @@ export abstract class Enemy {
         protected image: HTMLImageElement,
         protected dropLoot: Function,
         protected player: Player,
-        // protected shoots: Arrow[]
     ) {}
 
     protected abstract move(deltaTime: number): void
@@ -41,13 +41,13 @@ export abstract class Enemy {
         }
         this.move(deltaTime);
 
-        if (this.cooldown <= 0 && this.collides(this.player.getRect())) {
+        if (this.currentCooldown <= 0 && this.collides(this.player.getRect())) {
             this.player.hurt(this.strength);
-            this.cooldown = 2;
+            this.currentCooldown = this.cooldown;
         } else {
-            this.cooldown -= deltaTime;
-            if (this.cooldown < 0) {
-                this.cooldown = 0;
+            this.currentCooldown -= deltaTime;
+            if (this.currentCooldown < 0) {
+                this.currentCooldown = 0;
             }
         }
     }
