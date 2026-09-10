@@ -1,15 +1,12 @@
 import { Player } from "./Player.js";
 
 export class ATH {
-    canvas: HTMLCanvasElement;
-    player: Player;
-    
-    constructor(canvas: HTMLCanvasElement, player: Player) {
-        this.canvas = canvas;
-        this.player = player;
-    }
+    constructor(
+        private canvas: HTMLCanvasElement,
+        private player: Player
+    ) {}
 
-    draw(): void {
+    public draw(): void {
         const ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
         if (!ctx) {
             return;

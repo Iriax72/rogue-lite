@@ -10,31 +10,24 @@ import {Arrow} from "./shoots/Arrow.js";
 type Timestamp = number;
 
 export class Game {
-    canvas: HTMLCanvasElement;
-    map: number[][];
-    player: Player;
-    inputs: Inputs;
-    loots: Loot[] = [];
-    enemys: Enemy[] = []
-    tile_size: number;
-    ath: ATH;
-    lastTimestamp: Timestamp;
-    // Test
-    // slimeImg: HTMLImageElement = document.querySelector('img#slime-img');
+    public loots: Loot[] = [];
+    private enemys: Enemy[] = []
 
-    constructor(canvas: HTMLCanvasElement, map: number[][], tile_size: number, player: Player, inputs: Inputs, ath: ATH) {
-        this.canvas = canvas;
-        this.map = map;
-        this.tile_size = tile_size;
-        this.player = player;
-        this.inputs = inputs;
-        this.ath = ath;
+    private lastTimestamp: Timestamp;
+
+    constructor(
+        private canvas: HTMLCanvasElement,
+        private map: number[][],
+        private tile_size: number,
+        private player: Player,
+        private inputs: Inputs,
+        private ath: ATH
+    ) {
         this.dropLoot = this.dropLoot.bind(this);
-
         this.lastTimestamp = 0;
     }
 
-    init(): void {
+    public init(): void {
         this.canvas.height = this.map.length * this.tile_size;
         const firstRow: number[] | undefined = this.map[0];
         if (!firstRow) {
@@ -63,7 +56,7 @@ export class Game {
         this.update(0);
     }
 
-    draw(): void {
+    private draw(): void {
         const tileMapImage: HTMLImageElement | null = this.canvas.querySelector('img#tile-map');
         if (!tileMapImage) {
             throw new Error('Tile map introuvable');
@@ -112,7 +105,7 @@ export class Game {
         this.ath.draw();
     }
 
-    update(timestamp: Timestamp): void {
+    private update(timestamp: Timestamp): void {
         const deltaTime: Timestamp = timestamp - this.lastTimestamp;
         console.log('update Player...')
         this.player.update(
@@ -131,7 +124,7 @@ export class Game {
         requestAnimationFrame((timestamp) => this.update(timestamp));
     }
 
-    dropLoot(x: number, y: number, value: number): void {
+    private dropLoot(x: number, y: number, value: number): void {
         const lootImage: HTMLImageElement | null = document.querySelector('img#loot-image');
         if (!lootImage) {
             throw new Error('Image des loot introuvable');

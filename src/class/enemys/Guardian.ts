@@ -18,4 +18,6 @@ export class Guardian extends Enemy {
             shoots
         )
     }
+
+    protected move (deltaTime: number): void {}
 }

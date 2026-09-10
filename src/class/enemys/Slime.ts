@@ -17,7 +17,7 @@ export class Slime extends Enemy {
         );
     }
 
-    move(deltaTime: number): void {
+    protected move(deltaTime: number): void {
         this.x += deltaTime / 250
     }
 }

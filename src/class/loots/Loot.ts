@@ -1,24 +1,26 @@
 import { Game } from "../Game.js";
 import { Player } from "../Player.js";
 
+type Rect = {
+    x: number,
+    y: number,
+    w: number,
+    h: number
+}
+
 export class Loot {
-    game: Game;
-    x: number;
-    y: number;
-    value: number;
-    image: HTMLImageElement;
-    WIDTH = 15;
-    HEIGHT = 15;
+    private WIDTH = 15;
+    private HEIGHT = 15;
 
-    constructor (game: Game, x: number, y: number, value: number, image: HTMLImageElement) {
-        this.game = game
-        this.x = x;
-        this.y = y;
-        this.value = value;
-        this.image = image;
-    }
+    constructor (
+        private game: Game,
+        private x: number,
+        private y: number,
+        private value: number,
+        private image: HTMLImageElement
+    ) {}
 
-    draw(ctx: CanvasRenderingContext2D): void {
+    public draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(
             this.image,
             this.x,
@@ -28,7 +30,16 @@ export class Loot {
         );
     }
 
-    pickup(player: Player): void {
+    public getRect(): Rect {
+        return{
+            x: this.x,
+            y: this.y,
+            w: this.WIDTH,
+            h: this.HEIGHT
+        }
+    }
+
+    public pickup(player: Player): void {
         player.gold += this.value;
         this.game.loots = this.game.loots.filter((loot) => loot !== this)
     }

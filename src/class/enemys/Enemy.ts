@@ -7,33 +7,24 @@ type Rect = {
     h: number
 }
 
-export class Enemy {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    health: number;
-    lootValue: number;
-    image: HTMLImageElement;
-    dropLoot: Function;
-    isDead = false;
-    shoots: Arrow[];
+export abstract class Enemy {
+    isDead: boolean = false;
 
-    constructor (x: number, y: number, width: number, height: number, lootValue: number, health: number, image: HTMLImageElement, dropLoot: Function, shoots: Arrow[]) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.health = health;
-        this.lootValue = lootValue;
-        this.image = image;
-        this.dropLoot = dropLoot;
-        this.shoots = shoots;
-    }
+    constructor (
+        protected x: number,
+        protected y: number,
+        protected width: number,
+        protected height: number,
+        protected lootValue: number,
+        public health: number,
+        protected image: HTMLImageElement,
+        protected dropLoot: Function,
+        protected shoots: Arrow[]
+    ) {}
 
-    move(deltaTime: number): void {}
+    protected abstract move(deltaTime: number): void
 
-    update(deltaTime: number): void {
+    public update(deltaTime: number): void {
         this.shoots.forEach((shoot: Arrow): void => {
             if (this.collides(shoot.getRect())) {
                 this.health -= shoot.strength;
@@ -47,11 +38,11 @@ export class Enemy {
         this.move(deltaTime);
     }
 
-    draw(ctx: CanvasRenderingContext2D): void {
+    public draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
 
-    die(): void {
+    protected die(): void {
         if (this.isDead) {
             return;
         }
@@ -59,7 +50,7 @@ export class Enemy {
         this.isDead = true;
     }
 
-    collides(rect: Rect): boolean {
+    protected collides(rect: Rect): boolean {
         if (this.x + this.width < rect.x) {
             return false;
         }

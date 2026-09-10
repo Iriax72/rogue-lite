@@ -6,21 +6,17 @@ type Rect = {
 };
 
 export class Arrow {
-    x: number;
-    y: number;
-    dir: number;
-    strength: number;
-    image: HTMLImageElement;
-    WIDTH = 15;
-    HEIGHT = 5;
-    SPEED = 0.3; // pixel / ms
+    private image: HTMLImageElement;
+    private WIDTH = 15;
+    private HEIGHT = 5;
+    private SPEED = 0.3; // pixel / ms
 
-    constructor (x: number, y: number, dir: number, strength: number) {
-        this.x = x;
-        this.y = y;
-        this.dir = dir;
-        this.strength = strength
-
+    constructor (
+        private x: number,
+        private y: number,
+        private dir: number,
+        public strength: number
+    ) {
         const arrowImage: HTMLImageElement | null = document.querySelector('img#arrow-img');
         if (!arrowImage) {
             throw new Error('Image de la fleche introuvable');
@@ -28,12 +24,12 @@ export class Arrow {
         this.image = arrowImage
     }
 
-    update (deltaTime: number): void {
+    public update (deltaTime: number): void {
         this.x += Math.cos(this.dir) * deltaTime * this.SPEED;
         this.y += Math.sin(this.dir) * deltaTime * this.SPEED;
     }
 
-    draw(ctx: CanvasRenderingContext2D): void {
+    public draw(ctx: CanvasRenderingContext2D): void {
         ctx.save();
         ctx.translate(this.x + this.WIDTH / 2, this.y + this.HEIGHT / 2);
         ctx.rotate(this.dir);
@@ -41,7 +37,7 @@ export class Arrow {
         ctx.restore();
     }
 
-    getRect(): Rect {
+    public getRect(): Rect {
         return {
             x: this.x,
             y: this.y,

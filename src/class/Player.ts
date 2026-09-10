@@ -15,27 +15,27 @@ type Vector2d = {
 }
 
 export class Player {
-    x: number;
-    y: number;
-    map: number[][];
-    tile_size: number;
-    WIDTH = 20;
-    HEIGHT = 25;
-    SPEED = 0.1; // pixels / ms
-    gold = 0;
-    health = 10;
-    cooldown = 0;
-    arrows: Arrow[] = [];
-    sprite: HTMLImageElement;
-    SPRITE_WIDTH = 1600;
-    SPRITE_HEIGHT = 1520;
+    private WIDTH = 20;
+    private HEIGHT = 25;
+    private SPEED = 0.1; // pixels / ms
 
-    constructor(x: number, y: number, map: number[][], tile_size: number) {
-        this.x = x;
-        this.y = y;
-        this.map = map;
-        this.tile_size = tile_size
+    private SPRITE_WIDTH = 1600;
+    private SPRITE_HEIGHT = 1520;
+    private sprite: HTMLImageElement;
 
+    private cooldown = 0;
+
+    public gold = 0;
+    public health = 10;
+
+    public arrows: Arrow[] = [];
+
+    constructor(
+        private x: number,
+        private y: number,
+        private map: number[][], 
+        private tile_size: number
+    ) {
         const foundSprite: HTMLImageElement | null = document.querySelector('img#player-sprite');
         if (!foundSprite) {
             throw new Error("Le sprite du joueur n'a pas été trouvé");
@@ -43,18 +43,13 @@ export class Player {
         this.sprite = foundSprite;
     }
 
-    update(deltaTime: number, inputs: Inputs, loots: Loot[]): void {
+    public update(deltaTime: number, inputs: Inputs, loots: Loot[]): void {
 
         console.log('update appelé');
         this.move(deltaTime, inputs.keys, this.map, this.tile_size);
         console.log('moved: check');
         loots.forEach((loot: Loot): void => {
-            if (this.collides({
-                x: loot.x,
-                y: loot.y,
-                w: loot.WIDTH,
-                h: loot.HEIGHT
-            })) {
+            if (this.collides(loot.getRect())) {
                 loot.pickup(this);
             }
         });
@@ -80,7 +75,7 @@ export class Player {
         }
     }
 
-    draw(ctx: CanvasRenderingContext2D): void {
+    public draw(ctx: CanvasRenderingContext2D): void {
         const frame = 3;
         ctx.drawImage(
             this.sprite,
@@ -95,7 +90,7 @@ export class Player {
         );
     }
 
-    move(deltaTime: number, keys: {[keys: string]: boolean}, map: number[][], tile_size: number): void {
+    private move(deltaTime: number, keys: {[keys: string]: boolean}, map: number[][], tile_size: number): void {
         let v: Vector2d = {x: 0, y: 0};
 
         if (keys['ArrowUp'] || keys['w'])
@@ -123,11 +118,11 @@ export class Player {
         console.log('ok !')
     }
 
-    throwArrow(dir: number): void {
+    private throwArrow(dir: number): void {
         this.arrows.push(new Arrow(this.x, this.y, dir, 3));
     }
 
-    isCollidingWall(x: number, y: number, map: number[][], tile_size: number): boolean {
+    private isCollidingWall(x: number, y: number, map: number[][], tile_size: number): boolean {
         const leftTile = Math.floor(x / tile_size);
         const rightTile = Math.floor((x + this.WIDTH) / tile_size);
         const upTile = Math.floor(y / tile_size);
@@ -162,7 +157,7 @@ export class Player {
         return false;
     }
 
-    collides(rect: Rect): boolean {
+    private collides(rect: Rect): boolean {
         if (this.x + this.WIDTH < rect.x) {
             return false;
         }
