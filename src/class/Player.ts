@@ -42,10 +42,8 @@ export class Player {
     }
 
     public update(deltaTime: number, inputs: Inputs, loots: Loot[]): void {
-
-        console.log('update appelé');
         this.move(deltaTime, inputs.keys, this.map, this.tile_size);
-        console.log('moved: check');
+
         loots.forEach((loot: Loot): void => {
             if (this.collides(loot.getRect())) {
                 loot.pickup(this);
@@ -106,14 +104,13 @@ export class Player {
         }
         v.x *= this.SPEED * deltaTime;
         v.y *= this.SPEED * deltaTime;
-        console.log('Vérif de collision')
+
         if (!this.isCollidingWall(this.x + v.x, this.y, map, tile_size)) {
             this.x += v.x;
         }
         if (!this.isCollidingWall(this.x, this.y + v.y, map, tile_size)) {
             this.y += v.y;
         }
-        console.log('ok !')
     }
 
     private throwArrow(dir: number): void {

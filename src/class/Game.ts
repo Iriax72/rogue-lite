@@ -99,13 +99,12 @@ export class Game {
 
     private update(timestamp: Timestamp): void {
         const deltaTime: Timestamp = timestamp - this.lastTimestamp;
-        console.log('update Player...')
+        
         this.player.update(
             deltaTime,
             this.inputs,
             this.loots
         );
-        console.log('update Player: ok')
         this.enemys.forEach((enemy: Enemy): void => enemy.update(deltaTime));
         this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
         this.player.arrows.forEach((arrow: Arrow): void => arrow.update(deltaTime))

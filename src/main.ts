@@ -30,6 +30,8 @@ await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Pro
     });
 }));
 
+console.log('Création...');
+
 const player = new Player(
     59, 240,
     mapLevel, TILE_SIZE
@@ -48,4 +50,4 @@ const game = new Game(
 );
 
 game.init();
-console.log('main.ts executé avec succes !')
+console.log('ok');
