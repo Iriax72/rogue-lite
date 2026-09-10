@@ -1,4 +1,4 @@
-import { getImage } from "../functions.js";
+import { assertDefined, getImage } from "../functions.js";
 
 import {Loot} from "./loots/Loot.js";
 import {Guardian} from "./enemys/Guardian.js";
@@ -32,9 +32,7 @@ export class Game {
     public init(): void {
         this.canvas.height = this.map.length * this.tile_size;
         const firstRow: number[] | undefined = this.map[0];
-        if (!firstRow) {
-            throw new Error('map vide');
-        }
+        assertDefined(firstRow, 'map vide');
         this.canvas.width = firstRow.length * this.tile_size;
         // Test
         const lootImage = getImage('loot-image');
@@ -68,14 +66,10 @@ export class Game {
         // Dessiner la carte
         for (let y = 0; y < this.map.length; y++) {
             const currentRow = this.map[y];
-            if (!currentRow) {
-                throw new Error('pas de currentRow')
-            }
+            assertDefined(currentRow, 'pas de currentRow');
             for (let x = 0; x < currentRow.length; x++) {
                 const currentCase: number | undefined = currentRow[x];
-                if (!currentCase) {
-                    throw new Error('current case indéfinie');
-                }
+                assertDefined(currentCase, 'current case indéfinie');
                 ctx.drawImage(
                     tileMapImage,
                     this.tile_size * currentCase,
