@@ -1,6 +1,8 @@
 import { Player } from "./Player.js";
 
 export class ATH {
+    private readonly LIGHT_RADIUS = 200;
+
     constructor(
         private readonly canvas: HTMLCanvasElement,
         private readonly player: Player
@@ -11,6 +13,20 @@ export class ATH {
         if (!ctx) {
             return;
         }
+
+        const lightGradiant = ctx.createRadialGradient(
+            this.player.getRect().x,
+            this.player.getRect().y,
+            this.LIGHT_RADIUS,
+            this.player.getRect().x,
+            this.player.getRect().y,
+            this.canvas.width
+        );
+        lightGradiant.addColorStop(0, 'transparent');
+        lightGradiant.addColorStop(1, 'black');
+        ctx.fillStyle = lightGradiant;
+        ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
         ctx.fillStyle = 'orange';
         ctx.font = '20px Arial';
         ctx.fillText(`Gold: ${this.player.gold}|`, 10, 20);
