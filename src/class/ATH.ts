@@ -20,7 +20,7 @@ export class ATH {
             this.LIGHT_RADIUS,
             this.player.getRect().x,
             this.player.getRect().y,
-            2 * this.LIGHT_RADIUS
+            4 * this.LIGHT_RADIUS
         );
         lightGradiant.addColorStop(0, 'transparent');
         lightGradiant.addColorStop(1, 'black');
