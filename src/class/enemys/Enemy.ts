@@ -1,5 +1,5 @@
 import type { Player } from "../Player.js";
-import { Arrow } from "../shoots/Arrow.js";
+import { Shoot } from "../shoots/Shoots.js";
 
 type Rect = {
     x: number,
@@ -29,10 +29,10 @@ export abstract class Enemy {
     protected abstract move(deltaTime: number): void
 
     public update(deltaTime: number): void {
-        this.player.arrows.forEach((shoot: Arrow): void => {
+        this.player.shoots.forEach((shoot: Shoot): void => {
             if (this.collides(shoot.getRect())) {
                 this.health -= shoot.strength;
-                this.player.arrows.filter(s => s !== shoot);
+                this.player.shoots.filter(s => s !== shoot);
             }
         })
         if (this.health <= 0) {

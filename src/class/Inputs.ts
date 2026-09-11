@@ -21,4 +21,11 @@ export class Inputs {
             this.mouse.y = e.offsetY;
         });
     }
+
+    getMousePos(): {x: number, y: number} {
+        return {
+            x: this.mouse.x,
+            y: this.mouse.y
+        }
+    }
 }

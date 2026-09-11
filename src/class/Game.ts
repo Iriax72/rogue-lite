@@ -9,7 +9,7 @@ import {Player} from "./Player.js";
 import {Inputs} from "./Inputs.js";
 import {Enemy} from "./enemys/Enemy.js";
 import {ATH} from "./ATH.js";
-import {Arrow} from "./shoots/Arrow.js";
+import { Shoot } from "./shoots/Shoots.js";
 
 type Timestamp = number;
 
@@ -100,7 +100,7 @@ export class Game {
 
         this.enemys.forEach((enemy: Enemy): void => enemy.draw(ctx));
 
-        this.player.arrows.forEach((arrow: Arrow): void => arrow.draw(ctx));
+        this.player.shoots.forEach((shoot: Shoot): void => shoot.draw(ctx));
 
         this.ath.draw();
     }
@@ -115,7 +115,7 @@ export class Game {
         );
         this.enemys.forEach((enemy: Enemy): void => enemy.update(deltaTime));
         this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
-        this.player.arrows.forEach((arrow: Arrow): void => arrow.update(deltaTime))
+        this.player.shoots.forEach((shoot: Shoot): void => shoot.update(deltaTime))
 
         this.draw();
 

@@ -1,6 +1,8 @@
 import { getImage } from '../functions.js';
 
-import {Arrow} from './shoots/Arrow.js';
+import { Shoot } from './shoots/Shoots.js';
+import { Arrow } from './shoots/Arrow.js';
+import { FireBall } from './shoots/FireBall.js';
 import { Inputs } from './Inputs.js';
 import { Loot } from './loots/Loot.js';
 
@@ -38,7 +40,7 @@ export class Player {
     public mana = 0;
     public health = this.INITIAL_HEALTH;
 
-    public arrows: Arrow[] = [];
+    public shoots: Shoot[] = [];
 
     constructor(
         private readonly initial_x: number,
@@ -60,19 +62,19 @@ export class Player {
             }
         });
 
-        if (inputs.mouse.down && this.cooldown === 0) {
-            this.cooldown = 2000; // ms
-
+        if (inputs.keys.one && this.cooldown === 0) {
+            /*
             const playerCenter = {
                 x: this.x + this.WIDTH / 2,
                 y: this.y + this.HEIGHT / 2
             };
-
             const dy = inputs.mouse.y - playerCenter.y;
             const dx = inputs.mouse.x - playerCenter.x;
-
-            const dir = Math.atan2(dy, dx);
-            this.throwArrow(dir);
+            this.throwArrow({x: inputs.mouse.x, y: inputs.mouse.y});
+            */
+            this.throwArrow(this.getDir(inputs.getMousePos()));
+        } else if (inputs.keys.two && this.cooldown === 0) {
+            this.throwFireBall(this.getDir(inputs.getMousePos()));
         } else {
             this.cooldown -= deltaTime;
             if (this.cooldown < 0) {
@@ -139,8 +141,26 @@ export class Player {
         }
     }
 
-    private throwArrow(dir: number): void {
-        this.arrows.push(new Arrow(this.x, this.y, dir, 3));
+    private getDir(mousePos: {x: number, y: number}): number {
+        const playerCenter = {
+            x: this.x + this.WIDTH / 2,
+            y: this.y + this.HEIGHT / 2
+        };
+
+        const dx = mousePos.x - playerCenter.x
+        const dy = mousePos.y - playerCenter.y
+
+        return Math.atan2(dy, dx);
+    }
+
+    private throwArrow (dir: number) {
+        this.cooldown = 1500; // ms
+        this.shoots.push(new Arrow(this.x, this.y, dir));
+    }
+
+    private throwFireBall(dir: number) {
+        this.cooldown = 2000; // ms
+        this.shoots.push(new FireBall(this.x, this.y, dir));
     }
 
     private die(): void {
