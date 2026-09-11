@@ -1,6 +1,6 @@
 import { getImage } from "../../functions.js";
 
-import { Loot } from "./Loot";
+import { Loot } from "./Loot.js";
 import { Game } from "../Game.js";
 import { Player } from "../Player.js";
 
