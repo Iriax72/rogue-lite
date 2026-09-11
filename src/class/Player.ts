@@ -62,7 +62,7 @@ export class Player {
             }
         });
 
-        if (inputs.keys.one && this.cooldown === 0) {
+        if (inputs.keys['1'] && this.cooldown === 0) {
             /*
             const playerCenter = {
                 x: this.x + this.WIDTH / 2,
@@ -73,7 +73,7 @@ export class Player {
             this.throwArrow({x: inputs.mouse.x, y: inputs.mouse.y});
             */
             this.throwArrow(this.getDir(inputs.getMousePos()));
-        } else if (inputs.keys.two && this.cooldown === 0) {
+        } else if (inputs.keys['2'] && this.cooldown === 0) {
             this.throwFireBall(this.getDir(inputs.getMousePos()));
         } else {
             this.cooldown -= deltaTime;

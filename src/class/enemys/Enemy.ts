@@ -32,7 +32,7 @@ export abstract class Enemy {
         this.player.shoots.forEach((shoot: Shoot): void => {
             if (this.collides(shoot.getRect())) {
                 this.health -= shoot.strength;
-                this.player.shoots.filter(s => s !== shoot);
+                this.player.shoots = this.player.shoots.filter(s => s !== shoot);
             }
         })
         if (this.health <= 0) {
