@@ -30,6 +30,7 @@ export class ATH {
         ctx.fillStyle = 'orange';
         ctx.font = '20px Arial';
         ctx.fillText(`Gold: ${this.player.gold}|`, 10, 20);
-        ctx.fillText(`Health: ${this.player.health}|`, 10, 60);
+        ctx.fillText(`Mana: ${this.player.mana}|`, 10, 60)
+        ctx.fillText(`Health: ${this.player.health}|`, 10, 100);
     }
 }

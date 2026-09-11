@@ -15,15 +15,15 @@ export abstract class Enemy {
     constructor (
         protected x: number,
         protected y: number,
-        protected readonly width: number,
-        protected readonly height: number,
-        protected readonly strength: number,
-        protected readonly cooldown: number,
+        private readonly width: number,
+        private readonly height: number,
+        private readonly strength: number,
+        private readonly cooldown: number,
         public health: number,
-        protected readonly lootValue: number,
-        protected readonly image: HTMLImageElement,
-        protected readonly dropLoot: Function,
-        protected readonly player: Player,
+        private readonly goldValue: number,
+        private readonly image: HTMLImageElement,
+        private readonly dropGoldBag: Function,
+        private readonly player: Player,
     ) {}
 
     protected abstract move(deltaTime: number): void
@@ -56,11 +56,11 @@ export abstract class Enemy {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
 
-    protected die(): void {
+    private die(): void {
         if (this.isDead) {
             return;
         }
-        this.dropLoot(this.x, this.y, this.lootValue);
+        this.dropGoldBag(this.x, this.y, this.goldValue);
         this.isDead = true;
     }
 

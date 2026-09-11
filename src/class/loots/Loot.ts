@@ -8,15 +8,15 @@ type Rect = {
     h: number
 }
 
-export class Loot {
+export abstract class Loot {
     private readonly WIDTH = 15;
     private readonly HEIGHT = 15;
 
     constructor (
-        private readonly game: Game,
+        protected readonly game: Game,
         private readonly x: number,
         private readonly y: number,
-        private readonly value: number,
+        protected readonly value: number,
         private readonly image: HTMLImageElement
     ) {}
 
@@ -39,8 +39,5 @@ export class Loot {
         }
     }
 
-    public pickup(player: Player): void {
-        player.gold += this.value;
-        this.game.loots = this.game.loots.filter((loot) => loot !== this)
-    }
+    public abstract pickup(player: Player): void
 }

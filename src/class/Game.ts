@@ -1,6 +1,8 @@
 import { getImage } from "../functions.js";
 
-import {Loot} from "./loots/Loot.js";
+import { Loot } from "./loots/Loot.js";
+import {GoldBag} from "./loots/GoldBag.js";
+import { ManaBottle } from "./loots/ManaBottle.js";
 import {Guardian} from "./enemys/Guardian.js";
 import {Slime} from "./enemys/Slime.js";
 import {Player} from "./Player.js";
@@ -28,7 +30,7 @@ export class Game {
         private readonly inputs: Inputs,
         private readonly ath: ATH
     ) {
-        this.dropLoot = this.dropLoot.bind(this);
+        this.dropGoldBag = this.dropGoldBag.bind(this);
         this.lastTimestamp = 0;
     }
 
@@ -37,21 +39,27 @@ export class Game {
         const firstRow = this.map[0];
         this.canvas.width = firstRow.length * this.tile_size;
         // Test
-        const lootImage = getImage('loot-image');
-        for (let i = 0; i < 10; i++) {
-            this.loots.push(new Loot(
+        for (let i = 0; i < 5; i++) {
+            this.loots.push(new GoldBag(
                 this,
                 Math.floor(Math.random() * this.canvas.width),
                 Math.floor(Math.random() * this.canvas.height),
-                20,
-                lootImage
+                20
             ));
+        }
+        for (let i = 0; i < 5; i++) {
+            this.loots.push(new ManaBottle(
+                this,
+                Math.floor(Math.random() * this.canvas.width),
+                Math.floor(Math.random() * this.canvas.height),
+                5
+            ))
         }
 
 
         // Tests
-        this.enemys.push(new Guardian(59, 290, this.dropLoot, this.player));
-        this.enemys.push(new Slime(59, 240, this.dropLoot, this.player));
+        this.enemys.push(new Guardian(59, 290, this.dropGoldBag, this.player));
+        this.enemys.push(new Slime(59, 240, this.dropGoldBag, this.player));
 
         this.update(0);
     }
@@ -115,7 +123,7 @@ export class Game {
         requestAnimationFrame((timestamp) => this.update(timestamp));
     }
 
-    private dropLoot(x: number, y: number, value: number): void {
-        this.loots.push(new Loot(this, x, y, value, getImage('loot-image')));
+    private dropGoldBag(x: number, y: number, value: number): void {
+        this.loots.push(new GoldBag(this, x, y, value));
     }
 }

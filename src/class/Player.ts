@@ -35,6 +35,7 @@ export class Player {
     private cooldown = 0;
 
     public gold = 0;
+    public mana = 0;
     public health = this.INITIAL_HEALTH;
 
     public arrows: Arrow[] = [];
