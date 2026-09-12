@@ -12,4 +12,6 @@ export class FireBall extends Shoot {
             getImage('fire-ball-img')
         );
     }
+
+    override readonly cooldown = 2000;
 }

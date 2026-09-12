@@ -10,10 +10,10 @@ export class Inputs {
             this.keys[e.key] = false;
         });
 
-        canvas.addEventListener('mousedown', (e: MouseEvent): void => {
+        canvas.addEventListener('mousedown', (): void => {
             this.mouse.down = true;
         });
-        canvas.addEventListener('mouseup', (e: MouseEvent): void => {
+        canvas.addEventListener('mouseup', (): void => {
             this.mouse.down = false;
         });
         canvas.addEventListener('mousemove', (e: MouseEvent): void => {

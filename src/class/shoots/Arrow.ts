@@ -12,4 +12,6 @@ export class Arrow extends Shoot {
             getImage('arrow-img')
         );
     }
+
+    override readonly cooldown = 1500;
 }

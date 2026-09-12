@@ -18,6 +18,8 @@ type Vector2d = {
     y: number
 };
 
+type ShootConstructor<T extends Shoot> = new (x: number, y: number, dir: number) => T
+
 type MapRow = readonly [number, ...number[]];
 type Map = readonly [MapRow, ...MapRow[]];
 
@@ -72,9 +74,9 @@ export class Player {
             const dx = inputs.mouse.x - playerCenter.x;
             this.throwArrow({x: inputs.mouse.x, y: inputs.mouse.y});
             */
-            this.throwArrow(this.getDir(inputs.getMousePos()));
+            this.throwShoot(Arrow, this.getDir(inputs.getMousePos()));
         } else if (inputs.keys['2'] && this.cooldown === 0) {
-            this.throwFireBall(this.getDir(inputs.getMousePos()));
+            this.throwShoot(FireBall, this.getDir(inputs.getMousePos()));
         } else {
             this.cooldown -= deltaTime;
             if (this.cooldown < 0) {
@@ -153,6 +155,7 @@ export class Player {
         return Math.atan2(dy, dx);
     }
 
+    /*
     private throwArrow (dir: number) {
         this.cooldown = 1500; // ms
         this.shoots.push(new Arrow(this.x, this.y, dir));
@@ -161,6 +164,13 @@ export class Player {
     private throwFireBall(dir: number) {
         this.cooldown = 2000; // ms
         this.shoots.push(new FireBall(this.x, this.y, dir));
+    }
+    */
+
+    private throwShoot<T extends Shoot>(shootClass: ShootConstructor<T>, dir: number): void {
+        const shoot = new shootClass(this.x, this.y, dir);
+        this.cooldown = shoot.cooldown;
+        this.shoots.push(shoot);
     }
 
     private die(): void {

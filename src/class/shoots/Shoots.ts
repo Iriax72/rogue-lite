@@ -17,6 +17,8 @@ export abstract class Shoot {
         private readonly image: HTMLImageElement
     ) {}
 
+    abstract readonly cooldown: number; // ms
+
     public update (deltaTime: number): void {
         this.x += Math.cos(this.dir) * deltaTime * this.speed;
         this.y += Math.sin(this.dir) * deltaTime * this.speed;
