@@ -20,6 +20,7 @@ export class Game {
     public loots: Loot[] = [];
     private enemys: Enemy[] = []
 
+    private isPaused: boolean = false;
     private lastTimestamp: Timestamp;
 
     constructor(
@@ -102,20 +103,26 @@ export class Game {
 
         this.player.shoots.forEach((shoot: Shoot): void => shoot.draw(ctx));
 
-        this.ath.draw();
+        this.ath.draw(this.isPaused);
     }
 
     private update(timestamp: Timestamp): void {
         const deltaTime: Timestamp = timestamp - this.lastTimestamp;
-        
-        this.player.update(
-            deltaTime,
-            this.inputs,
-            this.loots
-        );
-        this.enemys.forEach((enemy: Enemy): void => enemy.update(deltaTime));
-        this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
-        this.player.shoots.forEach((shoot: Shoot): void => shoot.update(deltaTime))
+
+        if (this.inputs.keys['p']) {
+            this.isPaused = !this.isPaused;
+        }
+
+        if (!this.isPaused) {
+            this.player.update(
+                deltaTime,
+                this.inputs,
+                this.loots
+            );
+            this.enemys.forEach((enemy: Enemy): void => enemy.update(deltaTime));
+            this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
+            this.player.shoots.forEach((shoot: Shoot): void => shoot.update(deltaTime));
+        }
 
         this.draw();
 
