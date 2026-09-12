@@ -1,10 +1,12 @@
 export class Inputs {
     public keys: {[key: string]: boolean} = {};
+    public keyDowns: {[key: string]: boolean} = {};
     public mouse = {x: 0, y: 0, down: false}
 
     constructor(canvas: HTMLCanvasElement) {
         window.addEventListener('keydown', (e: KeyboardEvent): void => {
             this.keys[e.key] = true;
+            this.keyDowns[e.key] = true;
         });
         window.addEventListener('keyup', (e: KeyboardEvent): void => {
             this.keys[e.key] = false;
