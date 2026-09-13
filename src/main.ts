@@ -1,11 +1,11 @@
 import { assertDefined } from './functions.js';
-assertDefined(3);
-//import {Game} from './class/Game.js';
-//import {Player} from './class/Player.js';
-//import {Inputs} from './class/Inputs.js';
-//import {ATH} from './class/ATH.js';
-//import {map} from './map.js';
-/*
+
+import {Game} from './class/Game.js';
+import {Player} from './class/Player.js';
+import {Inputs} from './class/Inputs.js';
+import {ATH} from './class/ATH.js';
+import {map} from './map.js';
+
 console.log('imports faits');
 
 // References DOM
@@ -30,17 +30,15 @@ await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Pro
     });
 }));
 
-console.log('Création des instances');
-
 const player = new Player(
     59, 240,
     mapLevel, TILE_SIZE
 );
-console.log('1');
+
 const ath = new ATH(gameCanvas, player);
-console.log('2');
+
 const inputs = new Inputs(gameCanvas);
-console.log('3');
+
 const game = new Game(
     gameCanvas,
     mapLevel,
@@ -49,8 +47,7 @@ const game = new Game(
     inputs,
     ath
 );
-console.log('Instances créées');
+
 game.init();
 
 console.log('main.ts executé');
-*/

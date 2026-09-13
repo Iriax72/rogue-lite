@@ -1,6 +1,6 @@
 import { getImage } from "../../functions.js";
 
-import { Shoot } from "./Shoots";
+import { Shoot } from "./Shoots.ts";
 
 export class Arrow extends Shoot {
     constructor (x: number, y: number, dir: number) {
