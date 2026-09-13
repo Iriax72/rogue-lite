@@ -1,4 +1,4 @@
-import { Player } from "./Player.ts";
+import { Player } from "./Player.js";
 
 export class ATH {
     private readonly LIGHT_RADIUS = 25; // px

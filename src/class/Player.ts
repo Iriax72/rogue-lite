@@ -1,10 +1,10 @@
-import { getImage } from '../functions.ts';
+import { getImage } from '../functions.js';
 
-import { Shoot } from './shoots/Shoots.ts';
-import { Arrow } from './shoots/Arrow.ts';
-import { FireBall } from './shoots/FireBall.ts';
-import { Inputs } from './Inputs.ts';
-import { Loot } from './loots/Loot.ts';
+import { Shoot } from './shoots/Shoots.js';
+import { Arrow } from './shoots/Arrow.js';
+import { FireBall } from './shoots/FireBall.js';
+import { Inputs } from './Inputs.js';
+import { Loot } from './loots/Loot.js';
 
 type Rect = {
     x: number,

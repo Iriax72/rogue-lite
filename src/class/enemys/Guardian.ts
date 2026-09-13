@@ -1,7 +1,7 @@
-import { getImage } from "../../functions.ts";
+import { getImage } from "../../functions.js";
 
-import { Player } from "../Player.ts";
-import {Enemy} from "./Enemy.ts";
+import { Player } from "../Player.js";
+import {Enemy} from "./Enemy.js";
 
 export class Guardian extends Enemy {
     constructor(x: number, y: number, dropLoot: Function, player: Player) {
