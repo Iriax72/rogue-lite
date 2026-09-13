@@ -3,6 +3,22 @@ body {
     padding: 0;
 }
 
+/* TEMPORAIRE */
+#debug-error-box {
+    position: fixe;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    padding: 12px;
+    background-color: rgba(255, 0, 0, 0.9);
+    color: white;
+    font-family: 'monospace';
+    font-size: 14px;
+    z-index: 9999;
+    border-radius: 8px;
+    white-space: pre-wrap;
+}
+
 canvas {
     background-color: #0f0;
     touch-action: none;

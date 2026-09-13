@@ -30,4 +30,8 @@ export class Inputs {
             y: this.mouse.y
         }
     }
+
+    update(): void {
+        this.keyDowns = {};
+    }
 }
