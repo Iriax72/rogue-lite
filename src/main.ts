@@ -1,11 +1,11 @@
 import { assertDefined } from './functions.js';
-
+assertDefined(3);
 //import {Game} from './class/Game.js';
 //import {Player} from './class/Player.js';
 //import {Inputs} from './class/Inputs.js';
 //import {ATH} from './class/ATH.js';
 //import {map} from './map.js';
-
+/*
 console.log('imports faits');
 
 // References DOM
@@ -53,3 +53,4 @@ console.log('Instances créées');
 game.init();
 
 console.log('main.ts executé');
+*/
