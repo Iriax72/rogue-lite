@@ -21,6 +21,7 @@
             if (!errorBox) {
                 errorBox = document.createElement('div');
                 errorBox.id = 'debug-error-box';
+                errorBox.append('Erreurs console:\n');
                 document.body.appendChild(errorBox);
             }
             errorBox.innerText += message + '\n';
