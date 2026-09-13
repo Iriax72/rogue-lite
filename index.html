@@ -17,7 +17,7 @@
         });
 
         function showErrorOnScreen(message) {
-            if (!document) {
+            if (!document.body) {
                 window.addEventListener('DOMContentLoaded', () => showErrorOnScreen(message));
             }
             let errorBox = document.getElementById('debug-error-box');
@@ -29,7 +29,8 @@
             }
             errorBox.innerText += message + '\n';
         }
-
+    </script>
+    <script>
         throw new Error('Ceci est une erreur de test');
     </script>
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
