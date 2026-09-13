@@ -17,6 +17,9 @@
         });
 
         function showErrorOnScreen(message) {
+            if (!document) {
+                window.addEventListener('DOMContentLoaded', () => showErrorOnScreen(message));
+            }
             let errorBox = document.getElementById('debug-error-box');
             if (!errorBox) {
                 errorBox = document.createElement('div');
