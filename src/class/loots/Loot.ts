@@ -1,5 +1,5 @@
-import { Game } from "../Game.js";
-import { Player } from "../Player.js";
+import { Game } from "../Game.ts";
+import { Player } from "../Player.ts";
 
 type Rect = {
     x: number,

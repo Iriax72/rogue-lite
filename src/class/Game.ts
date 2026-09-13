@@ -1,15 +1,15 @@
-import { getImage } from "../functions.js";
+import { getImage } from "../functions.ts";
 
-import { Loot } from "./loots/Loot.js";
-import {GoldBag} from "./loots/GoldBag.js";
-import { ManaBottle } from "./loots/ManaBottle.js";
-import {Guardian} from "./enemys/Guardian.js";
-import {Slime} from "./enemys/Slime.js";
-import {Player} from "./Player.js";
-import {Inputs} from "./Inputs.js";
-import {Enemy} from "./enemys/Enemy.js";
-import {ATH} from "./ATH.js";
-import { Shoot } from "./shoots/Shoots.js";
+import { Loot } from "./loots/Loot.ts";
+import {GoldBag} from "./loots/GoldBag.ts";
+import { ManaBottle } from "./loots/ManaBottle.ts";
+import {Guardian} from "./enemys/Guardian.ts";
+import {Slime} from "./enemys/Slime.ts";
+import {Player} from "./Player.ts";
+import {Inputs} from "./Inputs.ts";
+import {Enemy} from "./enemys/Enemy.ts";
+import {ATH} from "./ATH.ts";
+import { Shoot } from "./shoots/Shoots.ts";
 
 type Timestamp = number;
 

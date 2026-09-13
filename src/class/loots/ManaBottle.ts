@@ -1,8 +1,8 @@
-import { getImage } from "../../functions.js";
+import { getImage } from "../../functions.ts";
 
-import { Loot } from "./Loot.js";
-import { Game } from "../Game.js";
-import { Player } from "../Player.js";
+import { Loot } from "./Loot.ts";
+import { Game } from "../Game.ts";
+import { Player } from "../Player.ts";
 
 export class ManaBottle extends Loot {
     constructor(game: Game, x: number, y: number, value: number) {

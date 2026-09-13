@@ -1,4 +1,4 @@
-import { getImage } from "../../functions.js";
+import { getImage } from "../../functions.ts";
 
 import { Shoot } from "./Shoots.ts";
 

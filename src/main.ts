@@ -1,10 +1,10 @@
-import { assertDefined } from './functions.js';
+import { assertDefined } from './functions.ts';
 
-import {Game} from './class/Game.js';
-import {Player} from './class/Player.js';
-import {Inputs} from './class/Inputs.js';
-import {ATH} from './class/ATH.js';
-import {map} from './map.js';
+import {Game} from './class/Game.ts';
+import {Player} from './class/Player.ts';
+import {Inputs} from './class/Inputs.ts';
+import {ATH} from './class/ATH.ts';
+import {map} from './map.ts';
 
 console.log('imports faits');
 

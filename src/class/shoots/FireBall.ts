@@ -1,6 +1,6 @@
-import { getImage } from "../../functions.js";
+import { getImage } from "../../functions.ts";
 
-import { Shoot } from "./Shoots.js";
+import { Shoot } from "./Shoots.ts";
 
 export class FireBall extends Shoot {
     constructor (x: number, y: number, dir: number) {
