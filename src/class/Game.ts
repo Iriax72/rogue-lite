@@ -109,7 +109,7 @@ export class Game {
     private update(timestamp: Timestamp): void {
         const deltaTime: Timestamp = timestamp - this.lastTimestamp;
 
-        if (this.inputs.keys['p']) {
+        if (this.inputs.keysJustPressed['p']) {
             this.isPaused = !this.isPaused;
         }
 
@@ -123,6 +123,7 @@ export class Game {
             this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
             this.player.shoots.forEach((shoot: Shoot): void => shoot.update(deltaTime));
         }
+        this.inputs.update();
 
         this.draw();
 
