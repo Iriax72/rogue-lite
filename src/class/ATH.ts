@@ -117,7 +117,8 @@ export class ATH {
     private createBtn(ctx: CanvasRenderingContext2D, rect: Rect, text: string, onClick: Function): void {
         ctx.fillStyle= 'orange';
         ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
-        ctx.fillText(text, rect.x, rect.y + rect.h / 2/*, rect.w*/);
+        ctx.fillStyle('black');
+        ctx.fillText(text, rect.x, rect.y + rect.h / 2, rect.w);
         this.buttons.push({rect, onClick});
     }
 }
