@@ -3,6 +3,6 @@
     "typescript": "^7.0.2"
   },
   "scripts": {
-    "build": "tsc && cp index.html game.html credits.html index.css game.css dist/ && sed -i 's#./dist/main.js#./main.js#' dist/index.html && cp -r assets dist/"
+    "build": "tsc && cp index.html game.html controls.html credits.html index.css game.css controls.css dist/ && sed -i 's#./dist/main.js#./main.js#' dist/index.html && cp -r assets dist/"
   }
 }
