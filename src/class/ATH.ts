@@ -16,10 +16,20 @@ export class ATH {
     private readonly BTN_WIDTH = 120; // px
     private readonly BTN_HEIGHT = 40; // px
 
+    private buttons: {rect: Rect, callBack: Function}[] = [];
+
     constructor(
         private readonly canvas: HTMLCanvasElement,
         private readonly player: Player
-    ) {}
+    ) {
+        this.canvas.addEventListener('click', (e: PointerEvent) => {
+            this.buttons.forEach(btn => {
+                if (collides(btn.rect, {x: e.offsetX, y: e.offsetY, w: 0, h: 0})) {
+                    btn.callBack();
+                }
+            });
+        });
+    }
 
     public draw(isPaused: boolean): void {
         const ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
@@ -58,6 +68,7 @@ export class ATH {
     private drawMenu(ctx: CanvasRenderingContext2D) {
         ctx.fillStyle = 'rgba(0, 0, 0, 70)'
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.buttons = []
 
         ctx.fillStyle = 'darkblue';
         ctx.fillRect(
@@ -107,10 +118,13 @@ export class ATH {
         ctx.fillStyle= 'orange';
         ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
         ctx.fillText(text, rect.x, rect.y + rect.h / 2, rect.w);
+        /*
         this.canvas.addEventListener('click', (e: PointerEvent) => {
             if (collides(rect, {x: e.offsetX, y: e.offsetY, w: 0, h: 0})) {
                 onClick();
             }
         });
+        */
+        this.buttons.push(rect, onClick);
     }
 }
