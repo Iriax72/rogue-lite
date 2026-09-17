@@ -3,50 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Rogue-lite</title>
-    <link rel="stylesheet" href="./style.css">
-    <script>
-        // Redirection des erreurs système sur l'écran
-        window.addEventListener('error', (event) => {
-            showErrorOnScreen(`ERREUR : ${event.message} (${event.filename}:${event.lineno})`);
-        });
-
-        // Redirection des erreurs de Promesses / Chargement d'images
-        window.addEventListener('unhandledrejection', (event) => {
-           showErrorOnScreen(`PROMESSE NON GÉRÉE : ${event.reason}`);
-        });
-
-        function showErrorOnScreen(message) {
-            if (!document.body) {
-                window.addEventListener('DOMContentLoaded', () => showErrorOnScreen(message));
-                return;
-            }
-            let errorBox = document.getElementById('debug-error-box');
-            if (!errorBox) {
-                errorBox = document.createElement('div');
-                errorBox.id = 'debug-error-box';
-                errorBox.append('Erreurs console:\n');
-                document.body.appendChild(errorBox);
-            }
-            errorBox.innerText += message + '\n';
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-    <script>eruda.init();</script>
-    <script type="module" src="./main.js" defer></script>
+    <title>Menu Rogue-lite</title>
+    <link rel="stylesheet" href="./index.css">
 </head>
 <body>
-    <canvas id="game-canvas">
-        <div class="hidden">
-            <img id="tile-map" src="./assets/tile_map.png" alt=""/>
-            <img id="gold-bag-img" src="./assets/gold-bag.png" alt=""/>
-            <img id="mana-bottle-img" src="./assets/mana-bottle.png" alt="">
-            <img id="arrow-img" src="./assets/arrow.png" alt=""/>
-            <img id="fire-ball-img" src="./assets/fire-ball.png" alt="">
-            <img id="slime-img" src="./assets/slime.png" alt=""/>
-            <img id="guardian-img" src="./assets/guardian.png" alt=""/>
-            <img id="player-sprite" src="./assets/player-sprite.png" alt=""/>
-        </div>
-    </canvas>
+    <a href="./index.html">jouer</a>
+    <a href="">contrôles</a>
+    <a href="./credits.html">credits</a>
 </body>
 </html>

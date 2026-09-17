@@ -1,0 +1,17 @@
+body {
+    background-color: darkmagenta;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+a {
+    background-color: lightseagreen;
+    color: black;
+    width: 75%;
+    height: 80px;
+    margin: 80px 0;
+}

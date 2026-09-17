@@ -110,6 +110,7 @@ export class ATH {
                 h: this.BTN_HEIGHT
             }, 'Quitter', () => {
                 console.log('Quitter clique (3)');
+                window.location.replace('../'); // ammene à l'index: le menu
             }
         );
     }
