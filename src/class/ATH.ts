@@ -125,6 +125,6 @@ export class ATH {
             }
         });
         */
-        this.buttons.push(rect, onClick);
+        this.buttons.push({rect, onClick});
     }
 }
