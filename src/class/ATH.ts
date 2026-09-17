@@ -53,8 +53,6 @@ export class ATH {
             return;
         }
         this.drawMenu(ctx);
-        ctx.fillStyle = 'white';
-        ctx.fillText('Le jeu est en PAUSE', this.canvas.width / 2, this.canvas.height / 2);
     }
 
     private drawMenu(ctx: CanvasRenderingContext2D) {
