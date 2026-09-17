@@ -13,8 +13,8 @@ export class ATH {
     private readonly LIGHT_RADIUS = 25; // px
     private readonly MENU_SIZE = 75 / 100; // % du canvas
     private readonly MENU_BORDER_WIDTH = 8; // px
-    private readonly BTN_WIDTH = 120; // px
-    private readonly BTN_HEIGHT = 40; // px
+    private readonly BTN_WIDTH = 200; // px
+    private readonly BTN_HEIGHT = 75; // px
 
     private buttons: {rect: Rect, onClick: Function}[] = [];
 
@@ -66,7 +66,7 @@ export class ATH {
     }
 
     private drawMenu(ctx: CanvasRenderingContext2D) {
-        ctx.fillStyle = 'rgba(0, 0, 0, 70)'
+        ctx.fillStyle = 'rgba(0, 0, 0, 40)'
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.buttons = []
 
@@ -81,8 +81,8 @@ export class ATH {
         ctx.fillRect(
             this.canvas.width / 2 - this.canvas.width * this.MENU_SIZE / 2 + this.MENU_BORDER_WIDTH,
             this.canvas.height / 2 - this.canvas.height * this.MENU_SIZE / 2 + this.MENU_BORDER_WIDTH,
-            this.canvas.width * this.MENU_SIZE - this.MENU_BORDER_WIDTH,
-            this.canvas.height * this.MENU_SIZE - this.MENU_BORDER_WIDTH
+            this.canvas.width * this.MENU_SIZE - 2 * this.MENU_BORDER_WIDTH,
+            this.canvas.height * this.MENU_SIZE - 2 * this.MENU_BORDER_WIDTH
         );
 
         this.createBtn(ctx, {
@@ -118,13 +118,6 @@ export class ATH {
         ctx.fillStyle= 'orange';
         ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
         ctx.fillText(text, rect.x, rect.y + rect.h / 2, rect.w);
-        /*
-        this.canvas.addEventListener('click', (e: PointerEvent) => {
-            if (collides(rect, {x: e.offsetX, y: e.offsetY, w: 0, h: 0})) {
-                onClick();
-            }
-        });
-        */
         this.buttons.push({rect, onClick});
     }
 }
