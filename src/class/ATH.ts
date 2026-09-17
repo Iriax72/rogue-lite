@@ -16,7 +16,7 @@ export class ATH {
     private readonly BTN_WIDTH = 120; // px
     private readonly BTN_HEIGHT = 40; // px
 
-    private buttons: {rect: Rect, callBack: Function}[] = [];
+    private buttons: {rect: Rect, onClick: Function}[] = [];
 
     constructor(
         private readonly canvas: HTMLCanvasElement,
@@ -25,7 +25,7 @@ export class ATH {
         this.canvas.addEventListener('click', (e: PointerEvent) => {
             this.buttons.forEach(btn => {
                 if (collides(btn.rect, {x: e.offsetX, y: e.offsetY, w: 0, h: 0})) {
-                    btn.callBack();
+                    btn.onClick();
                 }
             });
         });
