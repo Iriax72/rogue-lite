@@ -1,9 +1,20 @@
+import { collides } from "../functions.js";
+
 import { Player } from "./Player.js";
+
+type Rect = {
+    x: number,
+    y: number,
+    w: number,
+    h: number
+};
 
 export class ATH {
     private readonly LIGHT_RADIUS = 25; // px
     private readonly MENU_SIZE = 75 / 100; // % du canvas
     private readonly MENU_BORDER_WIDTH = 8; // px
+    private readonly BTN_WIDTH = 120; // px
+    private readonly BTN_HEIGHT = 40; // px
 
     constructor(
         private readonly canvas: HTMLCanvasElement,
@@ -64,5 +75,44 @@ export class ATH {
             this.canvas.width * this.MENU_SIZE - this.MENU_BORDER_WIDTH,
             this.canvas.height * this.MENU_SIZE - this.MENU_BORDER_WIDTH
         );
+
+        this.createBtn(ctx, {
+                x: this.canvas.width / 2 - this.BTN_WIDTH / 2,
+                y: this.canvas.height * (1-this.MENU_SIZE) / 2 + (this.canvas.height * this.MENU_SIZE - 3 * this.BTN_HEIGHT),
+                w: this.BTN_WIDTH,
+                h: this.BTN_HEIGHT
+            }, 'Reprendre', () => {
+                alert('Reprendre clique');
+            }
+        );
+        this.createBtn(ctx, {
+                x: this.canvas.width / 2 - this.BTN_WIDTH / 2,
+                y: this.canvas.height * (1-this.MENU_SIZE) / 2 + (this.canvas.height * this.MENU_SIZE - 3 * this.BTN_HEIGHT) * 2 + this.BTN_HEIGHT,
+                w: this.BTN_WIDTH,
+                h: this.BTN_HEIGHT
+            }, 'Contrôles', () => {
+                alert('Controles clique');
+            }
+        );
+        this.createBtn(ctx, {
+                x: this.canvas.width / 2 - this.BTN_WIDTH / 2,
+                y: this.canvas.height * (1-this.MENU_SIZE) / 2 + (this.canvas.height * this.MENU_SIZE - 3 * this.BTN_HEIGHT) * 3 + this.BTN_HEIGHT * 2,
+                w: this.BTN_WIDTH,
+                h: this.BTN_HEIGHT
+            }, 'Quitter', () => {
+                alert('Quitter clique');
+            }
+        );
+    }
+
+    private createBtn(ctx: CanvasRenderingContext2D, rect: Rect, text: string, onClick: Function): void {
+        ctx.fillStyle= 'orange';
+        ctx.fillRect(rect);
+        ctx.fillText(text, rect.x, rect.y + rect.h / 2, rect.w);
+        this.canvas.addEventListener('click', (e: PointerEvent) => {
+            if (collides(rect, {x: e.offsetX, y: e.offsetY, w: 0, h: 0})) {
+                onClick();
+            }
+        });
     }
 }
