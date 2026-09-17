@@ -107,7 +107,7 @@ export class ATH {
 
     private createBtn(ctx: CanvasRenderingContext2D, rect: Rect, text: string, onClick: Function): void {
         ctx.fillStyle= 'orange';
-        ctx.fillRect(rect);
+        ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
         ctx.fillText(text, rect.x, rect.y + rect.h / 2, rect.w);
         this.canvas.addEventListener('click', (e: PointerEvent) => {
             if (collides(rect, {x: e.offsetX, y: e.offsetY, w: 0, h: 0})) {
