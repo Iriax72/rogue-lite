@@ -50,4 +50,12 @@ const game = new Game(
 
 game.init();
 
-console.log('main.ts executé');
+console.log('Lancement des tests');
+
+setTimeout(() => {
+    game.isPaused = !game.isPaused;
+}, 500);
+
+setInterval(() => {
+    game.isPaused = !game.isPaused;
+}, 1500);

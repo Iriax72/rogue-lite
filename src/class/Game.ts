@@ -20,7 +20,7 @@ export class Game {
     public loots: Loot[] = [];
     private enemys: Enemy[] = []
 
-    private isPaused: boolean = false;
+    public isPaused: boolean = false; // Rendre privé à la fin des tests
     private lastTimestamp: Timestamp;
 
     constructor(
