@@ -87,7 +87,7 @@ export class ATH {
 
         this.createBtn(ctx, {
                 x: this.canvas.width / 2 - this.BTN_WIDTH / 2,
-                y: this.canvas.height * (1-this.MENU_SIZE) / 2 + (this.canvas.height * this.MENU_SIZE - 3 * this.BTN_HEIGHT),
+                y: this.canvas.height * (1-this.MENU_SIZE) / 2 + (this.canvas.height * this.MENU_SIZE - 3 * this.BTN_HEIGHT) / 4,
                 w: this.BTN_WIDTH,
                 h: this.BTN_HEIGHT
             }, 'Reprendre', () => {
@@ -96,7 +96,7 @@ export class ATH {
         );
         this.createBtn(ctx, {
                 x: this.canvas.width / 2 - this.BTN_WIDTH / 2,
-                y: this.canvas.height * (1-this.MENU_SIZE) / 2 + (this.canvas.height * this.MENU_SIZE - 3 * this.BTN_HEIGHT) * 2 + this.BTN_HEIGHT,
+                y: this.canvas.height * (1-this.MENU_SIZE) / 2 + (this.canvas.height * this.MENU_SIZE - 3 * this.BTN_HEIGHT) / 4 * 2 + this.BTN_HEIGHT,
                 w: this.BTN_WIDTH,
                 h: this.BTN_HEIGHT
             }, 'Contrôles', () => {
@@ -105,7 +105,7 @@ export class ATH {
         );
         this.createBtn(ctx, {
                 x: this.canvas.width / 2 - this.BTN_WIDTH / 2,
-                y: this.canvas.height * (1-this.MENU_SIZE) / 2 + (this.canvas.height * this.MENU_SIZE - 3 * this.BTN_HEIGHT) * 3 + this.BTN_HEIGHT * 2,
+                y: this.canvas.height * (1-this.MENU_SIZE) / 2 + (this.canvas.height * this.MENU_SIZE - 3 * this.BTN_HEIGHT) / 4 * 3 + this.BTN_HEIGHT * (3 - 1),
                 w: this.BTN_WIDTH,
                 h: this.BTN_HEIGHT
             }, 'Quitter', () => {
