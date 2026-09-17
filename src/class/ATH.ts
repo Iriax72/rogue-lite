@@ -80,7 +80,7 @@ export class ATH {
                 w: this.BTN_WIDTH,
                 h: this.BTN_HEIGHT
             }, 'Reprendre', () => {
-                alert('Reprendre clique');
+                console.log('Reprendre clique (1)');
             }
         );
         this.createBtn(ctx, {
@@ -89,7 +89,7 @@ export class ATH {
                 w: this.BTN_WIDTH,
                 h: this.BTN_HEIGHT
             }, 'Contrôles', () => {
-                alert('Controles clique');
+                console.log('Controles clique (2)');
             }
         );
         this.createBtn(ctx, {
@@ -98,7 +98,7 @@ export class ATH {
                 w: this.BTN_WIDTH,
                 h: this.BTN_HEIGHT
             }, 'Quitter', () => {
-                alert('Quitter clique');
+                console.log('Quitter clique (3)');
             }
         );
     }
