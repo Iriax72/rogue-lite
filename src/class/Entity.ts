@@ -11,7 +11,7 @@ export abstract class Entity {
         protected y: number,
         protected width: number,
         protected height: number
-    )
+    ) {}
 
     public getRect(): Rect {
         return {
