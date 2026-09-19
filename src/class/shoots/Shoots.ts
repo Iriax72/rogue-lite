@@ -1,3 +1,5 @@
+import { Entity } from "../Entity.js";
+
 type Rect = {
     x: number,
     y: number,
@@ -7,15 +9,17 @@ type Rect = {
 
 export abstract class Shoot {
     constructor (
-        private x: number,
-        private y: number,
-        private readonly width: number,
-        private readonly height: number,
+        x: number,
+        y: number,
+        width: number,
+        height: number,
         private readonly dir: number,
         public readonly strength: number,
         private readonly speed: number, // pixel / ms
         private readonly image: HTMLImageElement
-    ) {}
+    ) {
+        super(x, y, width, height);
+    }
 
     abstract readonly cooldown: number; // ms
 
@@ -30,14 +34,5 @@ export abstract class Shoot {
         ctx.rotate(this.dir);
         ctx.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
         ctx.restore();
-    }
-
-    public getRect(): Rect {
-        return {
-            x: this.x,
-            y: this.y,
-            w: this.width,
-            h: this.height
-        }
     }
 }

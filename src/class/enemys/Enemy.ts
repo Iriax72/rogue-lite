@@ -1,3 +1,5 @@
+import { Entity } from "../Entity.js";
+
 import type { Player } from "../Player.js";
 import { Shoot } from "../shoots/Shoots.js";
 
@@ -8,15 +10,15 @@ type Rect = {
     h: number
 }
 
-export abstract class Enemy {
+export abstract class Enemy extends Entity {
     public isDead: boolean = false;
     private currentCooldown = 0;
 
     constructor (
-        protected x: number,
-        protected y: number,
-        private readonly width: number,
-        private readonly height: number,
+        x: number,
+        y: number,
+        width: number,
+        height: number,
         private readonly strength: number,
         private readonly cooldown: number,
         public health: number,
@@ -24,7 +26,9 @@ export abstract class Enemy {
         private readonly image: HTMLImageElement,
         private readonly dropGoldBag: Function,
         private readonly player: Player,
-    ) {}
+    ) {
+        super(x, y, width, height);
+    }
 
     protected abstract move(deltaTime: number): void
 

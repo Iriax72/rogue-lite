@@ -16,7 +16,7 @@ export class ATH {
     private readonly BTN_WIDTH = 200; // px
     private readonly BTN_HEIGHT = 75; // px
 
-    private readonly containerImg;
+    private readonly containerImg: HTMLImageElement;
 
     private buttons: {rect: Rect, onClick: Function}[] = [];
 

@@ -1,3 +1,4 @@
+import { Entity } from "../Entity.js";
 import { Game } from "../Game.js";
 import { Player } from "../Player.js";
 
@@ -8,35 +9,25 @@ type Rect = {
     h: number
 }
 
-export abstract class Loot {
-    private readonly WIDTH = 15;
-    private readonly HEIGHT = 15;
-
+export abstract class Loot extends Entity {
     constructor (
         protected readonly game: Game,
-        private readonly x: number,
-        private readonly y: number,
+        x: number,
+        y: number,
         protected readonly value: number,
         private readonly image: HTMLImageElement
-    ) {}
+    ) {
+        super(x, y, 15, 15);
+    }
 
     public draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(
             this.image,
             this.x,
             this.y,
-            this.WIDTH,
-            this.HEIGHT
+            this.width,
+            this.height
         );
-    }
-
-    public getRect(): Rect {
-        return{
-            x: this.x,
-            y: this.y,
-            w: this.WIDTH,
-            h: this.HEIGHT
-        }
     }
 
     public abstract pickup(player: Player): void
