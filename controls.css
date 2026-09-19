@@ -4,8 +4,8 @@ body {
 }
 
 ul {
-    width: 100dvw;
-    height: 100dvh;
+    width: 100vw;
+    height: 100vh;
     background: radial-gradient(#a50, #000);
     background-size: cover;
     background-repeat: no-repeat;

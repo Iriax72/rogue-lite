@@ -80,7 +80,7 @@ export class ATH {
             this.canvas.width * this.MENU_SIZE * 0.3,
             this.canvas.width / 2,
             this.canvas.height / 2,
-            this.canvas.width * this.MENU_SIZE
+            this.canvas.width * this.MENU_SIZE * 0.7
         );
         gradiant.addColorStop(0, '#a50');
         gradiant.addColorStop(1, '#000');
