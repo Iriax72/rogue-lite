@@ -1,4 +1,4 @@
-import { collides } from "../functions.js";
+import { getImage, collides } from "../functions.js";
 
 import { Player } from "./Player.js";
 
@@ -16,14 +16,14 @@ export class ATH {
     private readonly BTN_WIDTH = 200; // px
     private readonly BTN_HEIGHT = 75; // px
 
-    private readonly containerImg = document.querySelector('#container-img');
-
     private buttons: {rect: Rect, onClick: Function}[] = [];
 
     constructor(
         private readonly canvas: HTMLCanvasElement,
         private readonly player: Player
     ) {
+        this.containerImg = getImage('container-img');
+
         this.canvas.addEventListener('click', (e: PointerEvent) => {
             this.buttons.forEach(btn => {
                 if (collides(btn.rect, {x: e.offsetX, y: e.offsetY, w: 0, h: 0})) {
