@@ -77,7 +77,7 @@ export class ATH {
         const gradiant = ctx.createRadialGradient(
             this.canvas.width / 2,
             this.canvas.height / 2,
-            this.canvas.width * this.MENU_SIZE * 0.3,
+            this.canvas.width * this.MENU_SIZE * 0.15,
             this.canvas.width / 2,
             this.canvas.height / 2,
             this.canvas.width * this.MENU_SIZE * 0.7
