@@ -74,7 +74,7 @@ export class ATH {
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.buttons = []
 
-        const radiant = ctx.createRadialGradient(
+        const gradiant = ctx.createRadialGradient(
             this.canvas.width / 2,
             this.canvas.height / 2,
             this.canvas.width * this.MENU_SIZE * 0.3,
@@ -82,7 +82,9 @@ export class ATH {
             this.canvas.height / 2,
             this.canvas.width * this.MENU_SIZE
         );
-        ctx.fillStyle = radiant;
+        gradiant.addColorStop(0, '#a50');
+        gradiant.addColorStop(1, '#000');
+        ctx.fillStyle = gradiant;
         ctx.fillRect(
             this.canvas.width / 2 - this.canvas.width * this.MENU_SIZE / 2,
             this.canvas.height / 2 - this.canvas.height * this.MENU_SIZE / 2,

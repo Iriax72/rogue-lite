@@ -1,4 +1,6 @@
 body {
+    width: 100dvw;
+    height: 100dvh;
     background: radial-gradient(#a50, #000);
     background-size: cover;
     background-repeat: no-repeat;
@@ -12,8 +14,8 @@ body {
 }
 
 .container {
-    height: 20vh;
-    width: 75vw;
+    height: 20dvh;
+    width: 75dvw;
     background-image: url("./assets/container.png");
     background-size: cover;
     background-repeat: no-repeat;
