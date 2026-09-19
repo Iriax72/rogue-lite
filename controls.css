@@ -1,11 +1,15 @@
 ul {
-    background-color: grey;
+    background: radial-gradient(#000, #a50);
     margin: 30px;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
 li {
+    background-image: url("./assets/container.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     margin: 20px;
     display: flex;
     align-items: center;
