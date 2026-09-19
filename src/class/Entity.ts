@@ -5,7 +5,7 @@ type Rect = {
     h: number
 };
 
-export class Entity {
+export abstract class Entity {
     constructor(
         protected x: number,
         protected y: number,
