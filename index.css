@@ -1,5 +1,8 @@
 body {
-    background: radial-gradient(#000, #a50);
+    background: radial-gradient(#a50, #000);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     margin: 0;
     padding: 40px;
     display: flex;
@@ -9,12 +12,15 @@ body {
 }
 
 .container {
+    height: 20vh;
+    width: 75vw;
     background-image: url("./assets/container.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     width: 75%;
     height: 80px;
+    text-align: center;
 }
 
 .container a {

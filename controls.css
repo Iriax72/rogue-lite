@@ -1,6 +1,11 @@
 ul {
-    background: radial-gradient(#000, #a50);
-    margin: 30px;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(#a50, #000);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 15px;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -11,13 +16,15 @@ li {
     background-repeat: no-repeat;
     background-position: center;
     margin: 20px;
+    padding: 5px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 span {
     margin: 5px;
-    background-color: darkgrey;
+    background-color: black;
     border-radius: 9px;
+    color: #edc;
 }
