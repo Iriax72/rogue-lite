@@ -12,9 +12,11 @@ type Rect = {
 export class ATH {
     private readonly LIGHT_RADIUS = 25; // px
     private readonly MENU_SIZE = 75 / 100; // % du canvas
-    private readonly MENU_BORDER_WIDTH = 8; // px
+    // private readonly MENU_BORDER_WIDTH = 8; // px
     private readonly BTN_WIDTH = 200; // px
     private readonly BTN_HEIGHT = 75; // px
+
+    private readonly containerImg = document.querySelector('#container-img');
 
     private buttons: {rect: Rect, onClick: Function}[] = [];
 
@@ -70,19 +72,20 @@ export class ATH {
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.buttons = []
 
-        ctx.fillStyle = 'darkblue';
+        const radiant = ctx.createRadialGradient(
+            this.canvas.width / 2,
+            this.canvas.height / 2,
+            this.canvas.width * this.MENU_SIZE * 0.3,
+            this.canvas.width / 2,
+            this.canvas.height / 2,
+            this.canvas.width * this.MENU_SIZE
+        );
+        ctx.fillStyle = radiant;
         ctx.fillRect(
             this.canvas.width / 2 - this.canvas.width * this.MENU_SIZE / 2,
             this.canvas.height / 2 - this.canvas.height * this.MENU_SIZE / 2,
             this.canvas.width * this.MENU_SIZE,
             this.canvas.height * this.MENU_SIZE
-        );
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(
-            this.canvas.width / 2 - this.canvas.width * this.MENU_SIZE / 2 + this.MENU_BORDER_WIDTH,
-            this.canvas.height / 2 - this.canvas.height * this.MENU_SIZE / 2 + this.MENU_BORDER_WIDTH,
-            this.canvas.width * this.MENU_SIZE - 2 * this.MENU_BORDER_WIDTH,
-            this.canvas.height * this.MENU_SIZE - 2 * this.MENU_BORDER_WIDTH
         );
 
         this.createBtn(ctx, {
@@ -116,9 +119,14 @@ export class ATH {
     }
 
     private createBtn(ctx: CanvasRenderingContext2D, rect: Rect, text: string, onClick: Function): void {
-        ctx.fillStyle= 'orange';
-        ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
-        ctx.fillStyle = 'black';
+        ctx.drawImage(
+            this.containerImg,
+            rect.x,
+            rect.y,
+            rect.w,
+            rect.h
+        );
+        ctx.fillStyle = '#edc';
         ctx.fillText(text, rect.x, rect.y + rect.h / 2, rect.w);
         this.buttons.push({rect, onClick});
     }
