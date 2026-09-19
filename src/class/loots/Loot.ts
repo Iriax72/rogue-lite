@@ -2,13 +2,6 @@ import { Entity } from "../Entity.js";
 import { Game } from "../Game.js";
 import { Player } from "../Player.js";
 
-type Rect = {
-    x: number,
-    y: number,
-    w: number,
-    h: number
-}
-
 export abstract class Loot extends Entity {
     constructor (
         protected readonly game: Game,
