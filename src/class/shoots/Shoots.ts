@@ -1,13 +1,6 @@
 import { Entity } from "../Entity.js";
 
-type Rect = {
-    x: number,
-    y: number,
-    w: number,
-    h: number
-};
-
-export abstract class Shoot {
+export abstract class Shoot extends Entity {
     constructor (
         x: number,
         y: number,
