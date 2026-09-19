@@ -1,5 +1,6 @@
 import { getImage } from '../functions.js';
 
+import { Entity } from './Entity.js';
 import { Shoot } from './shoots/Shoots.js';
 import { Arrow } from './shoots/Arrow.js';
 import { FireBall } from './shoots/FireBall.js';
@@ -23,11 +24,7 @@ type ShootConstructor<T extends Shoot> = new (x: number, y: number, dir: number)
 type MapRow = readonly [number, ...number[]];
 type Map = readonly [MapRow, ...MapRow[]];
 
-export class Player {
-    private x: number;
-    private y: number;
-    private readonly WIDTH = 20;
-    private readonly HEIGHT = 25;
+export class Player extends Entity{
     private readonly SPEED = 0.1; // pixels / ms
 
     private readonly INITIAL_HEALTH = 10;
@@ -50,8 +47,8 @@ export class Player {
         private readonly map: Map,
         private readonly tile_size: number
     ) {
-        this.x = initial_x;
-        this.y = initial_y;
+        super(initial_x, initial_y, 20, 25);
+
         this.sprite = getImage('player-sprite');
     }
 
@@ -65,15 +62,6 @@ export class Player {
         });
 
         if (inputs.keys['1'] && this.cooldown === 0) {
-            /*
-            const playerCenter = {
-                x: this.x + this.WIDTH / 2,
-                y: this.y + this.HEIGHT / 2
-            };
-            const dy = inputs.mouse.y - playerCenter.y;
-            const dx = inputs.mouse.x - playerCenter.x;
-            this.throwArrow({x: inputs.mouse.x, y: inputs.mouse.y});
-            */
             this.throwShoot(Arrow, this.getDir(inputs.getMousePos()));
         } else if (inputs.keys['2'] && this.cooldown === 0) {
             this.throwShoot(FireBall, this.getDir(inputs.getMousePos()));
@@ -95,18 +83,9 @@ export class Player {
             this.SPRITE_HEIGHT,
             this.x,
             this.y,
-            this.WIDTH,
-            this.HEIGHT
+            this.width,
+            this.height
         );
-    }
-
-    public getRect(): Rect {
-        return {
-            x: this.x,
-            y: this.y,
-            w: this.WIDTH,
-            h: this.HEIGHT
-        }
     }
 
     public hurt (damage: number): void {
@@ -145,8 +124,8 @@ export class Player {
 
     private getDir(mousePos: {x: number, y: number}): number {
         const playerCenter = {
-            x: this.x + this.WIDTH / 2,
-            y: this.y + this.HEIGHT / 2
+            x: this.x + this.width / 2,
+            y: this.y + this.height / 2
         };
 
         const dx = mousePos.x - playerCenter.x
@@ -182,9 +161,9 @@ export class Player {
 
     private isCollidingWall(x: number, y: number, map: Map, tile_size: number): boolean {
         const leftTile = Math.floor(x / tile_size);
-        const rightTile = Math.floor((x + this.WIDTH) / tile_size);
+        const rightTile = Math.floor((x + this.width) / tile_size);
         const upTile = Math.floor(y / tile_size);
-        const bottomTile = Math.floor((y + this.HEIGHT) / tile_size);
+        const bottomTile = Math.floor((y + this.height) / tile_size);
 
         const firstRow = map[0];
         if (bottomTile >= map.length || rightTile >= firstRow.length) {
@@ -207,13 +186,13 @@ export class Player {
     }
 
     private collides(rect: Rect): boolean {
-        if (this.x + this.WIDTH < rect.x) {
+        if (this.x + this.width < rect.x) {
             return false;
         }
         if (this.x > rect.x + rect.w) {
             return false;
         }
-        if (this.y + this.HEIGHT < rect.y) {
+        if (this.y + this.height < rect.y) {
             return false;
         }
         if (this.y > rect.y + rect.h) {
