@@ -120,9 +120,9 @@ export class Game {
                 this.inputs,
                 this.loots
             );
-            this.enemys.forEach(enemy => enemy.update(deltaTime, this.shoots));
+            this.enemys.forEach(enemy => enemy.update(deltaTime));
             this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
-            this.shoots.forEach(shoot => shoot.update(deltaTime));
+            this.player.shoots.forEach(shoot => shoot.update(deltaTime));
         }
         this.inputs.update();
 
