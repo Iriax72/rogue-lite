@@ -1,6 +1,6 @@
 import { getImage } from "../functions.js";
 
-import { Entity } from "./Entity.js";
+// import { Entity } from "./Entity.js";
 import { Loot } from "./loots/Loot.js";
 import {GoldBag} from "./loots/GoldBag.js";
 import { ManaBottle } from "./loots/ManaBottle.js";
@@ -21,11 +21,11 @@ export class Game {
     // public loots: Loot[] = [];
     // private enemys: Enemy[] = [];
     public entitys: {
-        'players': Player[],
-        'shoots': Shoots[],
-        'loots': Loots[],
-        'enemys': Enemys[]
-    } = {};
+        players: Player[],
+        shoots: Shoot[],
+        loots: Loot[],
+        enemys: Enemy[]
+    } = {players: [], shoots: [], loots: [], enemys: []};
 
     public isPaused: boolean = false; // Rendre privé à la fin des tests
     private lastTimestamp: Timestamp;
@@ -67,8 +67,8 @@ export class Game {
 
 
         // Tests
-        this.entitys['enemys'].push(new Guardian(59, 290, this.dropGoldBag, this.player));
-        this.entitys['enemys'].push(new Slime(59, 240, this.dropGoldBag, this.player));
+        this.entitys['enemys'].push(new Guardian(59, 290, this.dropGoldBag, this.entity['player']));
+        this.entitys['enemys'].push(new Slime(59, 240, this.dropGoldBag, this.entity['player']));
 
         this.update(0);
     }
@@ -128,7 +128,7 @@ export class Game {
         }
 
         if (!this.isPaused) {
-            this.player.update(
+            this.entitys['player'].update(
                 deltaTime,
                 this.inputs,
                 this.entitys['loots'],
