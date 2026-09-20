@@ -1,8 +1,7 @@
 import { collides, dist } from "../../functions.js";
 
 import { Entity } from "../Entity.js";
-import { ATH } from "../ATH.js";
-import { Player } from "../Player.js";
+import { Game } from "../Game.js";
 import { Inputs } from "../Inputs.js";
 
 export abstract class PNJ extends Entity {
@@ -12,8 +11,7 @@ export abstract class PNJ extends Entity {
         width: number,
         height: number,
         private readonly img: HTMLImageElement,
-        private readonly player: Player,
-        private readonly ATH: ATH,
+        private readonly game: Game,
         private readonly inputs: Inputs,
         private readonly dialog: string[]
     ) {
@@ -23,7 +21,7 @@ export abstract class PNJ extends Entity {
     public update(): void {
         const mousePos = this.inputs.getMousePos();
         if (
-            dist(this.getRect(), this.player.getRect()) <= 60
+            dist(this.getRect(), this.game.player.getRect()) <= this.game.MAX_DIALOG_DIST
             && this.inputs.mouse.down
             && collides(this.getRect(), {
                 x: mousePos.x,
@@ -32,7 +30,7 @@ export abstract class PNJ extends Entity {
                 h: 0
             })
         ) {
-            this.ATH.dialog(this.dialog);
+            this.game.dialog(this.getRect(), this.dialog);
         }
     }
 

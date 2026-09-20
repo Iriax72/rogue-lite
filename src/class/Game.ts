@@ -1,4 +1,4 @@
-import { getImage } from "../functions.js";
+import { getImage, dist} from "../functions.js";
 
 // import { Entity } from "./Entity.js";
 import { Loot } from "./loots/Loot.js";
@@ -20,7 +20,16 @@ type Timestamp = number;
 type MapRow = readonly [number, ...number[]];
 type Map = readonly [MapRow, ...MapRow[]];
 
+type Rect = {
+    x: number,
+    y: number,
+    w: number,
+    h: number
+};
+
 export class Game {
+    public readonly MAX_DIALOG_DIST = 60;
+
     public loots: Loot[] = [];
     private enemys: Enemy[] = [];
     private pnjs: PNJ[] = [];
@@ -28,11 +37,16 @@ export class Game {
     public isPaused: boolean = false; // Rendre privé à la fin des tests
     private lastTimestamp: Timestamp;
 
+    private isDialoging: boolean = false;
+    private dialogs: string[] = [];
+    private currentDialogIndex: number = 0;
+    private dialoger: Rect = {x: 0, y: 0, w: 0, h: 0};
+
     constructor(
         private readonly canvas: HTMLCanvasElement,
         private readonly map: Map,
         private readonly tile_size: number,
-        private readonly player: Player,
+        public readonly player: Player,
         private readonly inputs: Inputs,
         private readonly ath: ATH
     ) {
@@ -115,7 +129,11 @@ export class Game {
 
         this.player.shoots.forEach((shoot: Shoot): void => shoot.draw(ctx));
 
-        this.ath.draw(this.isPaused);
+        if (this.isDialoging) {
+            this.ath.draw(this.isPaused, true, this.dialogs, this.currentDialogIndex);
+        } else {
+            this.ath.draw(this.isPaused, false);
+        }
     }
 
     private update(timestamp: Timestamp): void {
@@ -123,6 +141,10 @@ export class Game {
 
         if (this.inputs.keysJustPressed['p']) {
             this.isPaused = !this.isPaused;
+        }
+
+        if (this.isDialoging && dist(this.player.getRect(), this.dialoger) > this.MAX_DIALOG_DIST) {
+            this.isDialoging = false;
         }
 
         if (!this.isPaused) {
@@ -135,6 +157,7 @@ export class Game {
             this.enemys.forEach(enemy => enemy.update(deltaTime));
             this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
             this.player.shoots.forEach(shoot => shoot.update(deltaTime));
+            this.ath.update(this.isDialoging, this);
         }
         this.inputs.update();
 
@@ -142,6 +165,20 @@ export class Game {
 
         this.lastTimestamp = timestamp;
         requestAnimationFrame((timestamp) => this.update(timestamp));
+    }
+
+    public dialog(dialoger: Rect, dialogs: string[]) {
+        this.isDialoging = true;
+        this.dialogs = dialogs;
+        this.currentDialogIndex = 0;
+        this.dialoger = dialoger;
+    }
+
+    public nextDialog(): void {
+        this.currentDialogIndex++;
+        if (this.currentDialogIndex > this.dialogs.length) {
+            this.isDialoging = false;
+        }
     }
 
     private dropGoldBag(x: number, y: number, value: number): void {

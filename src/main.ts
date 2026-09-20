@@ -30,14 +30,14 @@ await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Pro
     });
 }));
 
+const inputs = new Inputs(gameCanvas);
+
 const player = new Player(
     59, 240,
     mapLevel, TILE_SIZE
 );
 
-const ath = new ATH(gameCanvas, player);
-
-const inputs = new Inputs(gameCanvas);
+const ath = new ATH(gameCanvas, player, inputs);
 
 const game = new Game(
     gameCanvas,
