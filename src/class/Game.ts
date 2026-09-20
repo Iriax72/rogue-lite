@@ -104,7 +104,7 @@ export class Game {
         this.player.draw(ctx);
 
         this.pnjs.forEach(pnj => {
-            pnj.draw();
+            pnj.draw(ctx);
         })
 
         this.loots.forEach(loot => {
