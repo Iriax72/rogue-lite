@@ -11,6 +11,7 @@ import {Inputs} from "./Inputs.js";
 import {Enemy} from "./enemys/Enemy.js";
 import {ATH} from "./ATH.js";
 import { Shoot } from "./shoots/Shoots.js";
+import { PNJ } from "./PNJs/PNJ.js";
 
 type Timestamp = number;
 
@@ -20,6 +21,7 @@ type Map = readonly [MapRow, ...MapRow[]];
 export class Game {
     public loots: Loot[] = [];
     private enemys: Enemy[] = [];
+    private pnjs: Pnj[] = [];
 
     public isPaused: boolean = false; // Rendre privé à la fin des tests
     private lastTimestamp: Timestamp;
@@ -63,6 +65,11 @@ export class Game {
         this.enemys.push(new Guardian(59, 290, this.dropGoldBag, this.player));
         this.enemys.push(new Slime(59, 240, this.dropGoldBag, this.player));
 
+        this.pnjs.push(new PNJ(50, 200, 12, 16, getImage('knight-img'), this.player, this.ath, this.inputs, [
+            "Salutation voyageur,",
+            "Je suis le chevalier gris !"
+        ]));
+
         this.update(0);
     }
 
@@ -96,7 +103,11 @@ export class Game {
 
         this.player.draw(ctx);
 
-        this.loots.forEach((loot: Loot): void => {
+        this.pnjs.forEach(pnj => {
+            pnj.draw();
+        })
+
+        this.loots.forEach(loot => {
             loot.draw(ctx);
         });
 
@@ -120,6 +131,7 @@ export class Game {
                 this.inputs,
                 this.loots
             );
+            this.pnjs.forEach(pnj => pnj.update(deltaTime));
             this.enemys.forEach(enemy => enemy.update(deltaTime));
             this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
             this.player.shoots.forEach(shoot => shoot.update(deltaTime));

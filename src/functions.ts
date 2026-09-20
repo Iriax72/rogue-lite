@@ -37,3 +37,9 @@ export function collides (r1: Rect, r2: Rect): boolean {
     }
     return true;
 }
+
+export function dist(r1: Rect, r2: Rect): number {
+    const dx = Math.max(0, Math.max(r1.x - r2.x + r2.w, r2.x - r1.x + r1.w));
+    const dy = Math.max(0, Math.max(r1.y - r2.y + r2.h, r2.y - r1.y + r1.h));
+    return Math.sqrt(dx**2 + dy**2);
+}

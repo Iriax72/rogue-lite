@@ -122,6 +122,10 @@ export class ATH {
         );
     }
 
+    public dialog(dialog: string[]): void {
+        console.log(dialog[0]);
+    }
+
     private createBtn(ctx: CanvasRenderingContext2D, rect: Rect, text: string, onClick: Function): void {
         ctx.drawImage(
             this.containerImg,
