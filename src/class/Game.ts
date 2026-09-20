@@ -18,14 +18,8 @@ type MapRow = readonly [number, ...number[]];
 type Map = readonly [MapRow, ...MapRow[]];
 
 export class Game {
-    // public loots: Loot[] = [];
-    // private enemys: Enemy[] = [];
-    public entitys: {
-        player: Player,
-        shoots: Shoot[],
-        loots: Loot[],
-        enemys: Enemy[]
-    } = {player: null, shoots: [], loots: [], enemys: []};
+    public loots: Loot[] = [];
+    private enemys: Enemy[] = [];
 
     public isPaused: boolean = false; // Rendre privé à la fin des tests
     private lastTimestamp: Timestamp;
@@ -34,13 +28,12 @@ export class Game {
         private readonly canvas: HTMLCanvasElement,
         private readonly map: Map,
         private readonly tile_size: number,
-        player: Player,
+        private readonly player: Player,
         private readonly inputs: Inputs,
         private readonly ath: ATH
     ) {
         this.dropGoldBag = this.dropGoldBag.bind(this);
         this.lastTimestamp = 0;
-        this.entitys['player'] = player;
     }
 
     public init(): void {
@@ -49,7 +42,7 @@ export class Game {
         this.canvas.width = firstRow.length * this.tile_size;
         // Test
         for (let i = 0; i < 5; i++) {
-            this.entitys['loots'].push(new GoldBag(
+            this.loots.push(new GoldBag(
                 this,
                 Math.floor(Math.random() * this.canvas.width),
                 Math.floor(Math.random() * this.canvas.height),
@@ -57,7 +50,7 @@ export class Game {
             ));
         }
         for (let i = 0; i < 5; i++) {
-            this.entitys['loots'].push(new ManaBottle(
+            this.loots.push(new ManaBottle(
                 this,
                 Math.floor(Math.random() * this.canvas.width),
                 Math.floor(Math.random() * this.canvas.height),
@@ -67,8 +60,8 @@ export class Game {
 
 
         // Tests
-        this.entitys['enemys'].push(new Guardian(59, 290, this.dropGoldBag, this.entitys['player']));
-        this.entitys['enemys'].push(new Slime(59, 240, this.dropGoldBag, this.entitys['player']));
+        this.enemys.push(new Guardian(59, 290, this.dropGoldBag, this.player));
+        this.enemys.push(new Slime(59, 240, this.dropGoldBag, this.player));
 
         this.update(0);
     }
@@ -101,11 +94,6 @@ export class Game {
             }
         }
 
-        Object.values(this.entitys).forEach(categorie => {
-            categorie.forEach(entity => entity.draw())
-        });
-
-        /*
         this.player.draw(ctx);
 
         this.loots.forEach((loot: Loot): void => {
@@ -115,7 +103,6 @@ export class Game {
         this.enemys.forEach((enemy: Enemy): void => enemy.draw(ctx));
 
         this.player.shoots.forEach((shoot: Shoot): void => shoot.draw(ctx));
-        */
 
         this.ath.draw(this.isPaused);
     }
@@ -128,15 +115,14 @@ export class Game {
         }
 
         if (!this.isPaused) {
-            this.entitys['player'].update(
+            this.player.update(
                 deltaTime,
                 this.inputs,
-                this.entitys['loots'],
-                this.entitys['shoots']
+                this.loots
             );
-            this.entitys['enemys'].forEach(enemy => enemy.update(deltaTime, this.entitys['shoots']));
-            this.entitys['enemys'] = this.entitys['enemys'].filter((enemy) => !enemy.isDead);
-            this.entitys['shoots'].forEach(shoot => shoot.update(deltaTime));
+            this.enemys.forEach(enemy => enemy.update(deltaTime, this.shoots));
+            this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
+            this.shoots.forEach(shoot => shoot.update(deltaTime));
         }
         this.inputs.update();
 
@@ -147,6 +133,6 @@ export class Game {
     }
 
     private dropGoldBag(x: number, y: number, value: number): void {
-        this.entitys['loots'].push(new GoldBag(this, x, y, value));
+        this.loots.push(new GoldBag(this, x, y, value));
     }
 }

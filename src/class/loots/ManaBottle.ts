@@ -17,6 +17,6 @@ export class ManaBottle extends Loot {
 
     public pickup(player: Player): void {
         player.mana += this.value;
-        this.game.entitys['loots'] = this.game.entitys['loots'].filter((loot) => loot !== this);
+        this.game.loots = this.game.loots.filter((loot) => loot !== this);
     }
 }

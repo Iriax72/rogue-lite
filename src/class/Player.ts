@@ -39,7 +39,7 @@ export class Player extends Entity{
     public mana = 0;
     public health = this.INITIAL_HEALTH;
 
-    // public shoots: Shoot[] = [];
+    public shoots: Shoot[] = [];
 
     constructor(
         private readonly initial_x: number,
@@ -52,7 +52,7 @@ export class Player extends Entity{
         this.sprite = getImage('player-sprite');
     }
 
-    public update(deltaTime: number, inputs: Inputs, loots: Loot[], shoots: Shoot[]): void {
+    public update(deltaTime: number, inputs: Inputs, loots: Loot[]): void {
         this.move(deltaTime, inputs.keys, this.map, this.tile_size);
 
         loots.forEach((loot: Loot): void => {
@@ -62,9 +62,9 @@ export class Player extends Entity{
         });
 
         if (inputs.keys['1'] && this.cooldown === 0) {
-            this.throwShoot(Arrow, this.getDir(inputs.getMousePos()), shoots);
+            this.throwShoot(Arrow, this.getDir(inputs.getMousePos()));
         } else if (inputs.keys['2'] && this.cooldown === 0) {
-            this.throwShoot(FireBall, this.getDir(inputs.getMousePos()), shoots);
+            this.throwShoot(FireBall, this.getDir(inputs.getMousePos()));
         } else {
             this.cooldown -= deltaTime;
             if (this.cooldown < 0) {
@@ -146,10 +146,10 @@ export class Player extends Entity{
     }
     */
 
-    private throwShoot<T extends Shoot>(shootClass: ShootConstructor<T>, dir: number, shoots: Shoot[]): void {
+    private throwShoot<T extends Shoot>(shootClass: ShootConstructor<T>, dir: number): void {
         const shoot = new shootClass(this.x, this.y, dir);
         this.cooldown = shoot.cooldown;
-        shoots.push(shoot);
+        this.shoots.push(shoot);
     }
 
     private die(): void {
