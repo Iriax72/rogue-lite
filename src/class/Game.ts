@@ -11,6 +11,7 @@ import {Inputs} from "./Inputs.js";
 import {Enemy} from "./enemys/Enemy.js";
 import {ATH} from "./ATH.js";
 import { Shoot } from "./shoots/Shoots.js";
+import { PNJ } from "./PNJs/PNJ.js";
 import { Knight } from "./PNJs/Knight.js";
 import { Pnj1 } from "./PNJs/Pnj1.js";
 
