@@ -21,7 +21,7 @@ type Map = readonly [MapRow, ...MapRow[]];
 export class Game {
     public loots: Loot[] = [];
     private enemys: Enemy[] = [];
-    private pnjs: Pnj[] = [];
+    private pnjs: PNJ[] = [];
 
     public isPaused: boolean = false; // Rendre privé à la fin des tests
     private lastTimestamp: Timestamp;
@@ -131,7 +131,7 @@ export class Game {
                 this.inputs,
                 this.loots
             );
-            this.pnjs.forEach(pnj => pnj.update(deltaTime));
+            this.pnjs.forEach(pnj => pnj.update());
             this.enemys.forEach(enemy => enemy.update(deltaTime));
             this.enemys = this.enemys.filter((enemy) => !enemy.isDead);
             this.player.shoots.forEach(shoot => shoot.update(deltaTime));

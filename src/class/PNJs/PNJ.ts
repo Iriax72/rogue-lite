@@ -4,7 +4,6 @@ import { Entity } from "../Entity.js";
 import { ATH } from "../ATH.js";
 import { Player } from "../Player.js";
 import { Inputs } from "../Inputs.js";
-import { getImage } from "../../functions.js";
 
 export class PNJ extends Entity {
     constructor(
@@ -21,14 +20,14 @@ export class PNJ extends Entity {
         super(x, y, width, height);
     }
 
-    public update(deltaTime: number): void {
+    public update(): void {
         const mousePos = this.inputs.getMousePos();
         if (
             dist(this.getRect(), this.player.getRect()) <= 60
             && this.inputs.mouse.down
             && collides(this.getRect(), {
-                x: mousePos().x,
-                y: mousePos().y,
+                x: mousePos.x,
+                y: mousePos.y,
                 w: 0,
                 h: 0
             })
