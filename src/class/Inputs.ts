@@ -1,7 +1,7 @@
 export class Inputs {
     public keys: {[key: string]: boolean} = {};
     public keysJustPressed: {[key: string]: boolean} = {};
-    public mouse = {x: 0, y: 0, down: false}
+    public mouse = {x: 0, y: 0, down: false, justDown: false}
 
     constructor(canvas: HTMLCanvasElement) {
         window.addEventListener('keydown', (e: KeyboardEvent): void => {
@@ -14,6 +14,7 @@ export class Inputs {
 
         canvas.addEventListener('mousedown', (): void => {
             this.mouse.down = true;
+            this.mouse.justDown = true;
         });
         canvas.addEventListener('mouseup', (): void => {
             this.mouse.down = false;
@@ -33,5 +34,6 @@ export class Inputs {
 
     update(): void {
         this.keysJustPressed = {};
+        this.mouse.justDown = false
     }
 }

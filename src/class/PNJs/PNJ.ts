@@ -22,7 +22,7 @@ export abstract class PNJ extends Entity {
         const mousePos = this.inputs.getMousePos();
         if (
             dist(this.getRect(), this.game.player.getRect()) <= this.game.MAX_DIALOG_DIST
-            && this.inputs.mouse.down
+            && this.inputs.mouse.justDown
             && collides(this.getRect(), {
                 x: mousePos.x,
                 y: mousePos.y,

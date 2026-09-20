@@ -51,7 +51,7 @@ export class ATH {
             w: 0,
             h: 0
         }
-        if (this.inputs.mouse.down && collides(mouseRect, {
+        if (this.inputs.mouse.justDown && collides(mouseRect, {
             x: this.canvas.width / 2 - this.DIALOG_WIDTH / 2,
             y: this.canvas.height - this.DIALOG_HEIGHT - 30,
             w: this.DIALOG_WIDTH,
