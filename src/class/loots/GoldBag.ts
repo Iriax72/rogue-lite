@@ -16,6 +16,6 @@ export class GoldBag extends Loot {
 
     public pickup(player: Player): void {
         player.gold += this.value;
-        this.game.loots = this.game.loots.filter((loot) => loot !== this);
+        this.game.entitys['loots'] = this.game.entitys['loots'].filter((loot) => loot !== this);
     }
 }

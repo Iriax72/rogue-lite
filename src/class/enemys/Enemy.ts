@@ -32,11 +32,11 @@ export abstract class Enemy extends Entity {
 
     protected abstract move(deltaTime: number): void
 
-    public update(deltaTime: number): void {
-        this.player.shoots.forEach((shoot: Shoot): void => {
+    public update(deltaTime: number, shoots: Shoot[]): void {
+        shoots.forEach((shoot: Shoot): void => {
             if (this.collides(shoot.getRect())) {
                 this.health -= shoot.strength;
-                this.player.shoots = this.player.shoots.filter(s => s !== shoot);
+                shoots = shoots.filter(s => s !== shoot);
             }
         })
         if (this.health <= 0) {
