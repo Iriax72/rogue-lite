@@ -5,7 +5,7 @@ import { ATH } from "../ATH.js";
 import { Player } from "../Player.js";
 import { Inputs } from "../Inputs.js";
 
-export class PNJ extends Entity {
+export abstract class PNJ extends Entity {
     constructor(
         x: number,
         y: number,

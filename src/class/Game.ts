@@ -11,7 +11,8 @@ import {Inputs} from "./Inputs.js";
 import {Enemy} from "./enemys/Enemy.js";
 import {ATH} from "./ATH.js";
 import { Shoot } from "./shoots/Shoots.js";
-import { PNJ } from "./PNJs/PNJ.js";
+import { Knight } from "./PNJs/Knight.js";
+import { Pnj1 } from "./PNJs/Pnj1.js";
 
 type Timestamp = number;
 
@@ -65,10 +66,8 @@ export class Game {
         this.enemys.push(new Guardian(59, 290, this.dropGoldBag, this.player));
         this.enemys.push(new Slime(59, 240, this.dropGoldBag, this.player));
 
-        this.pnjs.push(new PNJ(50, 200, 12, 16, getImage('knight-img'), this.player, this.ath, this.inputs, [
-            "Salutation voyageur,",
-            "Je suis le chevalier gris !"
-        ]));
+        this.pnjs.push(new Knight(50, 200, 20, 25, this.player, this.ath, this.inputs));
+        this.pnjs.push(new Pnj1(20, 160, 15, 20, this.player, this.ath, this.inputs));
 
         this.update(0);
     }
