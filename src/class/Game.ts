@@ -21,11 +21,11 @@ export class Game {
     // public loots: Loot[] = [];
     // private enemys: Enemy[] = [];
     public entitys: {
-        players: Player[],
+        player: Player,
         shoots: Shoot[],
         loots: Loot[],
         enemys: Enemy[]
-    } = {players: [], shoots: [], loots: [], enemys: []};
+    } = {player: null, shoots: [], loots: [], enemys: []};
 
     public isPaused: boolean = false; // Rendre privé à la fin des tests
     private lastTimestamp: Timestamp;
@@ -40,7 +40,7 @@ export class Game {
     ) {
         this.dropGoldBag = this.dropGoldBag.bind(this);
         this.lastTimestamp = 0;
-        this.entitys['player'].push(player);
+        this.entitys['player'] = player;
     }
 
     public init(): void {
@@ -67,8 +67,8 @@ export class Game {
 
 
         // Tests
-        this.entitys['enemys'].push(new Guardian(59, 290, this.dropGoldBag, this.entity['player']));
-        this.entitys['enemys'].push(new Slime(59, 240, this.dropGoldBag, this.entity['player']));
+        this.entitys['enemys'].push(new Guardian(59, 290, this.dropGoldBag, this.entitys['player']));
+        this.entitys['enemys'].push(new Slime(59, 240, this.dropGoldBag, this.entitys['player']));
 
         this.update(0);
     }
@@ -101,7 +101,7 @@ export class Game {
             }
         }
 
-        this.entitys.forEach(categorie => {
+        Object.values(this.entitys).forEach(categorie => {
             categorie.forEach(entity => entity.draw())
         });
 
