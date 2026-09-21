@@ -7,7 +7,7 @@ type Rect = {
     h: number
 };
 
-type AudioMap = number[][];
+type AudioMap = readonly (readonly number[])[];
 
 export class AudioManager {
     private bgMusic: HTMLAudioElement;
@@ -21,8 +21,8 @@ export class AudioManager {
     constructor(
         private readonly audioMap: AudioMap
     ) {
-        this.loadSoundEffect('throw-arrow', '../assets/audio/throw-arrow.mp3');
-        this.loadSoundEffect('throw-fire-ball', '../assets/audio/throw-fire-ball.mp3');
+        this.loadSoundEffect('throw-arrow', '../assets/audio/arrow.mp3');
+        this.loadSoundEffect('throw-fire-ball', '../assets/audio/fire-ball.mp3');
 
         this.bgMusic = new Audio();
         this.bgMusic.volume = this.bgVolume;

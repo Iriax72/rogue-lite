@@ -22,6 +22,14 @@ export function getImage(id: string): HTMLImageElement {
     return foundImage;
 }
 
+export function getAudio(id: string): HTMLAudioElement {
+    const foundAudio: HTMLAudioElement | null = document.querySelector('audio#' + id);
+    if (!foundAudio) {
+        throw new Error(`L'audio ${id} n'a pas pu être trouvé`);
+    }
+    return foundAudio;
+}
+
 export function collides (r1: Rect, r2: Rect): boolean {
     if (r1.x > r2.x + r2.w) {
         return false;

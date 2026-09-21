@@ -9,9 +9,11 @@ export abstract class Shoot extends Entity {
         private readonly dir: number,
         public readonly strength: number,
         private readonly speed: number, // pixel / ms
-        private readonly image: HTMLImageElement
+        private readonly image: HTMLImageElement,
+        private readonly soundEffect: HTMLAudioElement
     ) {
         super(x, y, width, height);
+        this.soundEffect.play();
     }
 
     abstract readonly cooldown: number; // ms

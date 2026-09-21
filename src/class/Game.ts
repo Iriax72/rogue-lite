@@ -14,6 +14,7 @@ import { Shoot } from "./shoots/Shoots.js";
 import { PNJ } from "./PNJs/PNJ.js";
 import { Knight } from "./PNJs/Knight.js";
 import { Pnj1 } from "./PNJs/Pnj1.js";
+import { AudioManager } from "./AudioManager.js";
 
 type Timestamp = number;
 
@@ -48,7 +49,8 @@ export class Game {
         private readonly tile_size: number,
         public readonly player: Player,
         private readonly inputs: Inputs,
-        public readonly ath: ATH
+        public readonly ath: ATH,
+        private readonly audioManager: AudioManager
     ) {
         this.dropGoldBag = this.dropGoldBag.bind(this);
         this.lastTimestamp = 0;
@@ -160,6 +162,7 @@ export class Game {
             this.ath.update(this.isDialoging, this);
         }
         this.inputs.update();
+        this.audioManager.update(this.player.getRect());
 
         this.draw();
 

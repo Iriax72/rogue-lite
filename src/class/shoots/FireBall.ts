@@ -1,4 +1,4 @@
-import { getImage } from "../../functions.js";
+import { getImage, getAudio } from "../../functions.js";
 
 import { Shoot } from "./Shoots.js";
 
@@ -9,7 +9,8 @@ export class FireBall extends Shoot {
             10, 10,
             dir,
             5, 0.17,
-            getImage('fire-ball-img')
+            getImage('fire-ball-img'),
+            getAudio('fire-ball-audio')
         );
     }
 

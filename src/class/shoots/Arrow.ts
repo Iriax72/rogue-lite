@@ -1,4 +1,4 @@
-import { getImage } from "../../functions.js";
+import { getImage, getAudio } from "../../functions.js";
 
 import { Shoot } from "./Shoots.js";
 
@@ -9,7 +9,8 @@ export class Arrow extends Shoot {
             15, 5,
             dir,
             3, 0.3,
-            getImage('arrow-img')
+            getImage('arrow-img'),
+            getAudio('arrow-audio')
         );
     }
 

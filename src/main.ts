@@ -4,7 +4,8 @@ import {Game} from './class/Game.js';
 import {Player} from './class/Player.js';
 import {Inputs} from './class/Inputs.js';
 import {ATH} from './class/ATH.js';
-import {map} from './map.js';
+import { AudioManager } from './class/AudioManager.js';
+import {map, audioMap} from './map.js';
 
 console.log('imports faits');
 
@@ -32,6 +33,8 @@ await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Pro
 
 const inputs = new Inputs(gameCanvas);
 
+const audioManager = new AudioManager(audioMap[LEVEL]);
+
 const player = new Player(
     59, 240,
     mapLevel, TILE_SIZE
@@ -45,7 +48,8 @@ const game = new Game(
     TILE_SIZE,
     player,
     inputs,
-    ath
+    ath,
+    audioManager
 );
 
 game.init();
