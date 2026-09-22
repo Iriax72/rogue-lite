@@ -30,6 +30,7 @@ export abstract class PNJ extends Entity {
                 h: 0
             })
         ) {
+            console.log('Dialogue lancé');
             this.game.dialog(this.getRect(), this.dialog);
         }
     }

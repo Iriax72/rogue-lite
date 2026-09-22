@@ -57,6 +57,7 @@ export class ATH {
             w: this.DIALOG_WIDTH,
             h: this.DIALOG_HEIGHT
         })) {
+            console.log('next !')
             game.nextDialog();
         }
     }
