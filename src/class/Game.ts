@@ -29,7 +29,7 @@ type Rect = {
 };
 
 export class Game {
-    public readonly MAX_DIALOG_DIST = 60;
+    public readonly MAX_DIALOG_DIST = 120;
 
     public loots: Loot[] = [];
     private enemys: Enemy[] = [];
@@ -131,11 +131,7 @@ export class Game {
 
         this.player.shoots.forEach((shoot: Shoot): void => shoot.draw(ctx));
 
-        if (this.isDialoging) {
-            this.ath.draw(this.isPaused, true, this.dialogs, this.currentDialogIndex);
-        } else {
-            this.ath.draw(this.isPaused, false);
-        }
+        this.ath.draw(this.isPaused, this.isDialoging, this.dialogs, this.currentDialogIndex);
     }
 
     private update(timestamp: Timestamp): void {

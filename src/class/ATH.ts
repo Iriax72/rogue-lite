@@ -82,7 +82,7 @@ export class ATH {
         ctx.fillStyle = lightGradiant;
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Afficher s'il le fait les dialogues
+        // Afficher s'il le faut les dialogues
         if (isDialoging) {
             assertDefined(dialogs[currentDialogIndex], "La donée dialogs[currentDialogIndex] n'est pas définie");
             this.drawDialog(ctx, dialogs[currentDialogIndex]);
