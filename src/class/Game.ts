@@ -83,7 +83,7 @@ export class Game {
         this.enemys.push(new Guardian(59, 290, this.dropGoldBag, this.player));
         this.enemys.push(new Slime(59, 240, this.dropGoldBag, this.player));
 
-        this.pnjs.push(new Knight(50, 200, 20, 25, this, this.inputs));
+        this.pnjs.push(new Knight(59, 220, 20, 25, this, this.inputs));
         this.pnjs.push(new Pnj1(20, 160, 15, 20, this, this.inputs));
 
         this.update(0);
