@@ -177,11 +177,8 @@ export class Game {
 
     public nextDialog(): void {
         this.currentDialogIndex++;
-        if (this.currentDialogIndex > this.dialogs.length) {
+        if (this.currentDialogIndex >= this.dialogs.length) {
             this.isDialoging = false;
-            this.dialogs = [];
-            this.currentDialogIndex = 0
-            this.dialoger = {x:0, y:0, w:0, h:0};
         }
     }
 
