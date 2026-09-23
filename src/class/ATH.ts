@@ -84,6 +84,8 @@ export class ATH {
 
         // Afficher s'il le faut les dialogues
         if (isDialoging) {
+            console.log(isDialoging);
+            console.log(dialogs, currentDialogIndex);
             assertDefined(dialogs[currentDialogIndex], "La donée dialogs[currentDialogIndex] n'est pas définie");
             this.drawDialog(ctx, dialogs[currentDialogIndex]);
         }
