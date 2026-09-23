@@ -134,18 +134,6 @@ export class Player extends Entity{
         return Math.atan2(dy, dx);
     }
 
-    /*
-    private throwArrow (dir: number) {
-        this.cooldown = 1500; // ms
-        this.shoots.push(new Arrow(this.x, this.y, dir));
-    }
-
-    private throwFireBall(dir: number) {
-        this.cooldown = 2000; // ms
-        this.shoots.push(new FireBall(this.x, this.y, dir));
-    }
-    */
-
     private throwShoot<T extends Shoot>(shootClass: ShootConstructor<T>, dir: number): void {
         const shoot = new shootClass(this.x, this.y, dir);
         this.cooldown = shoot.cooldown;

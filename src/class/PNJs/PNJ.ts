@@ -20,7 +20,6 @@ export abstract class PNJ extends Entity {
 
     public update(): void {
         const mousePos = this.inputs.getMousePos();
-        console.log(dist(this.getRect(), this.game.player.getRect()), this.inputs.mouse.justDown, collides(this.getRect(), {x: mousePos.x, y: mousePos.y, w: 0, h: 0}));
         if (
             dist(this.getRect(), this.game.player.getRect()) <= this.game.MAX_DIALOG_DIST
             && this.inputs.mouse.justDown
@@ -31,7 +30,6 @@ export abstract class PNJ extends Entity {
                 h: 0
             })
         ) {
-            console.log('Dialogue lancé');
             this.game.dialog(this.getRect(), this.dialog);
         }
     }

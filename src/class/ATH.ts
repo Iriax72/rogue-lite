@@ -57,7 +57,6 @@ export class ATH {
             w: this.DIALOG_WIDTH,
             h: this.DIALOG_HEIGHT
         })) {
-            console.log('next !')
             game.nextDialog();
         }
     }
@@ -84,8 +83,6 @@ export class ATH {
 
         // Afficher s'il le faut les dialogues
         if (isDialoging) {
-            console.log(isDialoging);
-            console.log(dialogs, currentDialogIndex);
             assertDefined(dialogs[currentDialogIndex], "La donée dialogs[currentDialogIndex] n'est pas définie");
             this.drawDialog(ctx, dialogs[currentDialogIndex]);
         }
@@ -104,7 +101,6 @@ export class ATH {
     }
 
     private drawDialog(ctx: CanvasRenderingContext2D, text: string) {
-        // console.log(text);
         ctx.drawImage(
             this.containerImg,
             this.canvas.width / 2 - this.DIALOG_WIDTH / 2,
@@ -149,18 +145,14 @@ export class ATH {
                 y: this.canvas.height * (1-this.MENU_SIZE) / 2 + (this.canvas.height * this.MENU_SIZE - 3 * this.BTN_HEIGHT) / 4,
                 w: this.BTN_WIDTH,
                 h: this.BTN_HEIGHT
-            }, 'Reprendre', () => {
-                console.log('Reprendre clique (1)');
-            }
+            }, 'Reprendre', () => {/* TODO */}
         );
         this.createBtn(ctx, {
                 x: this.canvas.width / 2 - this.BTN_WIDTH / 2,
                 y: this.canvas.height * (1-this.MENU_SIZE) / 2 + (this.canvas.height * this.MENU_SIZE - 3 * this.BTN_HEIGHT) / 4 * 2 + this.BTN_HEIGHT,
                 w: this.BTN_WIDTH,
                 h: this.BTN_HEIGHT
-            }, 'Contrôles', () => {
-                console.log('Controles clique (2)');
-            }
+            }, 'Contrôles', () => {/* TODO */}
         );
         this.createBtn(ctx, {
                 x: this.canvas.width / 2 - this.BTN_WIDTH / 2,
@@ -168,7 +160,6 @@ export class ATH {
                 w: this.BTN_WIDTH,
                 h: this.BTN_HEIGHT
             }, 'Quitter', () => {
-                console.log('Quitter clique (3)');
                 window.location.replace('./'); // ammene à l'index: le menu
             }
         );

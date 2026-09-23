@@ -7,8 +7,6 @@ import {ATH} from './class/ATH.js';
 import { AudioManager } from './class/AudioManager.js';
 import {map, audioMap} from './map.js';
 
-console.log('imports faits');
-
 // References DOM
 const gameCanvas: HTMLCanvasElement | null = document.querySelector('#game-canvas');
 assertDefined(gameCanvas, 'Le canvas n\' a pas ete trouvé');
@@ -53,13 +51,3 @@ const game = new Game(
 );
 
 game.init();
-
-console.log('Lancement des tests');
-
-setTimeout(() => {
-    game.isPaused = !game.isPaused;
-}, 500);
-
-setInterval(() => {
-    game.isPaused = !game.isPaused;
-}, 1500);

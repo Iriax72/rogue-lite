@@ -142,7 +142,6 @@ export class Game {
         }
 
         if (this.isDialoging && dist(this.player.getRect(), this.dialoger) > this.MAX_DIALOG_DIST) {
-            console.log('trop loin ! Dialog arreté')
             this.isDialoging = false;
         }
 
@@ -172,7 +171,6 @@ export class Game {
         this.dialogs = dialogs;
         this.currentDialogIndex = 0;
         this.dialoger = dialoger;
-        console.log('dialoger: ', this.dialoger, 'dialogs', this.dialogs)
     }
 
     public nextDialog(): void {
