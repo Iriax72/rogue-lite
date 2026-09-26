@@ -18,7 +18,7 @@ export class ATH {
     private readonly BTN_WIDTH = 200; // px
     private readonly BTN_HEIGHT = 75; // px
 
-    private readonly DIALOG_WIDTH = 135; // px
+    private readonly DIALOG_WIDTH = 200; // px
     private readonly DIALOG_HEIGHT = 80; // px
 
     private readonly containerImg: HTMLImageElement;
