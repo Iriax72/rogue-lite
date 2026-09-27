@@ -3,7 +3,6 @@ import { assertDefined } from './functions.js';
 import {Game} from './class/Game.js';
 import {Player} from './class/Player.js';
 import {Inputs} from './class/Inputs.js';
-import {ATH} from './class/ATH.js';
 import { AudioManager } from './class/AudioManager.js';
 import {map, audioMap} from './map.js';
 
