@@ -1,4 +1,4 @@
-import { getImage, collides } from '../functions.js';
+import { getImage, collides, assertDefined } from '../functions.js';
 
 import { Entity } from './Entity.js';
 import { Shoot } from './shoots/Shoots.js';
@@ -149,11 +149,22 @@ export class Player extends Entity{
     }
 
     private isCollidingWall(x: number, y: number, map: Map, tile_size: number, environnements: Environnement[]): boolean {
-        environnements.forEach(env => {
+        /*
+        environnements.forEach((env): boolean => {
+            if (collides(this.getRect(), env.getRect())) {
+                return true;
+            } else {
+                return false;
+            }
+        });*/
+
+        for (let i = 0; i <= environnements.length; i++) {
+            const env = environnements[i];
+            assertDefined(env, "Env n'existe pas!");
             if (collides(this.getRect(), env.getRect())) {
                 return true;
             }
-        });
+        }
 
         const leftTile = Math.floor(x / tile_size);
         const rightTile = Math.floor((x + this.width) / tile_size);
