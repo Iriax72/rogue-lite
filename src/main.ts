@@ -38,15 +38,12 @@ const player = new Player(
     mapLevel, TILE_SIZE
 );
 
-const ath = new ATH(gameCanvas, player, inputs);
-
 const game = new Game(
     gameCanvas,
     mapLevel,
     TILE_SIZE,
     player,
     inputs,
-    ath,
     audioManager
 );
 

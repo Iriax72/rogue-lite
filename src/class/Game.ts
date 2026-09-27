@@ -17,7 +17,7 @@ import { Pnj1 } from "./PNJs/Pnj1.js";
 import { AudioManager } from "./AudioManager.js";
 import { BreakableWall } from "./Environnement/BreakableWall.js";
 import { FireBall } from "./shoots/FireBall.js";
-import type { Environnement } from "./Environnement/Environnement.js";
+import { Environnement } from "./Environnement/Environnement.js";
 import { Lamp } from "./Environnement/Lamp.js";
 
 type Timestamp = number;
@@ -34,6 +34,8 @@ type Rect = {
 
 export class Game {
     public readonly MAX_DIALOG_DIST = 120;
+
+    private readonly ath: ATH;
 
     public loots: Loot[] = [];
     private enemys: Enemy[] = [];
@@ -54,9 +56,12 @@ export class Game {
         private readonly tile_size: number,
         public readonly player: Player,
         private readonly inputs: Inputs,
-        public readonly ath: ATH,
         private readonly audioManager: AudioManager
     ) {
+        this.environnements.push(new Lamp(40, 250));
+
+        this.ath = new ATH(this.canvas, this.player, this.environnements.filter(env => env instanceof Lamp), this.inputs);
+
         this.dropGoldBag = this.dropGoldBag.bind(this);
         this.lastTimestamp = 0;
     }
@@ -93,8 +98,6 @@ export class Game {
 
         this.environnements.push(new BreakableWall(4 * this.tile_size, 10 * this.tile_size, this.tile_size));
         this.environnements.push(new BreakableWall(4 * this.tile_size, 11 * this.tile_size, this.tile_size));
-
-        this.environnements.push(new Lamp(40, 250));
 
         this.update(0);
     }
