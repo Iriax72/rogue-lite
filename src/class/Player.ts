@@ -158,7 +158,7 @@ export class Player extends Entity{
             }
         });*/
 
-        for (let i = 0; i <= environnements.length; i++) {
+        for (let i = 0; i < environnements.length; i++) {
             const env = environnements[i];
             assertDefined(env, "Env n'existe pas!");
             if (collides(this.getRect(), env.getRect())) {
