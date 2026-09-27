@@ -15,6 +15,10 @@ import { PNJ } from "./PNJs/PNJ.js";
 import { Knight } from "./PNJs/Knight.js";
 import { Pnj1 } from "./PNJs/Pnj1.js";
 import { AudioManager } from "./AudioManager.js";
+import { BreakableWall } from "./Environnement/BreakableWall.js";
+import { FireBall } from "./shoots/FireBall.js";
+import type { Environnement } from "./Environnement/Environnement.js";
+import { Lamp } from "./Environnement/Lamp.js";
 
 type Timestamp = number;
 
@@ -34,6 +38,7 @@ export class Game {
     public loots: Loot[] = [];
     private enemys: Enemy[] = [];
     private pnjs: PNJ[] = [];
+    private environnements: Environnement[] = [];
 
     public isPaused: boolean = false; // Rendre privé à la fin des tests
     private lastTimestamp: Timestamp;
@@ -86,6 +91,11 @@ export class Game {
         this.pnjs.push(new Knight(59, 220, 20, 25, this, this.inputs));
         this.pnjs.push(new Pnj1(20, 160, 15, 20, this, this.inputs));
 
+        this.environnements.push(new BreakableWall(4 * this.tile_size, 10 * this.tile_size, this.tile_size));
+        this.environnements.push(new BreakableWall(4 * this.tile_size, 11 * this.tile_size, this.tile_size));
+
+        this.environnements.push(new Lamp(40, 250));
+
         this.update(0);
     }
 
@@ -117,6 +127,8 @@ export class Game {
             }
         }
 
+        this.environnements.forEach(env => env.draw(ctx));
+
         this.player.draw(ctx);
 
         this.pnjs.forEach(pnj => {
@@ -131,7 +143,7 @@ export class Game {
 
         this.player.shoots.forEach((shoot: Shoot): void => shoot.draw(ctx));
 
-        this.ath.draw(this.isPaused, this.isDialoging, this.dialogs, this.currentDialogIndex);
+        this.ath.draw(this.isPaused, this.environnements.filter(env => env instanceof FireBall), this.isDialoging, this.dialogs, this.currentDialogIndex);
     }
 
     private update(timestamp: Timestamp): void {
@@ -149,8 +161,17 @@ export class Game {
             this.player.update(
                 deltaTime,
                 this.inputs,
-                this.loots
+                this.loots,
+                this.environnements
             );
+            this.environnements.forEach(env => {
+                if (env instanceof BreakableWall) {
+                    env.update(
+                        this.environnements.filter(e => e instanceof BreakableWall),
+                        this.player.shoots.filter(shoot => shoot instanceof FireBall)
+                    )
+                }
+            });
             this.pnjs.forEach(pnj => pnj.update());
             this.enemys.forEach(enemy => enemy.update(deltaTime));
             this.enemys = this.enemys.filter((enemy) => !enemy.isDead);

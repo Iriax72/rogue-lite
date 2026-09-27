@@ -2,6 +2,8 @@ import { getImage, collides, assertDefined } from "../functions.js";
 
 import { Game } from "./Game.js";
 import { Player } from "./Player.js";
+import { Lamp } from "./Environnement/Lamp.js";
+import { FireBall } from "./shoots/FireBall.js";
 import { Inputs } from "./Inputs.js";
 
 type Rect = {
@@ -14,7 +16,7 @@ type Rect = {
 export class ATH {
     private readonly LIGHT_RADIUS = 25; // px
     private readonly MENU_SIZE = 75 / 100; // % du canvas
-    // private readonly MENU_BORDER_WIDTH = 8; // px
+    
     private readonly BTN_WIDTH = 200; // px
     private readonly BTN_HEIGHT = 75; // px
 
@@ -28,6 +30,7 @@ export class ATH {
     constructor(
         private readonly canvas: HTMLCanvasElement,
         private readonly player: Player,
+        private readonly lamps: Lamp[],
         private readonly inputs: Inputs
     ) {
         this.containerImg = getImage('container-img');
@@ -61,13 +64,30 @@ export class ATH {
         }
     }
 
-    public draw(isPaused: boolean, isDialoging: boolean = false, dialogs: string[] = [], currentDialogIndex: number = 0): void {
+    public draw(isPaused: boolean, fireBalls: FireBall[], isDialoging: boolean = false, dialogs: string[] = [], currentDialogIndex: number = 0): void {
         const ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
         if (!ctx) {
             return;
         }
 
         // Dessiner l'effet de lumière
+        ctx.save();
+        ctx.fillStyle= 'rgba(0, 0, 0, 0.8)';
+        ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        ctx.globalCompositeOperation = 'destination-out';
+
+        this.drawLightSource(ctx, this.player.getRect().x, this.player.getRect().y, this.LIGHT_RADIUS);
+
+        this.lamps.forEach(lamp => {
+            this.drawLightSource(ctx, lamp.getRect().x, lamp.getRect().y, 12)
+        });
+
+        fireBalls.forEach(fb => {
+            this.drawLightSource(ctx, fb.getRect().x, fb.getRect().y, 7);
+        })
+
+        ctx.restore();
+        /*
         const lightGradiant = ctx.createRadialGradient(
             this.player.getRect().x,
             this.player.getRect().y,
@@ -80,6 +100,7 @@ export class ATH {
         lightGradiant.addColorStop(1, 'black');
         ctx.fillStyle = lightGradiant;
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        */
 
         // Afficher s'il le faut les dialogues
         if (isDialoging) {
@@ -98,6 +119,18 @@ export class ATH {
         if (isPaused) {
             this.drawMenu(ctx);
         }
+    }
+
+    private drawLightSource(ctx: CanvasRenderingContext2D, x: number, y: number, radius: number): void {
+        const gradiant = ctx.createRadialGradient(x, y, 0, x, y, radius);
+        gradiant.addColorStop(0, 'transparent');
+        gradiant.addColorStop(0.7, 'rgba(0, 0, 0, 0.5)')
+        gradiant.addColorStop(1, 'black');
+
+        ctx.fillStyle = gradiant;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2*Math.PI);
+        ctx.fill();
     }
 
     private drawDialog(ctx: CanvasRenderingContext2D, text: string) {

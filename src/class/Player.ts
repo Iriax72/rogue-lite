@@ -1,4 +1,4 @@
-import { getImage } from '../functions.js';
+import { getImage, collides } from '../functions.js';
 
 import { Entity } from './Entity.js';
 import { Shoot } from './shoots/Shoots.js';
@@ -6,6 +6,7 @@ import { Arrow } from './shoots/Arrow.js';
 import { FireBall } from './shoots/FireBall.js';
 import { Inputs } from './Inputs.js';
 import { Loot } from './loots/Loot.js';
+import { Environnement } from './Environnement/Environnement.js';
 
 type Rect = {
     x: number,
@@ -52,8 +53,8 @@ export class Player extends Entity{
         this.sprite = getImage('player-sprite');
     }
 
-    public update(deltaTime: number, inputs: Inputs, loots: Loot[]): void {
-        this.move(deltaTime, inputs.keys, this.map, this.tile_size);
+    public update(deltaTime: number, inputs: Inputs, loots: Loot[], environnements: Environnement[]): void {
+        this.move(deltaTime, inputs.keys, this.map, this.tile_size, environnements);
 
         loots.forEach((loot: Loot): void => {
             if (this.collides(loot.getRect())) {
@@ -95,7 +96,7 @@ export class Player extends Entity{
         }
     }
 
-    private move(deltaTime: number, keys: {[keys: string]: boolean}, map: Map, tile_size: number): void {
+    private move(deltaTime: number, keys: {[keys: string]: boolean}, map: Map, tile_size: number, environnements: Environnement[]): void {
         let v: Vector2d = {x: 0, y: 0};
 
         if (keys['ArrowUp'] || keys['w'])
@@ -114,10 +115,10 @@ export class Player extends Entity{
         v.x *= this.SPEED * deltaTime;
         v.y *= this.SPEED * deltaTime;
 
-        if (!this.isCollidingWall(this.x + v.x, this.y, map, tile_size)) {
+        if (!this.isCollidingWall(this.x + v.x, this.y, map, tile_size, environnements)) {
             this.x += v.x;
         }
-        if (!this.isCollidingWall(this.x, this.y + v.y, map, tile_size)) {
+        if (!this.isCollidingWall(this.x, this.y + v.y, map, tile_size, environnements)) {
             this.y += v.y;
         }
     }
@@ -147,7 +148,13 @@ export class Player extends Entity{
         this.cooldown = 0;
     }
 
-    private isCollidingWall(x: number, y: number, map: Map, tile_size: number): boolean {
+    private isCollidingWall(x: number, y: number, map: Map, tile_size: number, environnements: Environnement[]): boolean {
+        environnements.forEach(env => {
+            if (collides(this.getRect(), env.getRect())) {
+                return true;
+            }
+        });
+
         const leftTile = Math.floor(x / tile_size);
         const rightTile = Math.floor((x + this.width) / tile_size);
         const upTile = Math.floor(y / tile_size);
