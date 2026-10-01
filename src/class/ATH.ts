@@ -84,7 +84,8 @@ export class ATH {
         lightCtx.clearRect(0, 0, this.lightCanvas.width, this.lightCanvas.height);
         lightCtx.save();
         lightCtx.fillStyle= 'rgba(0, 0, 0, 0.8)';
-        //lightCtx.fillRect(0, 0, this.lightCanvas.width, this.lightCanvas.height);
+        //lightCtx.fillRect(0, 0, this.lightCanvas.width, this.lightCanvas.height); 
+        // Décommenter pour réactiver les effets de lumieère TODO!!
         lightCtx.globalCompositeOperation = 'destination-out';
 
         this.drawLightSource(lightCtx, this.player.getRect().x, this.player.getRect().y, this.LIGHT_RADIUS);
