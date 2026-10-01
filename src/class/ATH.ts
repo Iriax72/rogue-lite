@@ -24,6 +24,7 @@ export class ATH {
     private readonly DIALOG_HEIGHT = 80; // px
 
     private readonly containerImg: HTMLImageElement;
+    private readonly lightCanvas: HTMLCanvasElement;
 
     private buttons: {rect: Rect, onClick: Function}[] = [];
 
@@ -34,6 +35,7 @@ export class ATH {
         private readonly inputs: Inputs
     ) {
         this.containerImg = getImage('container-img');
+        this.lightCanvas = document.createElement('canvas');
 
         this.canvas.addEventListener('click', (e: PointerEvent) => {
             this.buttons.forEach(btn => {
@@ -70,23 +72,33 @@ export class ATH {
             return;
         }
 
-        // Dessiner l'effet de lumière
-        ctx.save();
-        ctx.fillStyle= 'rgba(0, 0, 0, 0.8)';
-        ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        ctx.globalCompositeOperation = 'destination-out';
+        // Découper les lumières dans un calque pour préserver la scène.
+        if (this.lightCanvas.width !== this.canvas.width || this.lightCanvas.height !== this.canvas.height) {
+            this.lightCanvas.width = this.canvas.width;
+            this.lightCanvas.height = this.canvas.height;
+        }
+        const lightCtx = this.lightCanvas.getContext('2d');
+        if (!lightCtx) {
+            return;
+        }
+        lightCtx.clearRect(0, 0, this.lightCanvas.width, this.lightCanvas.height);
+        lightCtx.save();
+        lightCtx.fillStyle= 'rgba(0, 0, 0, 0.8)';
+        lightCtx.fillRect(0, 0, this.lightCanvas.width, this.lightCanvas.height);
+        lightCtx.globalCompositeOperation = 'destination-out';
 
-        this.drawLightSource(ctx, this.player.getRect().x, this.player.getRect().y, this.LIGHT_RADIUS);
+        this.drawLightSource(lightCtx, this.player.getRect().x, this.player.getRect().y, this.LIGHT_RADIUS);
 
         this.lamps.forEach(lamp => {
-            this.drawLightSource(ctx, lamp.getRect().x, lamp.getRect().y, 12)
+            this.drawLightSource(lightCtx, lamp.getRect().x, lamp.getRect().y, 12)
         });
 
         fireBalls.forEach(fb => {
-            this.drawLightSource(ctx, fb.getRect().x, fb.getRect().y, 7);
+            this.drawLightSource(lightCtx, fb.getRect().x, fb.getRect().y, 7);
         })
 
-        ctx.restore();
+        lightCtx.restore();
+        ctx.drawImage(this.lightCanvas, 0, 0);
         /*
         const lightGradiant = ctx.createRadialGradient(
             this.player.getRect().x,
