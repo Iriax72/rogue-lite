@@ -3,8 +3,14 @@ export class Inputs {
     public keysJustPressed: {[key: string]: boolean} = {};
     public mouse = {x: 0, y: 0, down: false, justDown: false}
 
-    constructor(canvas: HTMLCanvasElement) {
+    private hasInteracated: boolean = false;
+
+    constructor(
+        canvas: HTMLCanvasElement,
+        private readonly onFirstInteraction: () => void
+    ) {
         window.addEventListener('keydown', (e: KeyboardEvent): void => {
+            this.notifyFirstInteraction();
             this.keys[e.key] = true;
             this.keysJustPressed[e.key] = true;
         });
@@ -13,6 +19,7 @@ export class Inputs {
         });
 
         canvas.addEventListener('mousedown', (): void => {
+            this.notifyFirstInteraction();
             this.mouse.down = true;
             this.mouse.justDown = true;
         });
@@ -35,5 +42,12 @@ export class Inputs {
     update(): void {
         this.keysJustPressed = {};
         this.mouse.justDown = false
+    }
+
+    private notifyFirstInteraction(): void {
+        if (this.hasInteracated) return;
+
+        this.hasInteracated = true;
+        this.onFirstInteraction();
     }
 }

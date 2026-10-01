@@ -28,9 +28,8 @@ await Promise.all(Array.from(document.images).map((image: HTMLImageElement): Pro
     });
 }));
 
-const inputs = new Inputs(gameCanvas);
-
 const audioManager = new AudioManager(audioMap[LEVEL]);
+const inputs = new Inputs(gameCanvas, () => audioManager.onUserInteraction());
 
 const player = new Player(
     59, 240,

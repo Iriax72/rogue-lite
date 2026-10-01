@@ -10,11 +10,13 @@ type Rect = {
 type AudioMap = readonly (readonly number[])[];
 
 export class AudioManager {
-    private bgMusic: HTMLAudioElement;
+    private bgMusic: HTMLAudioElement | null = null;
     private audios: {[key: string]: HTMLAudioElement} = {};
     private readonly bgVolume = 0.3;
     private readonly soundEffectVolume = 0.7;
     private isMuted: boolean = false;
+    private hasUserInteracted: boolean = false;
+    private selectedBgMusicName: string | null = null;
 
     private readonly TILE_SIZE = 32;
 
@@ -23,10 +25,8 @@ export class AudioManager {
     ) {
         this.loadSoundEffect('throw-arrow', '../assets/audio/arrow.mp3');
         this.loadSoundEffect('throw-fire-ball', '../assets/audio/fire-ball.mp3');
-
-        this.bgMusic = new Audio();
-        this.bgMusic.volume = this.bgVolume;
-        this.bgMusic.loop = true;
+        this.loadSoundEffect('bg-music-0', '../assets/audio/bg-music-0.mp3');
+        this.loadSoundEffect('bg-music-1', '../assets/audio/bg-music-1.mp3');
     }
 
     public update(playerRect: Rect): void {
@@ -44,16 +44,29 @@ export class AudioManager {
         assertDefined(audioLine, "La ligne n'est pas présente dans audioMap");
         const musicName = 'bg-music-' + audioLine[playerTile.x];
 
+        this.selectedBgMusicName = musicName;
         this.playBgMusic(musicName);
+    }
+
+    public onUserInteraction(): void {
+        if (this.hasUserInteracted) return;
+
+        this.hasUserInteracted = true;
+        if (this.selectedBgMusicName) {
+            this.playBgMusic(this.selectedBgMusicName);
+        }
     }
 
     private playBgMusic(name: string): void {
         if (
+            !this.hasUserInteracted
+            ||
             this.isMuted
             || !this.audios[name]
             || this.audios[name] === this.bgMusic
         ) return;
 
+        this.bgMusic?.pause();
         this.bgMusic = this.audios[name];
         this.bgMusic.volume = this.bgVolume;
         this.bgMusic.loop = true;
