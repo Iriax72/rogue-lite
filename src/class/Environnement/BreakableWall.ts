@@ -12,13 +12,7 @@ export class BreakableWall extends Environnement {
         );
     }
 
-    public update(breakableWalls: BreakableWall[], fireBalls: FireBall[]) {
-        console.log('bw update !')
-        fireBalls.forEach(fireBall => {
-            if (collides(this.getRect(), fireBall.getRect())) {
-                fireBalls = fireBalls.filter(fb => fireBall !== fb);
-                breakableWalls = breakableWalls.filter(bw => bw !== this);
-            }
-        })
+    public collidesFireBall(fireBalls: FireBall[]): FireBall | undefined {
+        return fireBalls.find(fireBall => collides(this.getRect(), fireBall.getRect()));
     }
 }

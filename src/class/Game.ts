@@ -171,10 +171,11 @@ export class Game {
             );
             this.environnements.forEach(env => {
                 if (env instanceof BreakableWall) {
-                    env.update(
-                        this.environnements.filter(e => e instanceof BreakableWall),
-                        this.player.shoots.filter(shoot => shoot instanceof FireBall)
-                    )
+                    const collidingFb = env.collidesFireBall(this.player.shoots.filter(shoot => shoot instanceof FireBall) as FireBall[]);
+                    if (collidingFb) {
+                        this.environnements = this.environnements.filter(env2 => env2 !== env);
+                        this.player.shoots = this.player.shoots.filter(shoot => shoot !== collidingFb);
+                    }
                 }
             });
             this.pnjs.forEach(pnj => pnj.update());
