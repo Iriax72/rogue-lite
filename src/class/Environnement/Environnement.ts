@@ -1,5 +1,4 @@
 import { Entity } from "../Entity.js";
-import {BreakableWall} from "./BreakableWall.js";
 
 export abstract class Environnement extends Entity {
     constructor(
@@ -12,9 +11,5 @@ export abstract class Environnement extends Entity {
 
     public draw(ctx: CanvasRenderingContext2D) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-
-        if (this instanceof BreakableWall) {
-            console.log("breakablewall draw !")
-        }
     }
 }

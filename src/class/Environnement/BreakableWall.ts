@@ -13,6 +13,7 @@ export class BreakableWall extends Environnement {
     }
 
     public update(breakableWalls: BreakableWall[], fireBalls: FireBall[]) {
+        console.log('bw update !')
         fireBalls.forEach(fireBall => {
             if (collides(this.getRect(), fireBall.getRect())) {
                 fireBalls = fireBalls.filter(fb => fireBall !== fb);
