@@ -123,9 +123,9 @@ export class ATH {
 
     private drawLightSource(ctx: CanvasRenderingContext2D, x: number, y: number, radius: number): void {
         const gradiant = ctx.createRadialGradient(x, y, 0, x, y, radius);
-        gradiant.addColorStop(0, 'transparent');
-        gradiant.addColorStop(0.7, 'rgba(0, 0, 0, 0.5)')
-        gradiant.addColorStop(1, 'black');
+        gradiant.addColorStop(0, 'white');
+        gradiant.addColorStop(0.7, 'rgba(255, 255, 255, 0.5)')
+        gradiant.addColorStop(1, 'transparent');
 
         ctx.fillStyle = gradiant;
         ctx.beginPath();
