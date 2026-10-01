@@ -96,6 +96,8 @@ export class Game {
         this.pnjs.push(new Knight(59, 220, 20, 25, this, this.inputs));
         this.pnjs.push(new Pnj1(20, 160, 15, 20, this, this.inputs));
 
+        console.log(new BreakableWall(4*this.tile_size, 10*this.tile_size, this.tile_size));
+
         this.environnements.push(new BreakableWall(4 * this.tile_size, 10 * this.tile_size, this.tile_size));
         this.environnements.push(new BreakableWall(4 * this.tile_size, 11 * this.tile_size, this.tile_size));
 
