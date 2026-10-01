@@ -14,7 +14,7 @@ type Rect = {
 };
 
 export class ATH {
-    private readonly LIGHT_RADIUS = 25; // px
+    private readonly LIGHT_RADIUS = 70; // px
     private readonly MENU_SIZE = 75 / 100; // % du canvas
     
     private readonly BTN_WIDTH = 200; // px
@@ -84,14 +84,15 @@ export class ATH {
         lightCtx.clearRect(0, 0, this.lightCanvas.width, this.lightCanvas.height);
         lightCtx.save();
         lightCtx.fillStyle= 'rgba(0, 0, 0, 0.8)';
-        //lightCtx.fillRect(0, 0, this.lightCanvas.width, this.lightCanvas.height); 
+        lightCtx.fillRect(0, 0, this.lightCanvas.width, this.lightCanvas.height); 
         // Décommenter pour réactiver les effets de lumieère TODO!!
         lightCtx.globalCompositeOperation = 'destination-out';
 
-        this.drawLightSource(lightCtx, this.player.getRect().x, this.player.getRect().y, this.LIGHT_RADIUS);
+        const playerRect = this.player.getRect();
+        this.drawLightSource(lightCtx, playerRect.x + playerRect.w / 2, playerRect.y + playerRect.h / 2, this.LIGHT_RADIUS);
 
         this.lamps.forEach(lamp => {
-            this.drawLightSource(lightCtx, lamp.getRect().x, lamp.getRect().y, 12)
+            this.drawLightSource(lightCtx, lamp.getRect().x + lamp.getRect().w / 2, lamp.getRect().y + lamp.getRect().h / 2, 28)
         });
 
         fireBalls.forEach(fb => {
