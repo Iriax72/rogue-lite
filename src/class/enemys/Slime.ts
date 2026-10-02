@@ -1,4 +1,4 @@
-import { getImage, dist, Vector2D} from "../../functions.js";
+import { getImage, Vector2D } from "../../functions.js";
 
 import { Player } from "../Player.js";
 import {Enemy} from "./Enemy.js";
@@ -25,17 +25,25 @@ export class Slime extends Enemy {
 
     protected move(deltaTime: number): void {
         const aim = this.allerRetour ? this.moveEnd : this.moveStart;
-        
-        let dir: Vector2D = new Vector2D(
-            aim.x - this.getRect().x,
-            aim.y - this.getRect().y
-        ).normalize();
 
-        this.x += dir.x * this.speed * deltaTime;
-        this.y += dir.y * this.speed * deltaTime;
+        const dx = new Vector2D(aim.x - this.x, aim.y - this.y);
+        const remainingDistance = dx.length();
+        const distanceToMove = this.speed * deltaTime;
 
-        if (dist(this.getRect(), aim.toRect()) < 1) {
+        if (remainingDistance === 0) {
             this.allerRetour = !this.allerRetour;
+            return;
         }
+
+        if (remainingDistance <= distanceToMove) {
+            this.x = aim.x;
+            this.y = aim.y;
+            this.allerRetour = !this.allerRetour;
+            return;
+        }
+
+        const direction = dx.normalize();
+        this.x += direction.x * distanceToMove;
+        this.y += direction.y * distanceToMove;
     }
 }
