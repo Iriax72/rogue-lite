@@ -63,6 +63,10 @@ export class Vector2D {
     }
 
     normalize(): Vector2D {
+        if (this.length() === 0) {
+            return new Vector2D(0, 0);
+        }
+
         return new Vector2D(
             this.x / this.length(),
             this.y / this.length()

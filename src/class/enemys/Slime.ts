@@ -34,7 +34,7 @@ export class Slime extends Enemy {
         this.x += dir.x * this.speed * deltaTime;
         this.y += dir.y * this.speed * deltaTime;
 
-        if (dist(this.getRect(), dir.toRect()) < 1) {
+        if (dist(this.getRect(), aim.toRect()) < 1) {
             this.allerRetour = !this.allerRetour;
         }
     }
