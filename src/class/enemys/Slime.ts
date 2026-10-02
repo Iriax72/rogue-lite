@@ -5,7 +5,7 @@ import {Enemy} from "./Enemy.js";
 
 export class Slime extends Enemy {
     private allerRetour:boolean = true;
-    private readonly speed: number = 0.05; // px / ms
+    private readonly speed: number = 0.02; // px / ms
 
     constructor(x: number, y: number, dropLoot: Function, player: Player,
         private readonly moveStart: Vector2D,
