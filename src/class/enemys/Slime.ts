@@ -1,20 +1,15 @@
-import { getImage, dist } from "../../functions.js";
+import { getImage, dist, Vector2D} from "../../functions.js";
 
 import { Player } from "../Player.js";
 import {Enemy} from "./Enemy.js";
-
-type coordinate = {
-    x: number,
-    y: number
-}
 
 export class Slime extends Enemy {
     private allerRetour:boolean = true;
     private readonly speed: number = 0.05; // px / ms
 
     constructor(x: number, y: number, dropLoot: Function, player: Player,
-        private readonly moveStart: coordinate,
-        private readonly moveEnd: coordinate
+        private readonly moveStart: Vector2D,
+        private readonly moveEnd: Vector2D
     ) {
         super(
             x, y,
@@ -31,19 +26,15 @@ export class Slime extends Enemy {
     protected move(deltaTime: number): void {
         const aim = this.allerRetour ? this.moveEnd : this.moveStart;
         
-        let dir: coordinate = {
-            x: aim.x - this.getRect().x,
-            y: aim.y - this.getRect().y
-        };
-        dir = {
-            x: dir.x / Math.sqrt(dir.x **2 + dir.y **2),
-            y: dir.y / Math.sqrt(dir.x **2 + dir.y **2)
-        };
+        let dir: Vector2D = new Vector2D(
+            aim.x - this.getRect().x,
+            aim.y - this.getRect().y
+        ).normalize();
 
         this.x += dir.x * this.speed * deltaTime;
         this.y += dir.y * this.speed * deltaTime;
 
-        if (dist(this.getRect(), {x: aim.x, y: aim.y, w:0, h:0}) < 1) {
+        if (dist(this.getRect(), dir.toRect()) < 1) {
             this.allerRetour = !this.allerRetour;
         }
     }

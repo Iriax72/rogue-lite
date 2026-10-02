@@ -51,3 +51,32 @@ export function dist(r1: Rect, r2: Rect): number {
     const dy = Math.max(0, Math.max(r1.y - r2.y + r2.h, r2.y - r1.y + r1.h));
     return Math.sqrt(dx**2 + dy**2);
 }
+
+export class Vector2D {
+    constructor(
+        public x: number,
+        public y: number
+    ) {}
+
+    toRect(): Rect {
+        return {x: this.x, y: this.y, w: 0, h: 0};
+    }
+
+    normalize(): Vector2D {
+        return new Vector2D(
+            this.x / this.length(),
+            this.y / this.length()
+        )
+    }
+
+    length(): number {
+        return Math.sqrt(this.x **2 + this.y **2);
+    }
+
+    add(v: Vector2D): Vector2D {
+        return new Vector2D(
+            this.x + v.x,
+            this.y + v.y
+        )
+    }
+}
