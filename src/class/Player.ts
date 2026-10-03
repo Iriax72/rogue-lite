@@ -142,15 +142,15 @@ export class Player extends Entity{
         for (let i = 0; i < environnements.length; i++) {
             const env = environnements[i];
             assertDefined(env, "Env n'existe pas!");
-            if (collides(this.getRect(), env.getRect())) {
+            if (collides({x, y, w: this.width, h: this.height}, env.getRect())) {
                 return true;
             }
         }
 
         const leftTile = Math.floor(x / tile_size);
-        const rightTile = Math.floor((x + this.width) / tile_size);
+        const rightTile = Math.ceil((x + this.width) / tile_size) - 1;
         const upTile = Math.floor(y / tile_size);
-        const bottomTile = Math.floor((y + this.height) / tile_size);
+        const bottomTile = Math.ceil((y + this.height) / tile_size) - 1;
 
         const firstRow = map[0];
         if (bottomTile >= map.length || rightTile >= firstRow.length) {
