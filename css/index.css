@@ -16,7 +16,7 @@ body {
 .container {
     height: 20vh;
     width: 75vw;
-    background-image: url("./assets/img/container.png");
+    background-image: url("../assets/img/container.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
