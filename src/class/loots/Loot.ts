@@ -2,6 +2,8 @@ import { Entity } from "../Entity.js";
 import { Game } from "../Game.js";
 import { Player } from "../Player.js";
 
+export type LootConstructor = new (game: Game, x: number, y: number, value: number) => Loot;
+
 export abstract class Loot extends Entity {
     constructor (
         protected readonly game: Game,

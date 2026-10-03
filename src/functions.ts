@@ -1,4 +1,4 @@
-type Rect = {
+export type Rect = {
     x: number,
     y: number,
     w: number,
@@ -50,6 +50,21 @@ export function dist(r1: Rect, r2: Rect): number {
     const dx = Math.max(0, Math.max(r1.x - r2.x + r2.w, r2.x - r1.x + r1.w));
     const dy = Math.max(0, Math.max(r1.y - r2.y + r2.h, r2.y - r1.y + r1.h));
     return Math.sqrt(dx**2 + dy**2);
+}
+
+export function extractImgFromSprite(sprite: HTMLImageElement, x: number, y: number, width: number, height: number): HTMLImageElement {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext('2d');
+    assertDefined(ctx, 'Impossible de récupérer le contexte 2D du canvas');
+
+    ctx.drawImage(sprite, x, y, width, height, 0, 0, width, height);
+    
+    const img = new Image();
+    img.src = canvas.toDataURL('image/png');
+    return img;
 }
 
 export class Vector2D {

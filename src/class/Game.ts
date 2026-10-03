@@ -1,14 +1,14 @@
 import { getImage, dist, Vector2D} from "../functions.js";
 
 // import { Entity } from "./Entity.js";
-import { Loot } from "./loots/Loot.js";
+import { Loot, type LootConstructor } from "./loots/Loot.js";
 import {GoldBag} from "./loots/GoldBag.js";
 import { ManaBottle } from "./loots/ManaBottle.js";
 import {Guardian} from "./enemys/Guardian.js";
 import {Slime} from "./enemys/Slime.js";
 import {Player} from "./Player.js";
 import {Inputs} from "./Inputs.js";
-import {Enemy} from "./enemys/Enemy.js";
+import {BaseEnemy} from "./enemys/BaseEnemy.js";
 import {ATH} from "./ATH.js";
 import { Shoot } from "./shoots/Shoots.js";
 import { PNJ } from "./PNJs/PNJ.js";
@@ -19,6 +19,7 @@ import { BreakableWall } from "./Environnement/BreakableWall.js";
 import { FireBall } from "./shoots/FireBall.js";
 import { Environnement } from "./Environnement/Environnement.js";
 import { Lamp } from "./Environnement/Lamp.js";
+import { Golem } from "./enemys/Golem.js";
 
 type Timestamp = number;
 
@@ -38,7 +39,7 @@ export class Game {
     private readonly ath: ATH;
 
     public loots: Loot[] = [];
-    private enemys: Enemy[] = [];
+    private enemys: BaseEnemy[] = [];
     private pnjs: PNJ[] = [];
     private environnements: Environnement[] = [];
 
@@ -62,7 +63,8 @@ export class Game {
 
         this.ath = new ATH(this.canvas, this.player, this.environnements.filter(env => env instanceof Lamp), this.inputs);
 
-        this.dropGoldBag = this.dropGoldBag.bind(this);
+        // this.dropGoldBag = this.dropGoldBag.bind(this);
+        this.dropLootFunc = this.dropLootFunc.bind(this);
         this.lastTimestamp = 0;
     }
 
@@ -90,8 +92,8 @@ export class Game {
 
 
         // Tests
-        this.enemys.push(new Guardian(59, 290, this.dropGoldBag, this.player));
-        this.enemys.push(new Slime(59, 240, this.dropGoldBag, this.player, new Vector2D(59, 240), new Vector2D(59, 300)));
+        this.enemys.push(new Guardian(59, 290, this.dropLootFunc, this.player));
+        this.enemys.push(new Slime(59, 240, this.dropLootFunc, this.player, new Vector2D(59, 240), new Vector2D(59, 300)));
 
         this.pnjs.push(new Knight(59, 220, 20, 25, this, this.inputs));
         this.pnjs.push(new Pnj1(20, 160, 15, 20, this, this.inputs));
@@ -101,6 +103,9 @@ export class Game {
         this.environnements.push(new BreakableWall(4 * this.tile_size, 10 * this.tile_size, this.tile_size));
         this.environnements.push(new BreakableWall(4 * this.tile_size, 11 * this.tile_size, this.tile_size));
 
+        this.enemys.push(new Golem(150, 150, this.dropLootFunc));
+
+        // Lancer la boucle de jeu
         this.update(0);
     }
 
@@ -144,7 +149,7 @@ export class Game {
             loot.draw(ctx);
         });
 
-        this.enemys.forEach((enemy: Enemy): void => enemy.draw(ctx));
+        this.enemys.forEach((enemy: BaseEnemy): void => enemy.draw(ctx));
 
         this.player.shoots.forEach((shoot: Shoot): void => shoot.draw(ctx));
 
@@ -207,7 +212,13 @@ export class Game {
         }
     }
 
+    private dropLootFunc(lootConstructor: LootConstructor, x: number, y: number, value: number): void {
+        this.loots.push(new lootConstructor(this, x, y, value));
+    }
+
+    /*
     private dropGoldBag(x: number, y: number, value: number): void {
         this.loots.push(new GoldBag(this, x, y, value));
     }
+    */
 }

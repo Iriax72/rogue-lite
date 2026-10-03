@@ -1,17 +1,11 @@
-import { Entity } from "../Entity.js";
+import { BaseEnemy } from "./BaseEnemy.js";
 
+import type { LootConstructor } from "../loots/Loot.js";
+import { GoldBag } from "../loots/GoldBag.js";
 import type { Player } from "../Player.js";
 import { Shoot } from "../shoots/Shoots.js";
 
-type Rect = {
-    x: number,
-    y: number,
-    w: number,
-    h: number
-}
-
-export abstract class Enemy extends Entity {
-    public isDead: boolean = false;
+export abstract class Enemy extends BaseEnemy {
     private currentCooldown = 0;
 
     constructor (
@@ -21,16 +15,16 @@ export abstract class Enemy extends Entity {
         height: number,
         private readonly strength: number,
         private readonly cooldown: number,
-        public health: number,
+        health: number,
         private readonly goldValue: number,
-        private readonly image: HTMLImageElement,
-        private readonly dropGoldBag: Function,
+        image: HTMLImageElement,
+        dropLootFunc: (lootConstructor: LootConstructor, x: number, y: number, value: number) => void,
         private readonly player: Player,
     ) {
-        super(x, y, width, height);
+        super(x, y, width, height, health, image, dropLootFunc);
     }
 
-    protected abstract move(deltaTime: number): void
+    // protected abstract move(deltaTime: number): void
 
     public update(deltaTime: number): void {
         this.player.shoots.forEach((shoot: Shoot): void => {
@@ -56,18 +50,20 @@ export abstract class Enemy extends Entity {
         }
     }
 
+    /*
     public draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
+    */
 
-    private die(): void {
-        if (this.isDead) {
-            return;
-        }
-        this.dropGoldBag(this.x, this.y, this.goldValue);
+    protected die(): void {
+        if (this.isDead) return;
+        
+        this.dropLootFunc(GoldBag, this.x, this.y, this.goldValue);
         this.isDead = true;
     }
 
+    /*
     protected collides(rect: Rect): boolean {
         if (this.x + this.width < rect.x) {
             return false;
@@ -83,4 +79,5 @@ export abstract class Enemy extends Entity {
         }
         return true;
     }
+    */
 }

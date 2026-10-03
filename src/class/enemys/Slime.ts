@@ -1,4 +1,5 @@
 import { getImage, Vector2D } from "../../functions.js";
+import type { LootConstructor } from "../loots/Loot.js";
 
 import { Player } from "../Player.js";
 import {Enemy} from "./Enemy.js";
@@ -7,7 +8,7 @@ export class Slime extends Enemy {
     private allerRetour:boolean = true;
     private readonly speed: number = 0.02; // px / ms
 
-    constructor(x: number, y: number, dropLoot: Function, player: Player,
+    constructor(x: number, y: number, dropLoot: (lootConstructor: LootConstructor, x: number, y: number, value: number) => void, player: Player,
         private readonly moveStart: Vector2D,
         private readonly moveEnd: Vector2D
     ) {
