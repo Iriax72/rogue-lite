@@ -1,4 +1,4 @@
-import { getImage, collides, assertDefined } from '../functions.js';
+import { getImage, collides, assertDefined, Vector2D} from '../functions.js';
 
 import { Entity } from './Entity.js';
 import { Shoot } from './shoots/Shoots.js';
@@ -13,11 +13,6 @@ type Rect = {
     y: number,
     w: number,
     h: number
-};
-
-type Vector2d = {
-    x: number,
-    y: number
 };
 
 type ShootConstructor<T extends Shoot> = new (x: number, y: number, dir: number) => T
@@ -97,7 +92,7 @@ export class Player extends Entity{
     }
 
     private move(deltaTime: number, keys: {[keys: string]: boolean}, map: Map, tile_size: number, environnements: Environnement[]): void {
-        let v: Vector2d = {x: 0, y: 0};
+        let v: Vector2D = new Vector2D(0, 0);
 
         if (keys['ArrowUp'] || keys['w'])
             { v.y -= 1; }
@@ -107,13 +102,8 @@ export class Player extends Entity{
             { v.x -= 1; }
         if (keys['ArrowRight'] || keys['d'])
             { v.x += 1; }
-        const length = Math.sqrt(v.x **2 + v.y **2);
-        if (length > 0) {
-            v.x /= length;
-            v.y /= length;
-        }
-        v.x *= this.SPEED * deltaTime;
-        v.y *= this.SPEED * deltaTime;
+
+        v = v.normalize().amplify(this.SPEED * deltaTime);
 
         if (!this.isCollidingWall(this.x + v.x, this.y, map, tile_size, environnements)) {
             this.x += v.x;
@@ -149,15 +139,6 @@ export class Player extends Entity{
     }
 
     private isCollidingWall(x: number, y: number, map: Map, tile_size: number, environnements: Environnement[]): boolean {
-        /*
-        environnements.forEach((env): boolean => {
-            if (collides(this.getRect(), env.getRect())) {
-                return true;
-            } else {
-                return false;
-            }
-        });*/
-
         for (let i = 0; i < environnements.length; i++) {
             const env = environnements[i];
             assertDefined(env, "Env n'existe pas!");

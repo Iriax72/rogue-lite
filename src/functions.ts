@@ -83,4 +83,11 @@ export class Vector2D {
             this.y + v.y
         )
     }
+
+    amplify(scalar: number): Vector2D {
+        return new Vector2D(
+            this.x * scalar,
+            this.y * scalar
+        );
+    }
 }
