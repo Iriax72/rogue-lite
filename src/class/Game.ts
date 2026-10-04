@@ -19,7 +19,7 @@ import { BreakableWall } from "./Environnement/BreakableWall.js";
 import { FireBall } from "./shoots/FireBall.js";
 import { Environnement } from "./Environnement/Environnement.js";
 import { Lamp } from "./Environnement/Lamp.js";
-import { Golem } from "./enemys/Golem.js";
+import { Golem } from "./enemys/boss/Golem.js";
 
 type Timestamp = number;
 
