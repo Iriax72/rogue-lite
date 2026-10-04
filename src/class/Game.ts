@@ -215,10 +215,4 @@ export class Game {
     private dropLootFunc(lootConstructor: LootConstructor, x: number, y: number, value: number): void {
         this.loots.push(new lootConstructor(this, x, y, value));
     }
-
-    /*
-    private dropGoldBag(x: number, y: number, value: number): void {
-        this.loots.push(new GoldBag(this, x, y, value));
-    }
-    */
 }

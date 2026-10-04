@@ -50,34 +50,10 @@ export abstract class Enemy extends BaseEnemy {
         }
     }
 
-    /*
-    public draw(ctx: CanvasRenderingContext2D): void {
-        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-    }
-    */
-
     protected die(): void {
         if (this.isDead) return;
         
         this.dropLootFunc(GoldBag, this.x, this.y, this.goldValue);
         this.isDead = true;
     }
-
-    /*
-    protected collides(rect: Rect): boolean {
-        if (this.x + this.width < rect.x) {
-            return false;
-        }
-        if (this.x > rect.x + rect.w) {
-            return false;
-        }
-        if (this.y + this.height < rect.y) {
-            return false;
-        }
-        if (this.y > rect.y + rect.h) {
-            return false;
-        }
-        return true;
-    }
-    */
 }
