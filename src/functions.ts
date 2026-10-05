@@ -1,9 +1,32 @@
+export type Point = {
+    x: number,
+    y: number
+}
+
 export type Rect = {
     x: number,
     y: number,
     w: number,
-    h: number
+    h: number,
 };
+
+export function getCorners(r: Rect): [Point, Point, Point, Point] {
+    return [
+        {x: r.x, y: r.y},
+        {x: r.x + r.w, y: r.y},
+        {x: r.x + r.w, y: r.y + r.h},
+        {x: r.x, y: r.y + r.h}
+    ];
+}
+
+export function toRect(p: Point): Rect {
+    return {
+        x: p.x,
+        y: p.y,
+        w: 0,
+        h: 0
+    };
+}
 
 export function assertDefined<T>(
     value: T | null | undefined,
@@ -105,4 +128,13 @@ export class Vector2D {
             this.y * scalar
         );
     }
+}
+
+export function choice<T>(list: T[]): T {
+    if (list.length === 0) {
+        throw new Error('[] à été passe à choice()')
+    }
+    const rdmElement = list[Math.floor(Math.random() * list.length)];
+    assertDefined(rdmElement, 'Une erreur est survenur heyhey');
+    return rdmElement;
 }

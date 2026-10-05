@@ -22,7 +22,7 @@ export abstract class BaseEnemy extends Entity {
 
     public abstract update(deltaTime: number): void;
 
-    protected abstract move(deltaTime: number): void;
+    // protected abstract move(deltaTime: number): void;
 
     protected abstract die(): void;
 

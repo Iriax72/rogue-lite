@@ -24,7 +24,7 @@ export abstract class Enemy extends BaseEnemy {
         super(x, y, width, height, health, image, dropLootFunc);
     }
 
-    // protected abstract move(deltaTime: number): void
+    protected abstract move(deltaTime: number): void
 
     public update(deltaTime: number): void {
         this.player.shoots.forEach((shoot: Shoot): void => {
