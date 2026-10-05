@@ -103,7 +103,12 @@ export class Game {
         this.environnements.push(new BreakableWall(4 * this.tile_size, 10 * this.tile_size, this.tile_size));
         this.environnements.push(new BreakableWall(4 * this.tile_size, 11 * this.tile_size, this.tile_size));
 
-        this.enemys.push(new Golem(150, 150, this.dropLootFunc));
+        this.enemys.push(new Golem(
+            150, 150,
+            {x: 150, y: 150, w: 300, h: 300},
+            this.dropLootFunc,
+            this.player
+        ));
 
         // Lancer la boucle de jeu
         this.update(0);
