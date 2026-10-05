@@ -9,7 +9,7 @@ export class GolemBullet extends Shoot {
             9, 4,
             dir,
             4, 0.1,
-            extractImgFromSprite(getImage('golem-bullet-img'), 200, 0, 100, 100),
+            extractImgFromSprite(getImage('golem-bullet-sprite'), 200, 0, 100, 100),
             getAudio('golem-bullet-audio'));
     }
 
