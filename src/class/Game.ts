@@ -105,7 +105,7 @@ export class Game {
 
         this.enemys.push(new Golem(
             150, 150,
-            {x: 150, y: 150, w: 300, h: 300},
+            {x: 150, y: 150, w: 110, h: 110},
             this.dropLootFunc,
             this.player
         ));

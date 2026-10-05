@@ -5,7 +5,7 @@ import type { LootConstructor } from "../../loots/Loot.js";
 import { Player } from "../../Player.js";
 
 export class Golem extends Boss<Golem> {
-    private isMoving: boolean = false;
+    private moveTarget: Point;
     private readonly speed = 0.06; // px / ms
 
     constructor(
@@ -32,12 +32,17 @@ export class Golem extends Boss<Golem> {
             phaseConfig,
             player
         );
+        this.moveTarget = {x: x, y: y};
     }
 
     public moveTo(point: Point, deltaTime: number): void {
-        if (this.isMoving) return;
+        if (dist(toRect(this.moveTarget), this.getRect()) < this.speed) {
+            this.moveTarget = point;
+        } 
 
-        let v = new Vector2D(point.x - this.x, point.y - this.y)
+        // TODO: ! C'est pas optimise de calcule point a chaque boucle pour ne l'utiliser que rarement
+
+        let v = new Vector2D(this.moveTarget.x - this.x, this.moveTarget.y - this.y)
         v = v.normalize().amplify(deltaTime * this.speed);
         this.x += v.x;
         this.y += v.y;
