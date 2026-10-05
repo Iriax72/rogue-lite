@@ -130,6 +130,13 @@ export class Vector2D {
     }
 }
 
+export function rdm(proba: number): boolean {
+    if (proba >= Math.random() && proba !== 0) {
+        return true;
+    }
+    return false;
+}
+
 export function choice<T>(list: T[]): T {
     if (list.length === 0) {
         throw new Error('[] à été passe à choice()')

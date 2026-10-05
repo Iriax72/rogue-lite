@@ -7,7 +7,7 @@ import type { Player } from "../../Player.js";
 
 export interface BossPhase<TBoss extends BaseEnemy = Boss> {
     name: string
-    attack: (boss: TBoss, deltaTime: number) => void
+    attack: (boss: TBoss) => void
     enter: (boss: TBoss) => void
 }
 
@@ -77,8 +77,8 @@ export abstract class Boss<TBoss extends BaseEnemy = BaseEnemy> extends BaseEnem
         }
     }
 
-    protected attackPhase(deltaTime: number): void {
-        this.currentPhase.attack(this as unknown as TBoss, deltaTime);
+    protected attackPhase(): void {
+        this.currentPhase.attack(this as unknown as TBoss);
     }
 
     protected die(): void {

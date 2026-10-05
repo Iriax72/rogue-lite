@@ -6,9 +6,9 @@ export abstract class Shoot extends Entity {
         y: number,
         width: number,
         height: number,
-        private readonly dir: number,
+        protected dir: number,
         public readonly strength: number,
-        private readonly speed: number, // pixel / ms
+        protected speed: number, // pixel / ms
         private readonly image: HTMLImageElement,
         private readonly soundEffect: HTMLAudioElement
     ) {

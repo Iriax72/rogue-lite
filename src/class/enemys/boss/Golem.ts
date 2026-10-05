@@ -1,13 +1,15 @@
-import {type Point, type Rect, getCorners, getImage, dist, toRect, extractImgFromSprite, Vector2D, choice, assertDefined } from "../../../functions.js";
+import {type Point, type Rect, getCorners, getImage, dist, toRect, extractImgFromSprite, Vector2D, choice, rdm, assertDefined } from "../../../functions.js";
 
 import { Boss, type BossPhase } from "./Boss.js";
 import type { LootConstructor } from "../../loots/Loot.js";
 import { Player } from "../../Player.js";
+import { GolemBullet } from "../../shoots/GolemBullet.js"
 
 export class Golem extends Boss<Golem> {
     private readonly speed = 0.06; // px / ms
     private targetCornerIndex: number | null = null;
     public isAttacking: boolean = false;
+    public bullets: GolemBullet[] = []
 
     constructor(
         x: number,
@@ -54,9 +56,10 @@ export class Golem extends Boss<Golem> {
 
     public override update(deltaTime: number): void {
         super.update(deltaTime);
+        this.bullets.forEach(b => b.update(deltaTime));
         if (this.isDead) return;
         if (this.isAttacking) {
-            this.attackPhase(deltaTime);
+            this.attackPhase();
         } else {
             this.move(deltaTime);
         }
@@ -97,9 +100,17 @@ export class Golem extends Boss<Golem> {
 class Phase1 implements BossPhase<Golem> {
     name = "Phase 1"
 
-    attack(boss: Golem, deltaTime: number): void {
-        console.log('Le golem attaque (dt = ' + deltaTime + ' )');
+    attack(boss: Golem): void {
+        if (rdm(0.5)) {
+            this.throwBullet(boss)
+        } else {
+            console.log("Je n'ai pas attaqué")
+        }
         boss.isAttacking = false;
+    }
+
+    throwBullet(boss: Golem) {
+        boss.bullets.push(new GolemBullet(boss.getRect().x + boss.getRect().w, boss.getRect().y + boss.getRect().h / 2, 0));
     }
 
     enter(_boss: Golem) {}
@@ -108,7 +119,7 @@ class Phase1 implements BossPhase<Golem> {
 class Phase2 implements BossPhase<Golem> {
     name =  "Phase 2"
 
-    attack(_boss: Golem, _deltaTime: number): void {}
+    attack(_boss: Golem): void {}
 
     enter(_boss: Golem) {}
 }
