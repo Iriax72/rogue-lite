@@ -6,10 +6,10 @@ export class GolemBullet extends Shoot {
     constructor(x: number, y: number, dir: number) {
         super(
             x, y,
-            9, 4,
+            17, 7,
             dir,
             4, 0.1,
-            extractImgFromSprite(getImage('golem-bullet-sprite'), 200, 0, 100, 100),
+            extractImgFromSprite(getImage('golem-bullet-sprite'), 260, 30, 35, 14),
             getAudio('golem-bullet-audio'));
     }
 
