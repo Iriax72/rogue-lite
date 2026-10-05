@@ -1,11 +1,10 @@
-import {type Point, type Rect, getCorners, toRect, getImage, extractImgFromSprite, Vector2D, dist, choice } from "../../../functions.js";
+import {type Point, type Rect, getCorners, getImage, extractImgFromSprite, Vector2D, choice } from "../../../functions.js";
 
 import { Boss, type BossPhase } from "./Boss.js";
 import type { LootConstructor } from "../../loots/Loot.js";
 import { Player } from "../../Player.js";
 
 export class Golem extends Boss<Golem> {
-    private moveTarget: Point;
     private readonly speed = 0.06; // px / ms
 
     constructor(
@@ -32,25 +31,29 @@ export class Golem extends Boss<Golem> {
             phaseConfig,
             player
         );
-        this.moveTarget = {x: x, y: y};
     }
 
-    public moveTo(point: Point, deltaTime: number): void {
-        if (dist(toRect(this.moveTarget), this.getRect()) < this.speed) {
-            this.moveTarget = point;
-        } 
+    public moveTo(point: Point, deltaTime: number): boolean {
+        const direction = new Vector2D(point.x - this.x, point.y - this.y);
+        const remainingDistance = direction.length();
+        const distanceToMove = deltaTime * this.speed;
 
-        // TODO: ! C'est pas optimise de calcule point a chaque boucle pour ne l'utiliser que rarement
+        if (remainingDistance <= distanceToMove) {
+            this.x = point.x;
+            this.y = point.y;
+            return true;
+        }
 
-        let v = new Vector2D(this.moveTarget.x - this.x, this.moveTarget.y - this.y)
-        v = v.normalize().amplify(deltaTime * this.speed);
-        this.x += v.x;
-        this.y += v.y;
+        const movement = direction.normalize().amplify(distanceToMove);
+        this.x += movement.x;
+        this.y += movement.y;
+        return false;
     }
 }
 
 class Phase1 implements BossPhase<Golem> {
     name = "Phase 1"
+    private targetCornerIndex: number | null = null;
 
     update(boss: Golem, deltaTime: number): void {
         this.move(boss, deltaTime);
@@ -60,24 +63,31 @@ class Phase1 implements BossPhase<Golem> {
 
     move(boss: Golem, deltaTime: number) {
         const corners = getCorners(boss.room);
-        const [topLeft, topRight, bottomRight, bottomLeft] = corners;
-        let bestCorner = topLeft;
-        let bestDistance = dist(boss.getRect(), toRect(bestCorner));
-        corners.forEach(corner => {
-            const d = dist(boss.getRect(), toRect(corner))
-            if (d < bestDistance) {
-                bestCorner = corner;
-                bestDistance = d;
-            }
-        });
-        const around: Point[] = bestCorner === topLeft
-            ? [topRight, bottomLeft]
-            : bestCorner === topRight
-                ? [topLeft, bottomRight]
-                : bestCorner === bottomRight
-                    ? [topRight, bottomLeft]
-                    : [topLeft, bottomRight];
-        boss.moveTo(choice(around), deltaTime);
+        if (this.targetCornerIndex === null) {
+            const golemPosition = boss.getRect();
+            let nearestCornerIndex = 0;
+            let nearestDistance = Number.POSITIVE_INFINITY;
+            corners.forEach((corner, index) => {
+                const distance = Math.hypot(corner.x - golemPosition.x, corner.y - golemPosition.y);
+                if (distance < nearestDistance) {
+                    nearestCornerIndex = index;
+                    nearestDistance = distance;
+                }
+            });
+            this.targetCornerIndex = this.chooseAdjacentCorner(nearestCornerIndex);
+        }
+
+        const targetCorner = corners[this.targetCornerIndex]!;
+        if (boss.moveTo(targetCorner, deltaTime)) {
+            this.targetCornerIndex = this.chooseAdjacentCorner(this.targetCornerIndex);
+        }
+    }
+
+    private chooseAdjacentCorner(currentCornerIndex: number): number {
+        return choice([
+            (currentCornerIndex + 1) % 4,
+            (currentCornerIndex + 3) % 4
+        ]);
     }
 }
 
