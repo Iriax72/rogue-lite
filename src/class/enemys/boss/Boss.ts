@@ -9,7 +9,6 @@ export interface BossPhase<TBoss extends BaseEnemy = Boss> {
     name: string
     update: (boss: TBoss, deltaTime: number) => void
     enter: (boss: TBoss) => void
-    move: (boss: TBoss, deltaTime: number) => void
 }
 
 export interface BossPhaseTransition<TBoss extends BaseEnemy = Boss> {

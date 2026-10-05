@@ -6,6 +6,7 @@ import { Player } from "../../Player.js";
 
 export class Golem extends Boss<Golem> {
     private readonly speed = 0.06; // px / ms
+    private targetCornerIndex: number | null = null;
 
     constructor(
         x: number,
@@ -33,7 +34,7 @@ export class Golem extends Boss<Golem> {
         );
     }
 
-    public moveTo(point: Point, deltaTime: number): boolean {
+    private moveTo(point: Point, deltaTime: number): boolean {
         const direction = new Vector2D(point.x - this.x, point.y - this.y);
         const remainingDistance = direction.length();
         const distanceToMove = deltaTime * this.speed;
@@ -49,22 +50,18 @@ export class Golem extends Boss<Golem> {
         this.y += movement.y;
         return false;
     }
-}
 
-class Phase1 implements BossPhase<Golem> {
-    name = "Phase 1"
-    private targetCornerIndex: number | null = null;
-
-    update(boss: Golem, deltaTime: number): void {
-        this.move(boss, deltaTime);
+    public override update(deltaTime: number): void {
+        super.update(deltaTime);
+        if (!this.isDead) {
+            this.move(deltaTime);
+        }
     }
 
-    enter(_boss: Golem) {}
-
-    move(boss: Golem, deltaTime: number) {
-        const corners = getCorners(boss.room);
+    private move(deltaTime: number): void {
+        const corners = getCorners(this.room);
         if (this.targetCornerIndex === null) {
-            const golemPosition = boss.getRect();
+            const golemPosition = this.getRect();
             let nearestCornerIndex = 0;
             let nearestDistance = Number.POSITIVE_INFINITY;
             corners.forEach((corner, index) => {
@@ -78,7 +75,7 @@ class Phase1 implements BossPhase<Golem> {
         }
 
         const targetCorner = corners[this.targetCornerIndex]!;
-        if (boss.moveTo(targetCorner, deltaTime)) {
+        if (this.moveTo(targetCorner, deltaTime)) {
             this.targetCornerIndex = this.chooseAdjacentCorner(this.targetCornerIndex);
         }
     }
@@ -91,16 +88,18 @@ class Phase1 implements BossPhase<Golem> {
     }
 }
 
+class Phase1 implements BossPhase<Golem> {
+    name = "Phase 1"
+
+    update(): void {}
+
+    enter(_boss: Golem) {}
+}
+
 class Phase2 implements BossPhase<Golem> {
     name =  "Phase 2"
 
-    update(boss: Golem): void {
-        this.move(boss);
-    }
+    update(): void {}
 
     enter(_boss: Golem) {}
-
-    move(_boss: Golem) {
-
-    }
 }
