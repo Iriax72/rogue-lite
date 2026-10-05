@@ -65,6 +65,11 @@ export class Golem extends Boss<Golem> {
         }
     }
 
+    public override draw(ctx: CanvasRenderingContext2D): void {
+        super.draw(ctx);
+        this.bullets.forEach(b => b.draw(ctx));
+    }
+
     private move(deltaTime: number): void {
         const corners = getCorners(this.room);
         if (this.targetCornerIndex === null) {
