@@ -6,7 +6,7 @@ import { Player } from "../../Player.js";
 
 export class Golem extends Boss<Golem> {
     private isMoving: boolean = false;
-    private readonly speed = 0.01; // px / ms
+    private readonly speed = 0.06; // px / ms
 
     constructor(
         x: number,
