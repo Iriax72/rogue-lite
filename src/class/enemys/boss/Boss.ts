@@ -7,7 +7,7 @@ import type { Player } from "../../Player.js";
 
 export interface BossPhase<TBoss extends BaseEnemy = Boss> {
     name: string
-    update: (boss: TBoss, deltaTime: number) => void
+    attack: (boss: TBoss, deltaTime: number) => void
     enter: (boss: TBoss) => void
 }
 
@@ -46,7 +46,7 @@ export abstract class Boss<TBoss extends BaseEnemy = BaseEnemy> extends BaseEnem
         this.currentPhase.enter(this as unknown as TBoss);
     }
 
-    public update(deltaTime: number): void {
+    public update(_deltaTime: number): void {
         // Check damages
         this.player.shoots.forEach(shoot => {
             if (this.collides(shoot.getRect())) {
@@ -75,8 +75,10 @@ export abstract class Boss<TBoss extends BaseEnemy = BaseEnemy> extends BaseEnem
             this.currentPhaseIndex = targetPhaseIndex;
             this.currentPhase.enter(this as unknown as TBoss);
         }
+    }
 
-        this.currentPhase.update(this as unknown as TBoss, deltaTime);
+    protected attackPhase(deltaTime: number): void {
+        this.currentPhase.attack(this as unknown as TBoss, deltaTime);
     }
 
     protected die(): void {

@@ -1,4 +1,4 @@
-import {type Point, type Rect, getCorners, getImage, extractImgFromSprite, Vector2D, choice } from "../../../functions.js";
+import {type Point, type Rect, getCorners, getImage, dist, toRect, extractImgFromSprite, Vector2D, choice, assertDefined } from "../../../functions.js";
 
 import { Boss, type BossPhase } from "./Boss.js";
 import type { LootConstructor } from "../../loots/Loot.js";
@@ -7,6 +7,7 @@ import { Player } from "../../Player.js";
 export class Golem extends Boss<Golem> {
     private readonly speed = 0.06; // px / ms
     private targetCornerIndex: number | null = null;
+    public isAttacking: boolean = false;
 
     constructor(
         x: number,
@@ -53,7 +54,10 @@ export class Golem extends Boss<Golem> {
 
     public override update(deltaTime: number): void {
         super.update(deltaTime);
-        if (!this.isDead) {
+        if (this.isDead) return;
+        if (this.isAttacking) {
+            this.attackPhase(deltaTime);
+        } else {
             this.move(deltaTime);
         }
     }
@@ -65,7 +69,7 @@ export class Golem extends Boss<Golem> {
             let nearestCornerIndex = 0;
             let nearestDistance = Number.POSITIVE_INFINITY;
             corners.forEach((corner, index) => {
-                const distance = Math.hypot(corner.x - golemPosition.x, corner.y - golemPosition.y);
+                const distance = dist(toRect(golemPosition), toRect(corner));
                 if (distance < nearestDistance) {
                     nearestCornerIndex = index;
                     nearestDistance = distance;
@@ -74,8 +78,10 @@ export class Golem extends Boss<Golem> {
             this.targetCornerIndex = this.chooseAdjacentCorner(nearestCornerIndex);
         }
 
-        const targetCorner = corners[this.targetCornerIndex]!;
+        const targetCorner = corners[this.targetCornerIndex];
+        assertDefined(targetCorner, 'Le targetCorner n\'est pas défini')
         if (this.moveTo(targetCorner, deltaTime)) {
+            this.isAttacking = true;
             this.targetCornerIndex = this.chooseAdjacentCorner(this.targetCornerIndex);
         }
     }
@@ -91,7 +97,10 @@ export class Golem extends Boss<Golem> {
 class Phase1 implements BossPhase<Golem> {
     name = "Phase 1"
 
-    update(): void {}
+    attack(boss: Golem, deltaTime: number): void {
+        console.log('Le golem attaque (dt = ' + deltaTime + ' )');
+        boss.isAttacking = false;
+    }
 
     enter(_boss: Golem) {}
 }
@@ -99,7 +108,7 @@ class Phase1 implements BossPhase<Golem> {
 class Phase2 implements BossPhase<Golem> {
     name =  "Phase 2"
 
-    update(): void {}
+    attack(_boss: Golem, _deltaTime: number): void {}
 
     enter(_boss: Golem) {}
 }
