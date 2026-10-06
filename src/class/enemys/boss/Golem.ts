@@ -1,5 +1,5 @@
 import { getImage, extractImgFromSprite, assertDefined } from "../../../usefull/functions.js";
-import { dist, getCorners, type Point, type Rect, toRect, Vector2D } from "../../../usefull/geometry.js";
+import { dist, getCorners, type Point, type Rect, Vector2D } from "../../../usefull/geometry.js";
 import { rdm, choice } from "../../../usefull/random.js";
 
 import { Boss, type BossPhase } from "./Boss.js";
@@ -79,7 +79,7 @@ export class Golem extends Boss<Golem> {
             let nearestCornerIndex = 0;
             let nearestDistance = Number.POSITIVE_INFINITY;
             corners.forEach((corner, index) => {
-                const distance = dist(toRect(golemPosition), toRect(corner));
+                const distance = dist(golemPosition, corner);
                 if (distance < nearestDistance) {
                     nearestCornerIndex = index;
                     nearestDistance = distance;
