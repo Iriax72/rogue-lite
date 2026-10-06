@@ -1,4 +1,4 @@
-import { getImage } from "../../functions.js";
+import { getImage } from "../../usefull/functions.js";
 import type { LootConstructor } from "../loots/Loot.js";
 
 import { Player } from "../Player.js";

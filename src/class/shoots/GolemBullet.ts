@@ -1,4 +1,4 @@
-import { getImage, getAudio, extractImgFromSprite } from "../../functions.js";
+import { getImage, getAudio, extractImgFromSprite } from "../../usefull/functions.js";
 
 import { Shoot } from "./Shoots.js";
 

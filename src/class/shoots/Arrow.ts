@@ -1,4 +1,4 @@
-import { getImage, getAudio } from "../../functions.js";
+import { getImage, getAudio } from "../../usefull/functions.js";
 
 import { Shoot } from "./Shoots.js";
 

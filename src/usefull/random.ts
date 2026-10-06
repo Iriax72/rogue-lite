@@ -1,0 +1,17 @@
+import { assertDefined } from "./functions";
+
+export function rdm(proba: number): boolean {
+    if (proba >= Math.random() && proba !== 0) {
+        return true;
+    }
+    return false;
+}
+
+export function choice<T>(list: T[]): T {
+    if (list.length === 0) {
+        throw new Error('choice() n\'accepte pas les listes vides');
+    }
+    const rdmElement = list[Math.floor(Math.random() * list.length)];
+    assertDefined(rdmElement, 'Une erreur qui ne devrait pas survenir est survenue (usefull->random->choice)');
+    return rdmElement;
+}

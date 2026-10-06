@@ -1,4 +1,4 @@
-import { collides, dist } from "../../functions.js";
+import { dist } from "../../usefull/geometry.js";
 
 import { Entity } from "../Entity.js";
 import { Game } from "../Game.js";
@@ -23,12 +23,12 @@ export abstract class PNJ extends Entity {
         if (
             dist(this.getRect(), this.game.player.getRect()) <= this.game.MAX_DIALOG_DIST
             && this.inputs.mouse.justDown
-            && collides(this.getRect(), {
+            && dist(this.getRect(), {
                 x: mousePos.x,
                 y: mousePos.y,
                 w: 0,
                 h: 0
-            })
+            }) === 0
         ) {
             this.game.dialog(this.getRect(), this.dialog);
         }

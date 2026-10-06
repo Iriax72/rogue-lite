@@ -1,4 +1,5 @@
-import { getImage, collides, assertDefined, Vector2D} from '../functions.js';
+import { getImage, assertDefined} from '../usefull/functions.js';
+import { dist, Vector2D } from '../usefull/geometry.js';
 
 import { Entity } from './Entity.js';
 import { Shoot } from './shoots/Shoots.js';
@@ -142,7 +143,7 @@ export class Player extends Entity{
         for (let i = 0; i < environnements.length; i++) {
             const env = environnements[i];
             assertDefined(env, "Env n'existe pas!");
-            if (collides({x, y, w: this.width, h: this.height}, env.getRect())) {
+            if (dist({x, y, w: this.width, h: this.height}, env.getRect()) === 0) {
                 return true;
             }
         }
@@ -172,19 +173,7 @@ export class Player extends Entity{
         return false;
     }
 
-    private collides(rect: Rect): boolean {
-        if (this.x + this.width < rect.x) {
-            return false;
-        }
-        if (this.x > rect.x + rect.w) {
-            return false;
-        }
-        if (this.y + this.height < rect.y) {
-            return false;
-        }
-        if (this.y > rect.y + rect.h) {
-            return false;
-        }
-        return true;
-    }
+   private collides(rect: Rect): boolean {
+    return dist(this.getRect(), rect) === 0;
+   }
 }

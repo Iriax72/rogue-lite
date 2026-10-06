@@ -1,4 +1,6 @@
-import {type Point, type Rect, getCorners, getImage, dist, toRect, extractImgFromSprite, Vector2D, choice, rdm, assertDefined } from "../../../functions.js";
+import { getImage, extractImgFromSprite, assertDefined } from "../../../usefull/functions.js";
+import { dist, getCorners, type Point, type Rect, toRect, Vector2D } from "../../../usefull/geometry.js";
+import { rdm, choice } from "../../../usefull/random.js";
 
 import { Boss, type BossPhase } from "./Boss.js";
 import type { LootConstructor } from "../../loots/Loot.js";

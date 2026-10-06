@@ -1,6 +1,6 @@
-import { getImage, dist, Vector2D} from "../functions.js";
+import { getImage } from "../usefull/functions.js";
+import { dist, Vector2D } from "../usefull/geometry.js";
 
-// import { Entity } from "./Entity.js";
 import { Loot, type LootConstructor } from "./loots/Loot.js";
 import {GoldBag} from "./loots/GoldBag.js";
 import { ManaBottle } from "./loots/ManaBottle.js";

@@ -1,4 +1,5 @@
-import { getImage, collides, assertDefined } from "../functions.js";
+import { getImage, assertDefined } from "../usefull/functions.js";
+import { dist } from "../usefull/geometry.js";
 
 import { Game } from "./Game.js";
 import { Player } from "./Player.js";
@@ -39,7 +40,7 @@ export class ATH {
 
         this.canvas.addEventListener('click', (e: PointerEvent) => {
             this.buttons.forEach(btn => {
-                if (collides(btn.rect, {x: e.offsetX, y: e.offsetY, w: 0, h: 0})) {
+                if (dist(btn.rect, {x: e.offsetX, y: e.offsetY, w: 0, h: 0}) === 0) {
                     btn.onClick();
                 }
             });
@@ -56,12 +57,12 @@ export class ATH {
             w: 0,
             h: 0
         }
-        if (this.inputs.mouse.justDown && collides(mouseRect, {
+        if (this.inputs.mouse.justDown && dist(mouseRect, {
             x: this.canvas.width / 2 - this.DIALOG_WIDTH / 2,
             y: this.canvas.height - this.DIALOG_HEIGHT - 30,
             w: this.DIALOG_WIDTH,
             h: this.DIALOG_HEIGHT
-        })) {
+        }) === 0) {
             game.nextDialog();
         }
     }

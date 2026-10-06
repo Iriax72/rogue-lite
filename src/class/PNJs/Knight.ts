@@ -1,4 +1,4 @@
-import { getImage } from "../../functions.js";
+import { getImage } from "../../usefull/functions.js";
 
 import { PNJ } from "./PNJ.js";
 import { Game } from "../Game.js";

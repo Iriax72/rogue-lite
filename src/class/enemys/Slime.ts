@@ -1,4 +1,5 @@
-import { getImage, Vector2D } from "../../functions.js";
+import { getImage } from "../../usefull/functions.js";
+import { Vector2D } from "../../usefull/geometry.js";
 import type { LootConstructor } from "../loots/Loot.js";
 
 import { Player } from "../Player.js";

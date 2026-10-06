@@ -1,4 +1,5 @@
-import { getImage, collides } from "../../functions.js";
+import { getImage } from "../../usefull/functions.js";
+import { dist } from "../../usefull/geometry.js";
 
 import { Environnement } from "./Environnement.js";
 import { FireBall } from "../shoots/FireBall.js";
@@ -13,6 +14,6 @@ export class BreakableWall extends Environnement {
     }
 
     public collidesFireBall(fireBalls: FireBall[]): FireBall | undefined {
-        return fireBalls.find(fireBall => collides(this.getRect(), fireBall.getRect()));
+        return fireBalls.find(fireBall => dist(this.getRect(), fireBall.getRect()) === 0);
     }
 }

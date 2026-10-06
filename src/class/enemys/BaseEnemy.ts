@@ -1,5 +1,4 @@
-import type { Rect } from "../../functions.js";
-import { collides } from "../../functions.js";
+import { type Rect, dist } from "../../usefull/geometry.js";
 
 import type { LootConstructor } from "../loots/Loot.js";
 
@@ -22,11 +21,9 @@ export abstract class BaseEnemy extends Entity {
 
     public abstract update(deltaTime: number): void;
 
-    // protected abstract move(deltaTime: number): void;
-
     protected abstract die(): void;
 
     protected collides(rect: Rect): boolean {
-        return collides(this.getRect(), rect);
+        return dist(this.getRect(), rect) === 0;
     }
 }

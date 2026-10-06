@@ -1,4 +1,4 @@
-import { assertDefined } from './functions.js';
+import { assertDefined } from './usefull/functions.js';
 
 import {Game} from './class/Game.js';
 import {Player} from './class/Player.js';

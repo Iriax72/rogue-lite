@@ -1,4 +1,4 @@
-import { assertDefined } from "../functions.js";
+import { assertDefined } from "../usefull/functions.js";
 
 type Rect = {
     x: number,
