@@ -1,4 +1,4 @@
-import { assertDefined } from "./functions";
+import { assertDefined } from "./functions.js";
 
 export function rdm(proba: number): boolean {
     if (proba >= Math.random() && proba !== 0) {
