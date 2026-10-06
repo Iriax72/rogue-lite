@@ -6,6 +6,7 @@ import { Player } from "./Player.js";
 import { Lamp } from "./Environnement/Lamp.js";
 import { FireBall } from "./shoots/FireBall.js";
 import { Inputs } from "./Inputs.js";
+import { Boss } from "./enemys/boss/Boss.js";
 
 type Rect = {
     x: number,
@@ -67,7 +68,7 @@ export class ATH {
         }
     }
 
-    public draw(isPaused: boolean, fireBalls: FireBall[], isDialoging: boolean = false, dialogs: string[] = [], currentDialogIndex: number = 0): void {
+    public draw(boss: Boss[], isPaused: boolean, fireBalls: FireBall[], isDialoging: boolean = false, dialogs: string[] = [], currentDialogIndex: number = 0): void {
         const ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
         if (!ctx) {
             return;
@@ -119,6 +120,20 @@ export class ATH {
         // Afficher s'il le faut le menu de pause
         if (isPaused) {
             this.drawMenu(ctx);
+        }
+
+        // Afficher s'il le faut la barre de pv du boss
+        if (boss.length > 0) {
+            assertDefined(boss[0], "Une erreur impossible est survenue");
+            let nearestBoss: Boss = boss[0];
+            boss.forEach(boss => {
+                if (dist(boss.getRect(), this.player.getRect()) < dist(nearestBoss.getRect(), this.player.getRect())) {
+                    nearestBoss = boss;
+                }
+            })
+            if (dist(this.player.getRect(), nearestBoss.getRect()) < 300) {
+                this.drawHpBar(ctx, nearestBoss.health / nearestBoss.max_hp * 100);
+            }
         }
     }
 
@@ -197,6 +212,13 @@ export class ATH {
                 window.location.replace('./'); // ammene à l'index: le menu
             }
         );
+    }
+
+    drawHpBar(ctx: CanvasRenderingContext2D, percent: number): void {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(this.canvas.width * 0.18, 40, this.canvas.width * 0.44, 12);
+        ctx.fillStyle = 'green';
+        ctx.fillRect(this.canvas.width * 0.18 * percent / 100, 40, this.canvas.width * 0.44, 12);
     }
 
     private createBtn(ctx: CanvasRenderingContext2D, rect: Rect, text: string, onClick: Function): void {

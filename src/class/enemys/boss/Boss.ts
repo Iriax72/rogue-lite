@@ -22,7 +22,7 @@ export interface BossPhaseConfig<TBoss extends BaseEnemy = Boss> {
 }
 
 export abstract class Boss<TBoss extends BaseEnemy = BaseEnemy> extends BaseEnemy {
-    protected readonly max_hp: number;
+    public readonly max_hp: number;
     private currentPhase: BossPhase<TBoss>;
     private currentPhaseIndex = 0;
     private readonly phaseTransitions: readonly BossPhaseTransition<TBoss>[];

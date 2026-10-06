@@ -19,6 +19,7 @@ import { BreakableWall } from "./Environnement/BreakableWall.js";
 import { FireBall } from "./shoots/FireBall.js";
 import { Environnement } from "./Environnement/Environnement.js";
 import { Lamp } from "./Environnement/Lamp.js";
+import { Boss } from "./enemys/boss/Boss.js";
 import { Golem } from "./enemys/boss/Golem.js";
 
 type Timestamp = number;
@@ -158,7 +159,7 @@ export class Game {
 
         this.player.shoots.forEach((shoot: Shoot): void => shoot.draw(ctx));
 
-        this.ath.draw(this.isPaused, this.environnements.filter(env => env instanceof FireBall), this.isDialoging, this.dialogs, this.currentDialogIndex);
+        this.ath.draw(this.enemys.filter(e => e instanceof Boss), this.isPaused, this.environnements.filter(env => env instanceof FireBall), this.isDialoging, this.dialogs, this.currentDialogIndex);
     }
 
     private update(timestamp: Timestamp): void {
