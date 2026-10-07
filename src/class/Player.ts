@@ -39,12 +39,12 @@ export class Player extends Entity{
     public shoots: Shoot[] = [];
 
     constructor(
-        private readonly initial_x: number,
-        private readonly initial_y: number,
+        x: number,
+        y: number,
         private readonly map: Map,
         private readonly tile_size: number
     ) {
-        super(initial_x, initial_y, 20, 25);
+        super(x, y, 20, 25);
 
         this.sprite = getImage('player-sprite');
     }
@@ -133,10 +133,13 @@ export class Player extends Entity{
     }
 
     private die(): void {
+        window.location.href = '../pages/death_menu.html';
+        /*
         this.health = this.INITIAL_HEALTH;
         this.x = this.initial_x;
         this.y = this.initial_y;
         this.cooldown = 0;
+        */
     }
 
     private isCollidingWall(x: number, y: number, map: Map, tile_size: number, environnements: Environnement[]): boolean {
