@@ -105,8 +105,8 @@ export class Game {
         this.environnements.push(new BreakableWall(4 * this.tile_size, 11 * this.tile_size, this.tile_size));
 
         this.enemys.push(new Golem(
-            150, 150,
-            {x: 150, y: 150, w: 110, h: 110},
+            64, 18 * 32,
+            {x: 64, y: 18 * 32, w: 17 * 32, h: 160},
             this.dropLootFunc,
             this.player
         ));
