@@ -1,3 +1,6 @@
+<?php
+require_once '../config.php';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,9 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop - Rogue-lite</title>
     <link rel="stylesheet" href="../css/shop.css">
+    <script>
+        const gold: number = <?=$_SESSION['gold']?>;
+    </script>
 </head>
 <body>
     <h1>Magasin</h1>
+    <div><?=$_SESSION['gold']?> or</div>
     <ul>
         <li>
             <h3>Cape</h3>

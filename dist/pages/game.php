@@ -1,3 +1,6 @@
+<?php
+require_once '../config.php';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -36,7 +39,7 @@
     <script type="module" src="../main.js" defer></script>
 </head>
 <body>
-    <canvas id="game-canvas">
+    <canvas id="game-canvas" data-gold="<?= (int) $_SESSION['gold'] ?>">
         <div class="hidden">
             <img id="tile-map" src="../assets/img/tile_map.png" alt="">
             <img id="gold-bag-img" src="../assets/img/gold-bag.png" alt="">

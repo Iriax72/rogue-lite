@@ -7,6 +7,10 @@ import { map, audioMap } from './map.js';
 // References DOM
 const gameCanvas = document.querySelector('#game-canvas');
 assertDefined(gameCanvas, 'Le canvas n\' a pas ete trouvé');
+const gold = Number(gameCanvas.dataset['gold']);
+if (!Number.isSafeInteger(gold) || gold < 0) {
+    throw new Error("La quantité d'or est invalide.");
+}
 // Données arbitraires
 const TILE_SIZE = 32;
 const LEVEL = 0;
@@ -24,5 +28,6 @@ await Promise.all(Array.from(document.images).map((image) => {
 const audioManager = new AudioManager(audioMap[LEVEL]);
 const inputs = new Inputs(gameCanvas, () => audioManager.onUserInteraction());
 const player = new Player(59, 240, mapLevel, TILE_SIZE);
+player.gold = gold;
 const game = new Game(gameCanvas, mapLevel, TILE_SIZE, player, inputs, audioManager);
 game.init();

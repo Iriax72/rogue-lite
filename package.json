@@ -3,6 +3,6 @@
     "typescript": "^7.0.2"
   },
   "scripts": {
-    "build": "tsc && cp index.php dist/ && sed -i 's#./dist/main.js#./main.js#' dist/index.php && cp -r assets dist/ && cp -r pages dist/ && cp -r css dist/"
+    "build": "tsc && cp index.php dist/ && cp config.php dist/ && sed -i 's#./dist/main.js#./main.js#' dist/index.php && cp -r assets dist/ && cp -r pages dist/ && cp -r css dist/"
   }
 }
