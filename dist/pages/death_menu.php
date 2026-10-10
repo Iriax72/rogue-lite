@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rogue Lite - menu de mort</title>
+    <link rel="stylesheet" ref="../css/death_menu.css">
+</head>
+<body>
+    <p>Défaite</p>
+    <a href="../">Revenir au menu</a>
+    <a href="./game.php">Rejouer</a>
+</body>
+</html>

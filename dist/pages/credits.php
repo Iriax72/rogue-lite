@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crédits</title>
+</head>
+<body>
+    <p>Développeur Web: TOUMA Léandre</p>
+
+    <p>Directeur Artistique: TOUMA Léandre</p>
+
+    <p>Compositeur: TOUMA Léandre</p>
+
+    <p>Un énorme merci à darkpixel-kronovi sur itch.io pour les images du boss Golem !</p>
+    <a href="https://darkpixel-kronovi.itch.io/" target="_blank">darkpixel-kronovi.itch.io</a>
+
+    <p>Merci à Magnific sur Flaticon pour son icone libre de droits !</p>
+    <a href="https://www.flaticon.com/free-icons/medieval" title="medieval icons" target="_blank">Medieval icons created by Magnific - Flaticon</a>
+
+    <p>Effets sonors: DRAGON_STUDIO, Krzysztof Szymanski, DJARTMUSIC de </p>
+    <a href="https://pixabay.com" title="pixabay.com" target="_blank">pixabay.com</a>
+
+    <p>Police d'écriture de l'écran de mort: </p>
+    <a href="https://www.1001fonts.com/users/scapholene/">Scapholen sur www.1001font.com</a>
+</body>
+</html>

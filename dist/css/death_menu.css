@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    padding: 20vw 20vh;
+    background: radial-gradient(#777, #000);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@font-face {
+    font-family: 'dark font';
+    src: '../assets/font/dark-font.otf'
+}
+
+p {
+    color: red;
+    font-family: 'dark font' serif;
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+}
+
+a {
+    width: 100%;
+    height: auto;
+    margin: 30px;
+    background-color: #851;
+    color: #edc;
+    text-decoration: none;
+    border-radius: 7px;
+    border: 4px solid #edc;
+}

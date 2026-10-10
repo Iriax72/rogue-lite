@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Rogue-lite</title>
+    <link rel="stylesheet" href="../css/game.css">
+    <script>
+        // Redirection des erreurs système sur l'écran
+        window.addEventListener('error', (event) => {
+            showErrorOnScreen(`ERREUR : ${event.message} (${event.filename}:${event.lineno})`);
+        });
+
+        // Redirection des erreurs de Promesses / Chargement d'images
+        window.addEventListener('unhandledrejection', (event) => {
+           showErrorOnScreen(`PROMESSE NON GÉRÉE : ${event.reason}`);
+        });
+
+        function showErrorOnScreen(message) {
+            if (!document.body) {
+                window.addEventListener('DOMContentLoaded', () => showErrorOnScreen(message));
+                return;
+            }
+            let errorBox = document.getElementById('debug-error-box');
+            if (!errorBox) {
+                errorBox = document.createElement('div');
+                errorBox.id = 'debug-error-box';
+                errorBox.append('Erreurs console:\n');
+                document.body.appendChild(errorBox);
+            }
+            errorBox.innerText += message + '\n';
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+    <script type="module" src="../main.js" defer></script>
+</head>
+<body>
+    <canvas id="game-canvas">
+        <div class="hidden">
+            <img id="tile-map" src="../assets/img/tile_map.png" alt="">
+            <img id="gold-bag-img" src="../assets/img/gold-bag.png" alt="">
+            <img id="mana-bottle-img" src="../assets/img/mana-bottle.png" alt="">
+            <img id="arrow-img" src="../assets/img/arrow.png" alt="">
+            <img id="fire-ball-img" src="../assets/img/fire-ball.png" alt="">
+            <img id="slime-img" src="../assets/img/slime.png" alt="">
+            <img id="guardian-img" src="../assets/img/guardian.png" alt="">
+            <img id="player-sprite" src="../assets/img/player-sprite.png" alt="">
+            <img id="container-img" src="../assets/img/container.png" alt="">
+            <img id="pnj1-img" src="../assets/img/pnj1.png" alt="">
+            <img id="knight-img" src="../assets/img/knight.png" alt="">
+            <img id="breakable-wall-img" src="../assets/img/breakable-wall.png" alt="">
+            <img id="lamp-img" src="../assets/img/lamp.png" alt="">
+            <img id="golem-sprite" src="../assets/img/golem-sprite.png" alt="">
+            <img id="golem-bullet-sprite" src="../assets/img/golem-bullet-sprite.png" alt="">
+            <audio id="arrow-audio" src="../assets/audio/arrow.mp3"></audio>
+            <audio id="fire-ball-audio" src="../assets/audio/fire-ball.mp3"></audio>
+            <audio id="golem-bullet-audio" src="../assets/audio/arrow.mp3"></audio> (Utilise temporairement l'audio de la fleche)
+        </div>
+    </canvas>
+</body>
+</html>
