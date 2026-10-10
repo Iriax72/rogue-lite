@@ -20,5 +20,8 @@
 
     <p>Effets sonors: DRAGON_STUDIO, Krzysztof Szymanski, DJARTMUSIC de </p>
     <a href="https://pixabay.com" title="pixabay.com" target="_blank">pixabay.com</a>
+
+    <p>Police d'écriture de l'écran de mort: </p>
+    <a href="https://www.1001fonts.com/users/scapholene/">Scapholen sur www.1001font.com</a>
 </body>
 </html>

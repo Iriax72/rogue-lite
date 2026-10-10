@@ -133,7 +133,7 @@ export class Player extends Entity{
     }
 
     private die(): void {
-        window.location.href = '../pages/death_menu.html';
+        window.location.href = '../pages/death_menu.php';
         /*
         this.health = this.INITIAL_HEALTH;
         this.x = this.initial_x;

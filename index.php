@@ -7,17 +7,18 @@
     <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
+    <?="Le php est actif !"?>
     <div class="container">
-        <a href="./pages/game.html">jouer</a>
+        <a href="./pages/game.php">jouer</a>
     </div>
     <div class="container">
-        <a href="./pages/shop.html">Magasin</a>
+        <a href="./pages/shop.php">Magasin</a>
     </div>
     <div class="container">
-        <a href="./pages/controls.html">contrôles</a>
+        <a href="./pages/controls.php">contrôles</a>
     </div>
     <div class="container">
-        <a href="./pages/credits.html">credits</a>
+        <a href="./pages/credits.php">credits</a>
     </div>
 </body>
 </html>

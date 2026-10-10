@@ -9,6 +9,6 @@
 <body>
     <p>Défaite</p>
     <a href="../">Revenir au menu</a>
-    <a href="./game.html">Rejouer</a>
+    <a href="./game.php">Rejouer</a>
 </body>
 </html>
