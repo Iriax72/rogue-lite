@@ -1,0 +1,7 @@
+[package]
+name = "mon-rogue-lite"
+version = "2.0.0"
+
+[app]
+build = "npm run build"
+public = "dist"
