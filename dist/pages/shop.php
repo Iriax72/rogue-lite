@@ -8,11 +8,9 @@ require_once '../config.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop - Rogue-lite</title>
     <link rel="stylesheet" href="../css/shop.css">
-    <script>
-        const gold: number = <?=$_SESSION['gold']?>;
-    </script>
+    <script src="../menus/shop.js"></script>
 </head>
-<body>
+<body data-gold="<?= $_SESSION['gold'] ?>">
     <h1>Magasin</h1>
     <div><?=$_SESSION['gold']?> or</div>
     <ul>
