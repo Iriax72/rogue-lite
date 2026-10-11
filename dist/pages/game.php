@@ -36,7 +36,7 @@ require_once '../config.php';
     </script>
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
-    <script type="module" src="../main.js" defer></script>
+    <script type="module" src="../game/main.js" defer></script>
 </head>
 <body>
     <canvas id="game-canvas" data-gold="<?= (int) $_SESSION['gold'] ?>">
